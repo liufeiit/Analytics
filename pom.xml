@@ -125,11 +125,6 @@
 			<version>0.2.7</version>
 		</dependency>
 		<dependency>
-			<groupId>com.mysema.rdf</groupId>
-			<artifactId>rdfbean-core</artifactId>
-			<version>1.7.1</version>
-		</dependency>
-		<dependency>
 			<groupId>com.mysema.commons</groupId>
 			<artifactId>mysema-commons-web</artifactId>
 			<version>0.2.5</version>
@@ -164,12 +159,6 @@
 			<artifactId>converters</artifactId>
 			<version>0.1.6</version>
 		</dependency>
-		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
-			<artifactId>querydsl-root</artifactId>
-			<version>3.4.2</version>
-		</dependency>
-
 
 		<dependency>
 			<groupId>commons-pool</groupId>
