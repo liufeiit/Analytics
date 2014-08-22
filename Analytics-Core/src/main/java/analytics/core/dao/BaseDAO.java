@@ -1,6 +1,6 @@
 package analytics.core.dao;
 
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
+import tulip.data.jdbc.support.JdbcDAOSupport;
 
 /**
  * 
@@ -8,6 +8,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
  * @version 1.0
  * @since 2014年8月19日 下午3:10:50
  */
-public class BaseDAO extends NamedParameterJdbcDaoSupport {
+public class BaseDAO extends JdbcDAOSupport {
 
 }

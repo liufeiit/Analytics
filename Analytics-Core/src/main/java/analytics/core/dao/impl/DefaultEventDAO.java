@@ -17,17 +17,17 @@ public class DefaultEventDAO extends BaseDAO implements EventDAO {
 
 	@Override
 	public void addEvent(EventDO event) throws DAOException {
-		getNamedParameterJdbcTemplate().update("", BeanParameterMapper.newInstance(event));
+		jdbcTemplate.update("", BeanParameterMapper.newInstance(event));
 	}
 
 	@Override
 	public void updateEvent(EventDO event) throws DAOException {
-		getNamedParameterJdbcTemplate().update("", BeanParameterMapper.newInstance(event));
+		jdbcTemplate.update("", BeanParameterMapper.newInstance(event));
 	}
 
 	@Override
 	public EventDO selectEvent(long eventId) throws DAOException {
-		return getNamedParameterJdbcTemplate().query("", BeanRowMapper.newSingleExtractor(EventDO.class));
+		return jdbcTemplate.query("", BeanRowMapper.newSingleExtractor(EventDO.class));
 	}
 
 	@Override
