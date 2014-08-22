@@ -6,19 +6,20 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Analytics</name>
-	
+
 	<modules>
-	  <module>Analytics-Core</module>
-	  <module>Analytics-Web</module>
+		<module>Analytics-Core</module>
+		<module>Analytics-Web</module>
 	</modules>
-	
+
 	<dependencies>
+
 		<dependency>
 			<groupId>tulip</groupId>
 			<artifactId>tulip-web</artifactId>
 			<version>1.0.0-RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
@@ -54,13 +55,13 @@
 			<artifactId>spring-expression</artifactId>
 			<version>4.0.4.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.0.4.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
@@ -86,7 +87,90 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.0.4.RELEASE</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-oracle</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-core</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.commons</groupId>
+			<artifactId>mysema-commons-lang</artifactId>
+			<version>0.2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-sql</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.commons</groupId>
+			<artifactId>mysema-commons-fluxml</artifactId>
+			<version>0.2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.rdf</groupId>
+			<artifactId>rdfbean-core</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.commons</groupId>
+			<artifactId>mysema-commons-web</artifactId>
+			<version>0.2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-collections</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-codegen</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-sql-codegen</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.codegen</groupId>
+			<artifactId>codegen</artifactId>
+			<version>0.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-annotations</artifactId>
+			<version>0.2.8</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.converters</groupId>
+			<artifactId>converters</artifactId>
+			<version>0.1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-root</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>commons-pool</groupId>
 			<artifactId>commons-pool</artifactId>
@@ -123,24 +207,9 @@
 			<version>1.8</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-dbutils</groupId>
-			<artifactId>commons-dbutils</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-discovery</groupId>
-			<artifactId>commons-discovery</artifactId>
-			<version>0.5</version>
-		</dependency>
-		<dependency>
 			<groupId>commons-email</groupId>
 			<artifactId>commons-email</artifactId>
 			<version>1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-jxpath</groupId>
-			<artifactId>commons-jxpath</artifactId>
-			<version>1.3</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
@@ -161,11 +230,6 @@
 			<groupId>commons-primitives</groupId>
 			<artifactId>commons-primitives</artifactId>
 			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-scxml</groupId>
-			<artifactId>commons-scxml</artifactId>
-			<version>0.9</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-validator</groupId>
@@ -249,84 +313,14 @@
 			<version>1.2.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mybatis.scripting</groupId>
-			<artifactId>mybatis-velocity</artifactId>
-			<version>1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis.scala</groupId>
-			<artifactId>mybatis-scala-core</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-oscache</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis.caches</groupId>
-			<artifactId>mybatis-oscache</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-ehcache</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis.caches</groupId>
-			<artifactId>mybatis-ehcache</artifactId>
-			<version>1.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis.caches</groupId>
-			<artifactId>mybatis-memcached</artifactId>
-			<version>1.0.0-beta1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis.caches</groupId>
-			<artifactId>mybatis-hazelcast</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>base-bundle-descriptor</artifactId>
-			<version>6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-migrations</artifactId>
-			<version>3.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-guice</artifactId>
-			<version>3.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-docbook</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.2.3</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mybatis.generator</groupId>
-			<artifactId>mybatis-generator-maven-plugin</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis.generator</groupId>
-			<artifactId>mybatis-generator-core</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.14</version>
+			<version>5.1.25</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
@@ -385,18 +379,6 @@
 			<version>1.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.xfire</groupId>
-			<artifactId>xfire-all</artifactId>
-			<version>1.2.6</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.codehaus.xfire</groupId>
-					<artifactId>xfire-spring</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
@@ -448,7 +430,7 @@
 			<artifactId>velocity-tools</artifactId>
 			<version>2.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-spring3</artifactId>
@@ -599,6 +581,6 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.7.2</version>
 		</dependency>
-		
+
 	</dependencies>
 </project>

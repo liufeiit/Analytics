@@ -28,16 +28,6 @@
 		</profile>
 	</profiles>
 
-	<!-- 
-	<dependencies>
-		<dependency>
-			<groupId>org.wildfly</groupId>
-			<artifactId>wildfly-jpa</artifactId>
-			<version>8.1.0.Final</version>
-		</dependency>
-	</dependencies>
-	 -->
-
 	<build>
 		<filters>
 			<filter>${props}</filter>
