@@ -16,42 +16,22 @@ import analytics.core.service.Result;
 public class DefaultAnalyticsService extends BaseService implements AnalyticsService {
 
 	@Override
-	public Result event(long eventId) {
+	public Result event(long labelId) {
 		return null;
 	}
 
 	@Override
-	public Result event(long eventId, long labelId) {
+	public Result event(long labelId, int accumulation) {
 		return null;
 	}
 
 	@Override
-	public Result event(long eventId, int accumulation) {
+	public Result beginEvent(long labelId) {
 		return null;
 	}
 
 	@Override
-	public Result event(long eventId, long labelId, int accumulation) {
-		return null;
-	}
-
-	@Override
-	public Result beginEvent(long eventId) {
-		return null;
-	}
-
-	@Override
-	public Result endEvent(long eventId) {
-		return null;
-	}
-
-	@Override
-	public Result beginEvent(long eventId, long labelId) {
-		return null;
-	}
-
-	@Override
-	public Result endEvent(long eventId, long labelId) {
+	public Result endEvent(long labelId) {
 		return null;
 	}
 }

@@ -8,15 +8,9 @@ package analytics.core.service;
  * @since 2014年8月11日 上午11:52:39
  */
 public interface AnalyticsService {
-	Result event(long eventId);
-	Result event(long eventId, long labelId);
+	Result event(long labelId);
+	Result event(long labelId, int accumulation);
 	
-	Result event(long eventId, int accumulation);
-	Result event(long eventId, long labelId, int accumulation);
-	
-	Result beginEvent(long eventId);
-	Result endEvent(long eventId);
-	
-	Result beginEvent(long eventId, long labelId);
-	Result endEvent(long eventId, long labelId);
+	Result beginEvent(long labelId);
+	Result endEvent(long labelId);
 }
