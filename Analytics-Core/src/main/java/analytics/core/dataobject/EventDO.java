@@ -13,19 +13,19 @@ public class EventDO extends BaseDO {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "model_id")
-	private long modelId;// 模型ID
+	@Column(name = "app_id")
+	private long appId;// App_ID
 	@Column(name = "name")
 	private String name;// Event名称
 	@Column(name = "description")
 	private String description;// Event描述
 
-	public long getModelId() {
-		return modelId;
+	public long getAppId() {
+		return appId;
 	}
 
-	public void setModelId(long modelId) {
-		this.modelId = modelId;
+	public void setAppId(long appId) {
+		this.appId = appId;
 	}
 
 	public String getName() {

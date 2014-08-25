@@ -3,7 +3,7 @@ package analytics.core.dataobject;
 import tulip.data.annotation.Column;
 
 /**
- * 统计数据模型, 表示这样一组统计所属的数据统计计算以及浏览模式。
+ * 统计数据模型, 表示这样一组统计所属的数据统计计算以及展示模式。
  * 
  * @author 刘飞 E-mail:liufei_it@126.com
  * @version 1.0

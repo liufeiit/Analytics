@@ -15,8 +15,8 @@ public class LabelDO extends BaseDO {
 
 	@Column(name = "event_id")
 	private long eventId;// 所在的Event事件ID
-	@Column(name = "type_id")
-	private long typeId;// 统计类型ID
+	@Column(name = "model_id")
+	private long modelId;// 统计模型ID
 	@Column(name = "name")
 	private String name;// Label名称
 	@Column(name = "description")
@@ -30,12 +30,12 @@ public class LabelDO extends BaseDO {
 		this.eventId = eventId;
 	}
 
-	public long getTypeId() {
-		return typeId;
+	public long getModelId() {
+		return modelId;
 	}
 
-	public void setTypeId(long typeId) {
-		this.typeId = typeId;
+	public void setModelId(long modelId) {
+		this.modelId = modelId;
 	}
 
 	public String getName() {
