@@ -76,7 +76,7 @@ public class BaseService implements InitializingBean, BeanNameAware, Application
 		}
 	}
 
-	public void initialize() throws Exception {
+	protected void initialize() throws Exception {
 		
 	}
 

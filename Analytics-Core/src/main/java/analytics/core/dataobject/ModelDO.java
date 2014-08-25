@@ -16,9 +16,9 @@ public class ModelDO extends BaseDO {
 	@Column(name = "model")
 	private int model;
 	@Column(name = "name")
-	private String name;// 类型名称
+	private String name;// 模型名称
 	@Column(name = "description")
-	private String description;// 类型描述
+	private String description;// 模型描述
 
 	public int getModel() {
 		return model;

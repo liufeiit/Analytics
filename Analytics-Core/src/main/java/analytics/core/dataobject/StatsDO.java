@@ -27,6 +27,9 @@ public class StatsDO extends BaseDO {
 
 	@Column(name = "accumulation")
 	private double accumulation;// 统计数据值
+	
+	@Column(name = "attr")
+	private long attr;
 
 	public long getLabelId() {
 		return labelId;
@@ -74,5 +77,13 @@ public class StatsDO extends BaseDO {
 
 	public void setAccumulation(double accumulation) {
 		this.accumulation = accumulation;
+	}
+
+	public long getAttr() {
+		return attr;
+	}
+
+	public void setAttr(long attr) {
+		this.attr = attr;
 	}
 }
