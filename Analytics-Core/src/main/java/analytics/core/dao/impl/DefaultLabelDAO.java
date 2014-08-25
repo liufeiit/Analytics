@@ -1,5 +1,7 @@
 package analytics.core.dao.impl;
 
+import org.springframework.stereotype.Repository;
+
 import analytics.core.dao.BaseDAO;
 import analytics.core.dao.DAOException;
 import analytics.core.dao.LabelDAO;
@@ -11,6 +13,7 @@ import analytics.core.dataobject.LabelDO;
  * @version 1.0
  * @since 2014年8月19日 下午3:08:56
  */
+@Repository("labelDAO")
 public class DefaultLabelDAO extends BaseDAO implements LabelDAO {
 
 	@Override

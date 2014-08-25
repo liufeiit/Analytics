@@ -1,5 +1,7 @@
 package analytics.core.dao.impl;
 
+import org.springframework.stereotype.Repository;
+
 import analytics.core.dao.BaseDAO;
 import analytics.core.dao.DAOException;
 import analytics.core.dao.ModelDAO;
@@ -11,6 +13,7 @@ import analytics.core.dataobject.ModelDO;
  * @version 1.0
  * @since 2014年8月25日 下午12:10:53
  */
+@Repository("modelDAO")
 public class DefaultModelDAO extends BaseDAO implements ModelDAO {
 
 	@Override

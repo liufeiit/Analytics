@@ -9,5 +9,5 @@ import tulip.data.jdbc.support.JdbcDAOSupport;
  * @since 2014年8月19日 下午3:10:50
  */
 public class BaseDAO extends JdbcDAOSupport {
-
+	
 }

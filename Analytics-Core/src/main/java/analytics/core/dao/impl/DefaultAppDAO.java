@@ -1,5 +1,7 @@
 package analytics.core.dao.impl;
 
+import org.springframework.stereotype.Repository;
+
 import analytics.core.dao.AppDAO;
 import analytics.core.dao.BaseDAO;
 import analytics.core.dao.DAOException;
@@ -11,6 +13,7 @@ import analytics.core.dataobject.AppDO;
  * @version 1.0
  * @since 2014年8月25日 下午12:06:50
  */
+@Repository("appDAO")
 public class DefaultAppDAO extends BaseDAO implements AppDAO {
 
 	@Override

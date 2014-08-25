@@ -1,5 +1,7 @@
 package analytics.core.dao.impl;
 
+import org.springframework.stereotype.Repository;
+
 import tulip.data.jdbc.mapper.BeanParameterMapper;
 import tulip.data.jdbc.mapper.BeanRowMapper;
 import analytics.core.dao.BaseDAO;
@@ -13,6 +15,7 @@ import analytics.core.dataobject.EventDO;
  * @version 1.0
  * @since 2014年8月19日 下午3:04:15
  */
+@Repository("eventDAO")
 public class DefaultEventDAO extends BaseDAO implements EventDAO {
 
 	@Override

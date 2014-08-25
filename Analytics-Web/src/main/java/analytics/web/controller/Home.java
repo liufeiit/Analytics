@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 2013年12月30日 下午10:26:04
  */
 @Controller
-public class Home {
+public class Home extends BaseController {
 
 	@RequestMapping(value = "/index.htm")
 	public ModelAndView index(HttpServletRequest request) {

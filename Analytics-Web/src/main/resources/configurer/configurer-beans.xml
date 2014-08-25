@@ -35,6 +35,8 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<context:annotation-config />
 	<mvc:annotation-driven />
+	<context:component-scan base-package="analytics.core.dao.impl"/>
+	<context:component-scan base-package="analytics.core.service.impl"/>
 	
 	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClassName}"/>
