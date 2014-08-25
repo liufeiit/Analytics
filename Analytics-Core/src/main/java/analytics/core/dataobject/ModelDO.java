@@ -13,10 +13,20 @@ public class ModelDO extends BaseDO {
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "model")
+	private int model;
 	@Column(name = "name")
 	private String name;// 类型名称
 	@Column(name = "description")
 	private String description;// 类型描述
+
+	public int getModel() {
+		return model;
+	}
+
+	public void setModel(int model) {
+		this.model = model;
+	}
 
 	public String getName() {
 		return name;
