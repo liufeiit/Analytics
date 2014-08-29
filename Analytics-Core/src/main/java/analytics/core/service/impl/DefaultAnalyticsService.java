@@ -1,10 +1,15 @@
 package analytics.core.service.impl;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Service;
 
 import analytics.core.service.AnalyticsService;
 import analytics.core.service.BaseService;
-import analytics.core.service.Result;
+import analytics.core.service.Static;
+import analytics.core.service.syn.SynEventTask;
+import analytics.core.service.syn.SynTaskPool;
+import analytics.core.service.syn.TaskCommand;
 
 /**
  * 
@@ -16,22 +21,32 @@ import analytics.core.service.Result;
 public class DefaultAnalyticsService extends BaseService implements AnalyticsService {
 
 	@Override
-	public Result event(long labelId) {
-		return null;
+	public void event(long labelId) {
+		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
+		task.initialize(initialize);
+		task.setAccumulation(Static.DEFAULT_ACCUMULATION);
+		SynTaskPool.execute(task);
 	}
 
 	@Override
-	public Result event(long labelId, int accumulation) {
-		return null;
+	public void event(long labelId, int accumulation) {
+		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
+		task.initialize(initialize);
+		task.setAccumulation(accumulation);
+		SynTaskPool.execute(task);
 	}
 
 	@Override
-	public Result beginEvent(long labelId) {
-		return null;
+	public void beginEvent(long labelId) {
+		SynEventTask task = new SynEventTask(new Date(), TaskCommand.BeginEvent);
+		task.initialize(initialize);
+		SynTaskPool.execute(task);
 	}
 
 	@Override
-	public Result endEvent(long labelId) {
-		return null;
+	public void endEvent(long labelId) {
+		SynEventTask task = new SynEventTask(new Date(), TaskCommand.EndEvent);
+		task.initialize(initialize);
+		SynTaskPool.execute(task);
 	}
 }

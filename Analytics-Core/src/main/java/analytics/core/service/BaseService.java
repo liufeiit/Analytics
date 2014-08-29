@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 
@@ -18,6 +17,9 @@ import analytics.core.dao.EventDAO;
 import analytics.core.dao.LabelDAO;
 import analytics.core.dao.ModelDAO;
 import analytics.core.dao.StatsDAO;
+import analytics.core.service.AnalyticsService.AnalyticsServiceEvent;
+import analytics.core.service.syn.SynSource;
+import analytics.core.service.syn.SynSource.SynSourceInitialize;
 
 /**
  * 
@@ -25,7 +27,7 @@ import analytics.core.dao.StatsDAO;
  * @version 1.0
  * @since 2014年8月25日 下午1:12:04
  */
-public class BaseService implements InitializingBean, BeanNameAware, ApplicationContextAware, ApplicationEventPublisherAware {
+public abstract class BaseService implements InitializingBean, BeanNameAware, ApplicationContextAware, ApplicationEventPublisherAware {
 
 	protected final Log log = LogFactory.getLog(getClass());
 	
@@ -49,6 +51,17 @@ public class BaseService implements InitializingBean, BeanNameAware, Application
 	protected ApplicationEventPublisher publisher;
 	protected String name;
 	
+	protected SynSourceInitialize initialize = new SynSourceInitialize() {
+		@Override
+		public void initialize(SynSource source) {
+			source.setAppDAO(appDAO);
+			source.setEventDAO(eventDAO);
+			source.setLabelDAO(labelDAO);
+			source.setModelDAO(modelDAO);
+			source.setStatsDAO(statsDAO);
+		}
+	};
+	
 	@Override
 	public final void setBeanName(String name) {
 		this.name = name;
@@ -57,9 +70,7 @@ public class BaseService implements InitializingBean, BeanNameAware, Application
 	@Override
 	public final void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
 		publisher = applicationEventPublisher;
-		publisher.publishEvent(new ApplicationEvent(this) {
-			private static final long serialVersionUID = 1L;
-		});
+		publisher.publishEvent(new AnalyticsServiceEvent(this));
 	}
 
 	@Override
