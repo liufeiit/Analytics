@@ -9,8 +9,8 @@ import analytics.core.dataobject.EventDO;
  * @since 2014年8月11日 上午11:51:29
  */
 public interface EventDAO {
-	void addEvent(EventDO event) throws DAOException;
+	void insertEvent(EventDO event) throws DAOException;
 	void updateEvent(EventDO event) throws DAOException;
 	EventDO selectEvent(long eventId) throws DAOException;
-	void removeEvent(EventDO event) throws DAOException;
+	void deleteEvent(EventDO event) throws DAOException;
 }

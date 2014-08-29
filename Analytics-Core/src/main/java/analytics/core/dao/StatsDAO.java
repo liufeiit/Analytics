@@ -9,8 +9,13 @@ import analytics.core.dataobject.StatsDO;
  * @since 2014年8月25日 下午12:00:33
  */
 public interface StatsDAO {
-	void addStats(StatsDO stats) throws DAOException;
+	void insertStats(StatsDO stats) throws DAOException;
 	void updateStats(StatsDO stats) throws DAOException;
 	StatsDO selectStats(long statsId) throws DAOException;
-	void removeStats(StatsDO stats) throws DAOException;
+	void deleteStats(StatsDO stats) throws DAOException;
+	
+	void incrStat(long labelId, int year, int accumulation) throws DAOException;
+	void incrStat(long labelId, int year, int month, int accumulation) throws DAOException;
+	void incrStat(long labelId, int year, int month, int day, int accumulation) throws DAOException;
+	void incrStat(long labelId, int year, int month, int day, int hour, int accumulation) throws DAOException;
 }

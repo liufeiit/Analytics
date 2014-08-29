@@ -9,8 +9,8 @@ import analytics.core.dataobject.LabelDO;
  * @since 2014年8月11日 上午11:51:57
  */
 public interface LabelDAO {
-	void addLabel(LabelDO label) throws DAOException;
+	void insertLabel(LabelDO label) throws DAOException;
 	void updateLabel(LabelDO label) throws DAOException;
 	LabelDO selectLabel(long labelId) throws DAOException;
-	void removeLabel(LabelDO label) throws DAOException;
+	void deleteLabel(LabelDO label) throws DAOException;
 }

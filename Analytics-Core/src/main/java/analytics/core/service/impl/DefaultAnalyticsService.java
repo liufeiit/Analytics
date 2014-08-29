@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 
 import analytics.core.service.AnalyticsService;
 import analytics.core.service.BaseService;
-import analytics.core.service.Static;
 import analytics.core.service.syn.SynEventTask;
 import analytics.core.service.syn.SynTaskPool;
 import analytics.core.service.syn.TaskCommand;
+import analytics.core.util.Static;
 
 /**
  * 
@@ -25,6 +25,7 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
 		task.initialize(initialize);
 		task.setAccumulation(Static.DEFAULT_ACCUMULATION);
+		task.setLabelId(labelId);
 		SynTaskPool.execute(task);
 	}
 
@@ -33,6 +34,7 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
 		task.initialize(initialize);
 		task.setAccumulation(accumulation);
+		task.setLabelId(labelId);
 		SynTaskPool.execute(task);
 	}
 
@@ -40,6 +42,7 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 	public void beginEvent(long labelId) {
 		SynEventTask task = new SynEventTask(new Date(), TaskCommand.BeginEvent);
 		task.initialize(initialize);
+		task.setLabelId(labelId);
 		SynTaskPool.execute(task);
 	}
 
@@ -47,6 +50,7 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 	public void endEvent(long labelId) {
 		SynEventTask task = new SynEventTask(new Date(), TaskCommand.EndEvent);
 		task.initialize(initialize);
+		task.setLabelId(labelId);
 		SynTaskPool.execute(task);
 	}
 }

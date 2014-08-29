@@ -55,11 +55,11 @@
 	
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="insert*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="analytics.core.dao.DAOException"/>
-            <tx:method name="update*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="analytics.core.dao.DAOException"/>
-            <tx:method name="remove*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="analytics.core.dao.DAOException"/>
-            <tx:method name="delete*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="analytics.core.dao.DAOException"/>
-            <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+           <tx:method name="insert*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="analytics.core.dao.DAOException"/>
+           <tx:method name="update*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="analytics.core.dao.DAOException"/>
+           <tx:method name="delete*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="analytics.core.dao.DAOException"/>
+           <tx:method name="incr*" propagation="REQUIRED" isolation="READ_COMMITTED" rollback-for="analytics.core.dao.DAOException"/>
+           <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
         </tx:attributes>
     </tx:advice>
     

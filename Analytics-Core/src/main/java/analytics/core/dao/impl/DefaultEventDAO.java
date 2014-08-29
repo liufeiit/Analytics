@@ -21,17 +21,17 @@ public class DefaultEventDAO extends BaseDAO implements EventDAO {
 
 	public static final String ADD_SQL = "INSERT INTO event "
 			+ "(app_id, name, description, gmt_created, gmt_modified) VALUES "
-			+ "(:appId, :name, :description, NOW(), NOW());";
+			+ "(:app_id, :name, :description, NOW(), NOW());";
 	
 	public static final String UPDATE_SQL = "UPDATE event SET "
-			+ "app_id = :appId, name = :name, description = :description, gmt_modified = NOW() WHERE id = :id;";
+			+ "app_id = :app_id, name = :name, description = :description, gmt_modified = NOW() WHERE id = :id;";
 	
 	public static final String SELECT_SQL = "SELECT id, app_id, name, description, gmt_created, gmt_modified FROM event WHERE id = :id;";
 	
 	public static final String DELETE_SQL = "DELETE FROM event WHERE id = :id;";
 	
 	@Override
-	public void addEvent(EventDO event) throws DAOException {
+	public void insertEvent(EventDO event) throws DAOException {
 		try {
 			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(event));
 		} catch (DataAccessException e) {
@@ -62,7 +62,7 @@ public class DefaultEventDAO extends BaseDAO implements EventDAO {
 	}
 
 	@Override
-	public void removeEvent(EventDO event) throws DAOException {
+	public void deleteEvent(EventDO event) throws DAOException {
 		try {
 			jdbcTemplate.update(UPDATE_SQL, BeanParameterMapper.newInstance(event));
 		} catch (DataAccessException e) {

@@ -1,4 +1,4 @@
-package analytics.core.service;
+package analytics.core.util;
 
 /**
  * 
@@ -8,4 +8,9 @@ package analytics.core.service;
  */
 public interface Static {
 	int DEFAULT_ACCUMULATION = 1;
+	
+	int YEAR = 1;
+	int MONTH = 2;
+	int DAY_OF_MONTH = 3;
+	int HOUR_OF_DAY = 4;
 }

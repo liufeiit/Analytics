@@ -46,6 +46,7 @@ CREATE  TABLE `analytics`.`stats` (
   `month` int(11) NOT NULL COMMENT '月' ,
   `day` int(11) NOT NULL COMMENT '日' ,
   `hour` int(11) NOT NULL COMMENT '时' ,
+  `type` int(11) NOT NULL COMMENT '统计维度类型：年，月，日，时' ,
   `accumulation` double NOT NULL COMMENT '统计数据值' ,
   `attr` BIGINT NOT NULL COMMENT 'attr' ,
   `gmt_created` DATETIME NOT NULL COMMENT '创建时间' ,

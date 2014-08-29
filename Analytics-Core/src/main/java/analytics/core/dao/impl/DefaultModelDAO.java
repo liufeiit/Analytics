@@ -31,7 +31,7 @@ public class DefaultModelDAO extends BaseDAO implements ModelDAO {
 	public static final String DELETE_SQL = "DELETE FROM model WHERE id = :id;";
 	
 	@Override
-	public void addModel(ModelDO model) throws DAOException {
+	public void insertModel(ModelDO model) throws DAOException {
 		try {
 			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(model));
 		} catch (DataAccessException e) {
@@ -62,7 +62,7 @@ public class DefaultModelDAO extends BaseDAO implements ModelDAO {
 	}
 
 	@Override
-	public void removeModel(ModelDO model) throws DAOException {
+	public void deleteModel(ModelDO model) throws DAOException {
 		try {
 			jdbcTemplate.update(DELETE_SQL, BeanParameterMapper.newInstance(model));
 		} catch (DataAccessException e) {

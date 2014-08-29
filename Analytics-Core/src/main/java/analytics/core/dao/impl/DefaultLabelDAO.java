@@ -21,17 +21,17 @@ public class DefaultLabelDAO extends BaseDAO implements LabelDAO {
 
 	public static final String ADD_SQL = "INSERT INTO label "
 			+ "(event_id, model_id, name, description, gmt_created, gmt_modified) VALUES "
-			+ "(:eventId, :modelId, :name, :description, NOW(), NOW());";
+			+ "(:event_id, :model_id, :name, :description, NOW(), NOW());";
 	
 	public static final String UPDATE_SQL = "UPDATE label SET "
-			+ "event_id = :eventId, model_id = :modelId, name = :name, description = :description, gmt_modified = NOW() WHERE id = :id;";
+			+ "event_id = :event_id, model_id = :model_id, name = :name, description = :description, gmt_modified = NOW() WHERE id = :id;";
 	
 	public static final String SELECT_SQL = "SELECT id, event_id, model_id, name, description, gmt_created, gmt_modified FROM label WHERE id = :id;";
 	
 	public static final String DELETE_SQL = "DELETE FROM label WHERE id = :id;";
 	
 	@Override
-	public void addLabel(LabelDO label) throws DAOException {
+	public void insertLabel(LabelDO label) throws DAOException {
 		try {
 			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(label));
 		} catch (DataAccessException e) {
@@ -62,7 +62,7 @@ public class DefaultLabelDAO extends BaseDAO implements LabelDAO {
 	}
 
 	@Override
-	public void removeLabel(LabelDO label) throws DAOException {
+	public void deleteLabel(LabelDO label) throws DAOException {
 		try {
 			jdbcTemplate.update(DELETE_SQL, BeanParameterMapper.newInstance(label));
 		} catch (DataAccessException e) {

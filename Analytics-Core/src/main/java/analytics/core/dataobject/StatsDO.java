@@ -1,5 +1,6 @@
 package analytics.core.dataobject;
 
+import analytics.core.util.Static;
 import tulip.data.annotation.Column;
 
 /**
@@ -24,6 +25,15 @@ public class StatsDO extends BaseDO {
 	private int day;
 	@Column(name = "hour")
 	private int hour;
+	
+	/**
+	 * {@link Static#YEAR}
+	 * {@link Static#MONTH}
+	 * {@link Static#DAY_OF_MONTH}
+	 * {@link Static#HOUR_OF_DAY}
+	 */
+	@Column(name = "type")
+	private int type;
 
 	@Column(name = "accumulation")
 	private double accumulation;// 统计数据值
@@ -69,6 +79,14 @@ public class StatsDO extends BaseDO {
 
 	public void setHour(int hour) {
 		this.hour = hour;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	public double getAccumulation() {

@@ -31,7 +31,7 @@ public class DefaultAppDAO extends BaseDAO implements AppDAO {
 	public static final String DELETE_SQL = "DELETE FROM app WHERE id = :id;";
 
 	@Override
-	public void addApp(AppDO app) throws DAOException {
+	public void insertApp(AppDO app) throws DAOException {
 		try {
 			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(app));
 		} catch (DataAccessException e) {
@@ -62,7 +62,7 @@ public class DefaultAppDAO extends BaseDAO implements AppDAO {
 	}
 
 	@Override
-	public void removeApp(AppDO app) throws DAOException {
+	public void deleteApp(AppDO app) throws DAOException {
 		try {
 			jdbcTemplate.update(DELETE_SQL, BeanParameterMapper.newInstance(app));
 		} catch (DataAccessException e) {
