@@ -40,7 +40,7 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO {
 	
 	private static final String YEAR_WHERE = "WHERE label_id = :labelId AND year = :year AND type = :type";
 	public static final String CHECK_STAT_YEAR = "SELECT COUNT(id) FROM stats " + YEAR_WHERE;
-	public static final String INCR_STAT_YEAR = "UPDATE stats SET accumulation = accumulation + :accumulation, gmt_modified = NOW() WHERE " + YEAR_WHERE;
+	public static final String INCR_STAT_YEAR = "UPDATE stats SET accumulation = accumulation + :accumulation, gmt_modified = NOW() " + YEAR_WHERE;
 
 	private static final String MONTH_WHERE = "WHERE label_id = :labelId AND year = :year AND month = :month AND type = :type";
 	public static final String CHECK_STAT_MONTH = "SELECT COUNT(id) FROM stats " + MONTH_WHERE;
@@ -67,8 +67,9 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO {
 			stats.setAccumulation(accumulation);
 			stats.setAttr(0);
 			stats.setDay(0);
-			stats.setGmt_created(new Date());
-			stats.setGmt_modified(new Date());
+			Date date = new Date();
+			stats.setGmt_created(date);
+			stats.setGmt_modified(date);
 			stats.setHour(0);
 			stats.setLabelId(labelId);
 			stats.setMonth(0);
@@ -99,8 +100,9 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO {
 			stats.setAccumulation(accumulation);
 			stats.setAttr(0);
 			stats.setDay(0);
-			stats.setGmt_created(new Date());
-			stats.setGmt_modified(new Date());
+			Date date = new Date();
+			stats.setGmt_created(date);
+			stats.setGmt_modified(date);
 			stats.setHour(0);
 			stats.setLabelId(labelId);
 			stats.setMonth(month);
@@ -132,8 +134,9 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO {
 			stats.setAccumulation(accumulation);
 			stats.setAttr(0);
 			stats.setDay(day);
-			stats.setGmt_created(new Date());
-			stats.setGmt_modified(new Date());
+			Date date = new Date();
+			stats.setGmt_created(date);
+			stats.setGmt_modified(date);
 			stats.setHour(0);
 			stats.setLabelId(labelId);
 			stats.setMonth(month);
@@ -166,8 +169,9 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO {
 			stats.setAccumulation(accumulation);
 			stats.setAttr(0);
 			stats.setDay(day);
-			stats.setGmt_created(new Date());
-			stats.setGmt_modified(new Date());
+			Date date = new Date();
+			stats.setGmt_created(date);
+			stats.setGmt_modified(date);
 			stats.setHour(hour);
 			stats.setLabelId(labelId);
 			stats.setMonth(month);
