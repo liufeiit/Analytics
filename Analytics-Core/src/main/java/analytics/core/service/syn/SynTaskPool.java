@@ -1,6 +1,8 @@
 package analytics.core.service.syn;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -37,7 +39,7 @@ public class SynTaskPool {
 		}
 	};
 	
-	protected final ThreadPoolExecutor taskPoolExecutor = newThreadPool(256);
+	protected final ExecutorService taskPoolExecutor = Executors.newSingleThreadExecutor(THREAD_FACTORY);
 	
 	public static void execute(SynEventTask task) {
 		SynTaskPool.SYN_TASK_POOL.taskPoolExecutor.execute(task);

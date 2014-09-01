@@ -14,6 +14,7 @@ import tulip.data.jdbc.mapper.ClassMapper;
 import analytics.core.dao.BaseDAO;
 import analytics.core.dao.DAOException;
 import analytics.core.dao.StatsDAO;
+import analytics.core.dao.statement.StatsMapper;
 import analytics.core.dataobject.StatsDO;
 import analytics.core.util.Static;
 
@@ -23,37 +24,8 @@ import analytics.core.util.Static;
  * @since 2014年8月25日 下午12:08:21
  */
 @Repository("statsDAO")
-public class DefaultStatsDAO extends BaseDAO implements StatsDAO {
-
-	public static final String ADD_SQL = "INSERT INTO stats "
-			+ "(label_id, year, month, day, hour, type, accumulation, attr, gmt_created, gmt_modified) VALUES "
-			+ "(:label_id, :year, :month, :day, :hour, :type, :accumulation, :attr, NOW(), NOW());";
-
-	public static final String UPDATE_SQL = "UPDATE stats SET "
-			+ "label_id = :label_id, year = :year, month = :month, day = :day, hour = :hour, type = :type, "
-			+ "accumulation = :accumulation, attr = :attr, gmt_modified = NOW() WHERE id = :id;";
-
-	public static final String SELECT_SQL = "SELECT id, label_id, year, month, day, hour, type, accumulation, attr, gmt_created, gmt_modified "
-			+ "FROM stats WHERE id = :id;";
-
-	public static final String DELETE_SQL = "DELETE FROM stats WHERE id = :id;";
+public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
 	
-	private static final String YEAR_WHERE = "WHERE label_id = :labelId AND year = :year AND type = :type";
-	public static final String CHECK_STAT_YEAR = "SELECT COUNT(id) FROM stats " + YEAR_WHERE;
-	public static final String INCR_STAT_YEAR = "UPDATE stats SET accumulation = accumulation + :accumulation, gmt_modified = NOW() " + YEAR_WHERE;
-
-	private static final String MONTH_WHERE = "WHERE label_id = :labelId AND year = :year AND month = :month AND type = :type";
-	public static final String CHECK_STAT_MONTH = "SELECT COUNT(id) FROM stats " + MONTH_WHERE;
-	public static final String INCR_STAT_MONTH = "UPDATE stats SET accumulation = accumulation + :accumulation, gmt_modified = NOW() " + MONTH_WHERE;
-
-	private static final String DAY_WHERE = "WHERE label_id = :labelId AND year = :year AND month = :month AND day = :day AND type = :type";
-	public static final String CHECK_STAT_DAY = "SELECT COUNT(id) FROM stats " + DAY_WHERE;
-	public static final String INCR_STAT_DAY = "UPDATE stats SET accumulation = accumulation + :accumulation, gmt_modified = NOW() " + DAY_WHERE;
-
-	private static final String HOUR_WHERE = "WHERE label_id = :labelId AND year = :year AND month = :month AND day = :day AND hour = :hour AND type = :type";
-	public static final String CHECK_STAT_HOUR = "SELECT COUNT(id) FROM stats " + HOUR_WHERE;
-	public static final String INCR_STAT_HOUR = "UPDATE stats SET accumulation = accumulation + :accumulation, gmt_modified = NOW() " + HOUR_WHERE;
-
 	@Override
 	public void incrStat(long labelId, int year, int accumulation) throws DAOException {
 		final Map<String, Object> paramMap = new HashMap<String, Object>();
