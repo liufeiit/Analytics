@@ -47,7 +47,7 @@
 		<level value="${loggingLevel}" />
 		<appender-ref ref="TulipAppender" />
 	</logger>
-    <logger name="analytics.web.controller" additivity="false">
+    <logger name="analytics" additivity="false">
 		<level value="${loggingLevel}" />
 		<appender-ref ref="ControllerAppender" />
 	</logger>
