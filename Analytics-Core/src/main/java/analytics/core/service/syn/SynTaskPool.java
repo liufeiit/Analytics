@@ -1,7 +1,6 @@
 package analytics.core.service.syn;
 
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadFactory;
@@ -57,32 +56,6 @@ public class SynTaskPool {
 	public static void execute(Runnable task) {
 		SynTaskPool.SYN_TASK_POOL.taskPoolExecutor.execute(task);
 	}
-	
-	public static ExecutorService newFixedThreadPool(int nThreads) {
-        return new ThreadPoolExecutor(nThreads, nThreads,
-                                      0L, TimeUnit.MILLISECONDS,
-                                      new LinkedBlockingQueue<Runnable>());
-    }
-	
-	public static ExecutorService newFixedThreadPool(int nThreads, ThreadFactory threadFactory) {
-        return new ThreadPoolExecutor(nThreads, nThreads,
-                                      0L, TimeUnit.MILLISECONDS,
-                                      new LinkedBlockingQueue<Runnable>(),
-                                      threadFactory);
-    }
-	
-	public static ExecutorService newSingleThreadExecutor() {
-        return new ThreadPoolExecutor(1, 1,
-                0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>());
-    }
-	
-	public static ExecutorService newSingleThreadExecutor(ThreadFactory threadFactory) {
-        return new ThreadPoolExecutor(1, 1,
-                0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>(),
-                threadFactory);
-    }
 	
 	private ThreadPoolExecutor newThreadPool(int threads) {
 		ThreadPoolExecutor executor = 
