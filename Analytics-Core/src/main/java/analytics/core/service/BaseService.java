@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 
@@ -17,7 +18,6 @@ import analytics.core.dao.EventDAO;
 import analytics.core.dao.LabelDAO;
 import analytics.core.dao.ModelDAO;
 import analytics.core.dao.StatsDAO;
-import analytics.core.service.AnalyticsService.AnalyticsServiceEvent;
 import analytics.core.service.syn.SynSource;
 import analytics.core.service.syn.SynSource.SynSourceInitialize;
 
@@ -68,7 +68,9 @@ public abstract class BaseService implements SynSourceInitialize, InitializingBe
 	@Override
 	public final void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
 		publisher = applicationEventPublisher;
-		publisher.publishEvent(new AnalyticsServiceEvent(this));
+		publisher.publishEvent(new ApplicationEvent(this) {
+			private static final long serialVersionUID = 1L;
+		});
 	}
 
 	@Override

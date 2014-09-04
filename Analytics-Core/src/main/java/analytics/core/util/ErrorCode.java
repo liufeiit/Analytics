@@ -12,6 +12,9 @@ public enum ErrorCode {
 	Error_AppID(-100, "请输入合法的AppID"),
 	Error_LabelID(-200, "请输入合法的LabelID"),
 	Error_Accumulation(-300, "请输入合法的Accumulation"),
+	
+	Error_CreateApp(-400, "创建应用失败"),
+	Delete_CreateApp(-500, "删除应用失败"),
 	;
 	public final int code;
 	public final String description;

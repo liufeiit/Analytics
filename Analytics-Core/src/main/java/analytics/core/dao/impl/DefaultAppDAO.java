@@ -1,5 +1,7 @@
 package analytics.core.dao.impl;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +31,8 @@ public class DefaultAppDAO extends BaseDAO implements AppDAO {
 	public static final String SELECT_SQL = "SELECT id, name, token, description, gmt_created, gmt_modified WHERE id = :id;";
 
 	public static final String DELETE_SQL = "DELETE FROM app WHERE id = :id;";
+
+	public static final String SELECT_ALL_SQL = "SELECT id, name, token, description, gmt_created, gmt_modified;";
 
 	@Override
 	public void insertApp(AppDO app) throws DAOException {
@@ -68,6 +72,16 @@ public class DefaultAppDAO extends BaseDAO implements AppDAO {
 		} catch (DataAccessException e) {
 			log.error("RemoveApp Error.", e);
 			throw new DAOException("RemoveApp Error.", e);
+		}
+	}
+
+	@Override
+	public List<AppDO> selectAll() throws DAOException {
+		try {
+			return jdbcTemplate.query(SELECT_ALL_SQL, BeanRowMapper.newInstance(AppDO.class));
+		} catch (DataAccessException e) {
+			log.error("SelectAll Error.", e);
+			throw new DAOException("SelectAll Error.", e);
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package analytics.core.dao;
 
+import java.util.List;
+
 import analytics.core.dataobject.AppDO;
 
 /**
@@ -13,4 +15,5 @@ public interface AppDAO {
 	void updateApp(AppDO app) throws DAOException;
 	AppDO selectApp(long appId) throws DAOException;
 	void deleteApp(AppDO app) throws DAOException;
+	List<AppDO> selectAll() throws DAOException;
 }

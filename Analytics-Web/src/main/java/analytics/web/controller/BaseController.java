@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.servlet.ModelAndView;
 
 import analytics.core.service.AnalyticsService;
+import analytics.core.service.AppService;
 import analytics.core.service.Result;
 
 /**
@@ -18,8 +19,12 @@ import analytics.core.service.Result;
 public class BaseController {
 	protected final Log log = LogFactory.getLog(getClass());
 	@Autowired
-	@Qualifier(value="analyticsService")
+	@Qualifier(value = "analyticsService")
 	protected AnalyticsService analyticsService;
+
+	@Autowired
+	@Qualifier(value = "appService")
+	protected AppService appService;
 
 	protected ModelAndView returnView(ModelAndView mv, Result result) {
 		mv.addObject("success", result.isSuccess());
