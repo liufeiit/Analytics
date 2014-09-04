@@ -66,12 +66,6 @@ public class SynEventTask extends SynSource implements Runnable {
 		case Event:
 			event();
 			break;
-		case BeginEvent:
-			beginEvent();
-			break;
-		case EndEvent:
-			endEvent();
-			break;
 		default:
 			break;
 		}
@@ -79,33 +73,25 @@ public class SynEventTask extends SynSource implements Runnable {
 
 	private void event() {
 		try {
-			statsDAO.incrStat(labelId, year, accumulation);
+			statsDAO.incrStat(labelId, year, accumulation, date);
 		} catch (DAOException e) {
 			log.error("IncrStat Year Error.", e);
 		}
 		try {
-			statsDAO.incrStat(labelId, year, month, accumulation);
+			statsDAO.incrStat(labelId, year, month, accumulation, date);
 		} catch (DAOException e) {
 			log.error("IncrStat Month Error.", e);
 		}
 		try {
-			statsDAO.incrStat(labelId, year, month, day, accumulation);
+			statsDAO.incrStat(labelId, year, month, day, accumulation, date);
 		} catch (DAOException e) {
 			log.error("IncrStat Day Error.", e);
 		}
 		try {
-			statsDAO.incrStat(labelId, year, month, day, hour, accumulation);
+			statsDAO.incrStat(labelId, year, month, day, hour, accumulation, date);
 		} catch (DAOException e) {
 			log.error("IncrStat Hour Error.", e);
 		}
-	}
-
-	private void beginEvent() {
-		
-	}
-
-	private void endEvent() {
-		
 	}
 
 	public void setAccumulation(int accumulation) {

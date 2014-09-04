@@ -59,7 +59,7 @@ public class SynTaskPool {
 	
 	private ThreadPoolExecutor newThreadPool(int threads) {
 		ThreadPoolExecutor executor = 
-				new ThreadPoolExecutor(threads, threads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(), TF, H){
+				new ThreadPoolExecutor(threads, threads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(), TF, H) {
 					@Override
 					protected void beforeExecute(Thread t, Runnable r) {
 						super.beforeExecute(t, r);

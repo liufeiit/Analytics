@@ -1,5 +1,7 @@
 package analytics.core.dao;
 
+import java.util.Date;
+
 import analytics.core.dataobject.StatsDO;
 
 /**
@@ -14,8 +16,8 @@ public interface StatsDAO {
 	StatsDO selectStats(long statsId) throws DAOException;
 	void deleteStats(StatsDO stats) throws DAOException;
 	
-	void incrStat(long labelId, int year, int accumulation) throws DAOException;
-	void incrStat(long labelId, int year, int month, int accumulation) throws DAOException;
-	void incrStat(long labelId, int year, int month, int day, int accumulation) throws DAOException;
-	void incrStat(long labelId, int year, int month, int day, int hour, int accumulation) throws DAOException;
+	void incrStat(long labelId, int year, int accumulation, Date date) throws DAOException;
+	void incrStat(long labelId, int year, int month, int accumulation, Date date) throws DAOException;
+	void incrStat(long labelId, int year, int month, int day, int accumulation, Date date) throws DAOException;
+	void incrStat(long labelId, int year, int month, int day, int hour, int accumulation, Date date) throws DAOException;
 }

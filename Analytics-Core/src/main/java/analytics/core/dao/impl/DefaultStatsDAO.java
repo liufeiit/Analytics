@@ -27,19 +27,19 @@ import analytics.core.util.Static;
 public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
 	
 	@Override
-	public void incrStat(long labelId, int year, int accumulation) throws DAOException {
+	public void incrStat(long labelId, int year, int accumulation, Date date) throws DAOException {
 		final Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("labelId", labelId);
 		paramMap.put("year", year);
 		paramMap.put("type", Static.YEAR);
 		paramMap.put("accumulation", accumulation);
+		paramMap.put("gmt_modified", date);
 		Long count = jdbcTemplate.queryForObject(CHECK_STAT_YEAR, paramMap, Long.class);
 		if(count == null || count <= 0) {
 			StatsDO stats = new StatsDO();
 			stats.setAccumulation(accumulation);
 			stats.setAttr(0);
 			stats.setDay(0);
-			Date date = new Date();
 			stats.setGmt_created(date);
 			stats.setGmt_modified(date);
 			stats.setHour(0);
@@ -59,20 +59,20 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
 	}
 	
 	@Override
-	public void incrStat(long labelId, int year, int month, int accumulation) throws DAOException {
+	public void incrStat(long labelId, int year, int month, int accumulation, Date date) throws DAOException {
 		final Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("labelId", labelId);
 		paramMap.put("year", year);
 		paramMap.put("month", month);
 		paramMap.put("type", Static.MONTH);
 		paramMap.put("accumulation", accumulation);
+		paramMap.put("gmt_modified", date);
 		Long count = jdbcTemplate.queryForObject(CHECK_STAT_MONTH, paramMap, Long.class);
 		if(count == null || count <= 0) {
 			StatsDO stats = new StatsDO();
 			stats.setAccumulation(accumulation);
 			stats.setAttr(0);
 			stats.setDay(0);
-			Date date = new Date();
 			stats.setGmt_created(date);
 			stats.setGmt_modified(date);
 			stats.setHour(0);
@@ -92,7 +92,7 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
 	}
 	
 	@Override
-	public void incrStat(long labelId, int year, int month, int day, int accumulation) throws DAOException {
+	public void incrStat(long labelId, int year, int month, int day, int accumulation, Date date) throws DAOException {
 		final Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("labelId", labelId);
 		paramMap.put("year", year);
@@ -100,13 +100,13 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
 		paramMap.put("day", day);
 		paramMap.put("type", Static.DAY_OF_MONTH);
 		paramMap.put("accumulation", accumulation);
+		paramMap.put("gmt_modified", date);
 		Long count = jdbcTemplate.queryForObject(CHECK_STAT_DAY, paramMap, Long.class);
 		if(count == null || count <= 0) {
 			StatsDO stats = new StatsDO();
 			stats.setAccumulation(accumulation);
 			stats.setAttr(0);
 			stats.setDay(day);
-			Date date = new Date();
 			stats.setGmt_created(date);
 			stats.setGmt_modified(date);
 			stats.setHour(0);
@@ -126,7 +126,7 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
 	}
 	
 	@Override
-	public void incrStat(long labelId, int year, int month, int day, int hour, int accumulation) throws DAOException {
+	public void incrStat(long labelId, int year, int month, int day, int hour, int accumulation, Date date) throws DAOException {
 		final Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("labelId", labelId);
 		paramMap.put("year", year);
@@ -135,13 +135,13 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
 		paramMap.put("hour", hour);
 		paramMap.put("type", Static.HOUR_OF_DAY);
 		paramMap.put("accumulation", accumulation);
+		paramMap.put("gmt_modified", date);
 		Long count = jdbcTemplate.queryForObject(CHECK_STAT_HOUR, paramMap, Long.class);
 		if(count == null || count <= 0) {
 			StatsDO stats = new StatsDO();
 			stats.setAccumulation(accumulation);
 			stats.setAttr(0);
 			stats.setDay(day);
-			Date date = new Date();
 			stats.setGmt_created(date);
 			stats.setGmt_modified(date);
 			stats.setHour(hour);
@@ -163,6 +163,13 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
 	@Override
 	public void insertStats(StatsDO stats) throws DAOException {
 		try {
+			Date date = new Date();
+			if(stats.getGmt_created() == null) {
+				stats.setGmt_created(date);
+			}
+			if(stats.getGmt_modified() == null) {
+				stats.setGmt_modified(date);
+			}
 			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(stats));
 		} catch (DataAccessException e) {
 			log.error("AddStats Error.", e);

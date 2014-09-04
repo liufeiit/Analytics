@@ -11,14 +11,8 @@ import org.springframework.context.ApplicationEvent;
  */
 public interface AnalyticsService {
 	
-	/**
-	 * @param date 事件发生的时间，格式：yyyy-MM-dd-HH-mm-ss
-	 */
 	void event(long labelId);
 	void event(long labelId, int accumulation);
-	
-	void beginEvent(long labelId);
-	void endEvent(long labelId);
 	
 	public class AnalyticsServiceEvent extends ApplicationEvent {
 

@@ -7,6 +7,6 @@ package analytics.core.service.syn;
  * @since 2014年8月29日 下午3:08:06
  */
 public enum TaskCommand {
-	Event, BeginEvent, EndEvent
+	Event
 	;
 }

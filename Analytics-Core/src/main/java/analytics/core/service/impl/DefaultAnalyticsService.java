@@ -37,20 +37,4 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 		task.setLabelId(labelId);
 		SynTaskPool.execute(task);
 	}
-
-	@Override
-	public void beginEvent(long labelId) {
-		SynEventTask task = new SynEventTask(new Date(), TaskCommand.BeginEvent);
-		task.initialize(initialize);
-		task.setLabelId(labelId);
-		SynTaskPool.execute(task);
-	}
-
-	@Override
-	public void endEvent(long labelId) {
-		SynEventTask task = new SynEventTask(new Date(), TaskCommand.EndEvent);
-		task.initialize(initialize);
-		task.setLabelId(labelId);
-		SynTaskPool.execute(task);
-	}
 }
