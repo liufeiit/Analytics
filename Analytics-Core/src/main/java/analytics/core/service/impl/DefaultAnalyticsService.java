@@ -23,7 +23,7 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 	@Override
 	public void event(long labelId) {
 		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
-		task.initialize(initialize);
+		task.initialize(this);
 		task.setAccumulation(Static.DEFAULT_ACCUMULATION);
 		task.setLabelId(labelId);
 		SynTaskPool.execute(task);
@@ -32,7 +32,7 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 	@Override
 	public void event(long labelId, int accumulation) {
 		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
-		task.initialize(initialize);
+		task.initialize(this);
 		task.setAccumulation(accumulation);
 		task.setLabelId(labelId);
 		SynTaskPool.execute(task);

@@ -27,7 +27,7 @@ import analytics.core.service.syn.SynSource.SynSourceInitialize;
  * @version 1.0
  * @since 2014年8月25日 下午1:12:04
  */
-public abstract class BaseService implements InitializingBean, BeanNameAware, ApplicationContextAware, ApplicationEventPublisherAware {
+public abstract class BaseService implements SynSourceInitialize, InitializingBean, BeanNameAware, ApplicationContextAware, ApplicationEventPublisherAware {
 
 	protected final Log log = LogFactory.getLog(getClass());
 	
@@ -51,16 +51,14 @@ public abstract class BaseService implements InitializingBean, BeanNameAware, Ap
 	protected ApplicationEventPublisher publisher;
 	protected String name;
 	
-	protected SynSourceInitialize initialize = new SynSourceInitialize() {
-		@Override
-		public void initialize(SynSource source) {
-			source.setAppDAO(appDAO);
-			source.setEventDAO(eventDAO);
-			source.setLabelDAO(labelDAO);
-			source.setModelDAO(modelDAO);
-			source.setStatsDAO(statsDAO);
-		}
-	};
+	@Override
+	public void initialize(SynSource source) {
+		source.setAppDAO(appDAO);
+		source.setEventDAO(eventDAO);
+		source.setLabelDAO(labelDAO);
+		source.setModelDAO(modelDAO);
+		source.setStatsDAO(statsDAO);
+	}
 	
 	@Override
 	public final void setBeanName(String name) {
