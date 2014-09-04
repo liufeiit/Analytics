@@ -1,6 +1,7 @@
 package analytics.core.service.syn;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadFactory;
@@ -22,7 +23,7 @@ public class SynTaskPool {
 	
 	private final Log log = LogFactory.getLog(getClass());
 
-	private final ThreadFactory THREAD_FACTORY = new ThreadFactory() {
+	private final ThreadFactory TF = new ThreadFactory() {
 		public Thread newThread(Runnable runnable) {
 			final UncaughtExceptionHandler dueh = Thread.getDefaultUncaughtExceptionHandler();
 			Thread t = new Thread(Thread.currentThread().getThreadGroup(), runnable);
@@ -40,7 +41,7 @@ public class SynTaskPool {
 		}
 	};
 	
-	private RejectedExecutionHandler H = new RejectedExecutionHandler() {
+	private final RejectedExecutionHandler H = new RejectedExecutionHandler() {
 		@Override
 		public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
 			try {
@@ -51,14 +52,57 @@ public class SynTaskPool {
 		}
 	};
 	
-	protected final ThreadPoolExecutor taskPoolExecutor = newThreadPool(1);
+	private final ThreadPoolExecutor taskPoolExecutor = newThreadPool(1);
 	
 	public static void execute(Runnable task) {
 		SynTaskPool.SYN_TASK_POOL.taskPoolExecutor.execute(task);
 	}
 	
-	protected ThreadPoolExecutor newThreadPool(int threads) {
-		return new ThreadPoolExecutor(threads, threads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(), THREAD_FACTORY, H);
+	public static ExecutorService newFixedThreadPool(int nThreads) {
+        return new ThreadPoolExecutor(nThreads, nThreads,
+                                      0L, TimeUnit.MILLISECONDS,
+                                      new LinkedBlockingQueue<Runnable>());
+    }
+	
+	public static ExecutorService newFixedThreadPool(int nThreads, ThreadFactory threadFactory) {
+        return new ThreadPoolExecutor(nThreads, nThreads,
+                                      0L, TimeUnit.MILLISECONDS,
+                                      new LinkedBlockingQueue<Runnable>(),
+                                      threadFactory);
+    }
+	
+	public static ExecutorService newSingleThreadExecutor() {
+        return new ThreadPoolExecutor(1, 1,
+                0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<Runnable>());
+    }
+	
+	public static ExecutorService newSingleThreadExecutor(ThreadFactory threadFactory) {
+        return new ThreadPoolExecutor(1, 1,
+                0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<Runnable>(),
+                threadFactory);
+    }
+	
+	private ThreadPoolExecutor newThreadPool(int threads) {
+		ThreadPoolExecutor executor = 
+				new ThreadPoolExecutor(threads, threads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(), TF, H){
+					@Override
+					protected void beforeExecute(Thread t, Runnable r) {
+						super.beforeExecute(t, r);
+						log.error("BeforeExecute SynTask : " + r);
+					}
+					@Override
+					protected void afterExecute(Runnable r, Throwable t) {
+						super.afterExecute(r, t);
+						log.error("AfterExecute SynTask : " + r);
+						if(t != null) {
+							log.error("Execute Error.", t);
+						}
+					}
+		};
+		executor.allowCoreThreadTimeOut(false);
+		return executor;
 	}
 	
 	public static void main(String[] args) {
