@@ -24,10 +24,10 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 	@Override
 	public Result event(long labelId, int accumulation) {
 		if(labelId <= 0L) {
-			return Result.SUCCESS.with(ErrorCode.Error_LabelID);
+			return Result.ERR.with(ErrorCode.Error_LabelID);
 		}
 		if(accumulation <= 0) {
-			return Result.SUCCESS.with(ErrorCode.Error_Accumulation);
+			return Result.ERR.with(ErrorCode.Error_Accumulation);
 		}
 		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
 		task.initialize(this);
