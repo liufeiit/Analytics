@@ -3,6 +3,7 @@ DROP TABLE `analytics`.`app` IF EXISTS;
 CREATE  TABLE `analytics`.`app` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID序列' ,
   `name` VARCHAR(256) NOT NULL COMMENT 'App名称' ,
+  `token` VARCHAR(128) NOT NULL COMMENT '访问token，注册之后系统自动分配' ,
   `description` VARCHAR(1024) NULL COMMENT 'App描述' ,
   `gmt_created` DATETIME NOT NULL COMMENT '创建时间' ,
   `gmt_modified` DATETIME NOT NULL COMMENT '最后修改时间' ,

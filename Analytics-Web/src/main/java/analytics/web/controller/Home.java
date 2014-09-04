@@ -18,7 +18,6 @@ public class Home extends BaseController {
 
 	@RequestMapping(value = "/index.htm")
 	public ModelAndView index(HttpServletRequest request) {
-		analyticsService.event(100);
 		return new ModelAndView("home");
 	}
 }

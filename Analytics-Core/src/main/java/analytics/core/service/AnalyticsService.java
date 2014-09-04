@@ -11,8 +11,9 @@ import org.springframework.context.ApplicationEvent;
  */
 public interface AnalyticsService {
 	
-	void event(long labelId);
-	void event(long labelId, int accumulation);
+	Result event(long labelId, int accumulation);
+	
+	Result checkPermission(long appId, String token);
 	
 	public class AnalyticsServiceEvent extends ApplicationEvent {
 

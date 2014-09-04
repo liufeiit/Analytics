@@ -6,10 +6,11 @@ import org.springframework.stereotype.Service;
 
 import analytics.core.service.AnalyticsService;
 import analytics.core.service.BaseService;
+import analytics.core.service.Result;
 import analytics.core.service.syn.SynEventTask;
 import analytics.core.service.syn.SynTaskPool;
 import analytics.core.service.syn.TaskCommand;
-import analytics.core.util.Static;
+import analytics.core.util.ErrorCode;
 
 /**
  * 
@@ -21,20 +22,23 @@ import analytics.core.util.Static;
 public class DefaultAnalyticsService extends BaseService implements AnalyticsService {
 
 	@Override
-	public void event(long labelId) {
-		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
-		task.initialize(this);
-		task.setAccumulation(Static.DEFAULT_ACCUMULATION);
-		task.setLabelId(labelId);
-		SynTaskPool.execute(task);
-	}
-
-	@Override
-	public void event(long labelId, int accumulation) {
+	public Result event(long labelId, int accumulation) {
+		if(labelId <= 0L) {
+			return Result.SUCCESS.with(ErrorCode.Error_LabelID);
+		}
+		if(accumulation <= 0) {
+			return Result.SUCCESS.with(ErrorCode.Error_Accumulation);
+		}
 		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
 		task.initialize(this);
 		task.setAccumulation(accumulation);
 		task.setLabelId(labelId);
 		SynTaskPool.execute(task);
+		return Result.SUCCESS.with(ErrorCode.Success);
+	}
+
+	@Override
+	public Result checkPermission(long appId, String token) {
+		return Result.SUCCESS.with(ErrorCode.Success);
 	}
 }

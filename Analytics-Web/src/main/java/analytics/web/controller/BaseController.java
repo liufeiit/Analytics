@@ -4,8 +4,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.servlet.ModelAndView;
 
 import analytics.core.service.AnalyticsService;
+import analytics.core.service.Result;
 
 /**
  * 
@@ -18,4 +20,11 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value="analyticsService")
 	protected AnalyticsService analyticsService;
+
+	protected ModelAndView returnView(ModelAndView mv, Result result) {
+		mv.addObject("success", result.isSuccess());
+		mv.addObject("message", result.getMessage());
+		mv.addObject("errorCode", result.getErrorCode());
+		return mv;
+	}
 }

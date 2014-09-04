@@ -14,6 +14,8 @@ public class AppDO extends BaseDO {
 
 	@Column(name = "name")
 	private String name;// App名称
+	@Column(name = "token")
+	private String token;// 访问token，注册之后系统自动分配
 	@Column(name = "description")
 	private String description;// App描述
 
@@ -23,6 +25,14 @@ public class AppDO extends BaseDO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public String getDescription() {

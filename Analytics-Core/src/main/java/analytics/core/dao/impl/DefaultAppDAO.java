@@ -20,13 +20,13 @@ import analytics.core.dataobject.AppDO;
 public class DefaultAppDAO extends BaseDAO implements AppDAO {
 
 	public static final String ADD_SQL = "INSERT INTO app "
-			+ "(name, description, gmt_created, gmt_modified) VALUES "
-			+ "(:name, :description, NOW(), NOW());";
+			+ "(name, token, description, gmt_created, gmt_modified) VALUES "
+			+ "(:name, :token, :description, NOW(), NOW());";
 	
 	public static final String UPDATE_SQL = "UPDATE app SET "
-			+ "name = :name, description = :description, gmt_modified = NOW() WHERE id = :id;";
+			+ "name = :name, token = :token, description = :description, gmt_modified = NOW() WHERE id = :id;";
 
-	public static final String SELECT_SQL = "SELECT id, name, description, gmt_created, gmt_modified WHERE id = :id;";
+	public static final String SELECT_SQL = "SELECT id, name, token, description, gmt_created, gmt_modified WHERE id = :id;";
 
 	public static final String DELETE_SQL = "DELETE FROM app WHERE id = :id;";
 

@@ -1,0 +1,5 @@
+{
+    "success" : ${success},
+    "message" : ${message},
+    "errorCode" : ${errorCode}
+}
