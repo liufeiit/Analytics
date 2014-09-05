@@ -28,6 +28,10 @@ public class BaseController {
 	protected AnalyticsService analyticsService;
 
 	@Autowired
+	@Qualifier(value = "remoteAnalytics")
+	protected AnalyticsService remoteAnalytics;
+
+	@Autowired
 	@Qualifier(value = "appService")
 	protected AppService appService;
 
