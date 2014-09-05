@@ -22,7 +22,7 @@ import analytics.core.util.ErrorCode;
  */
 @Service(value = "analyticsService")
 public class DefaultAnalyticsService extends BaseService implements AnalyticsService {
-
+	
 	@Override
 	public Result event(long appId, String token, long labelId, int accumulation) {
 		if(labelId <= 0L) {
