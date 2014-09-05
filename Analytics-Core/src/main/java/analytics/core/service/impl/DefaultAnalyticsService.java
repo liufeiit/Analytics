@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+import analytics.core.dao.DAOException;
+import analytics.core.dataobject.AppDO;
 import analytics.core.service.AnalyticsService;
 import analytics.core.service.BaseService;
 import analytics.core.service.Result;
@@ -39,6 +41,18 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 
 	@Override
 	public Result checkPermission(long appId, String token) {
-		return Result.newSuccess().with(ErrorCode.Success);
+		try {
+			AppDO app = appDAO.selectApp(appId);
+			if(app == null) {
+				return Result.newError().with(ErrorCode.Error_Permission);
+			}
+			if(!app.getToken().equals(token)) {
+				return Result.newError().with(ErrorCode.Error_Permission);
+			}
+			return Result.newSuccess().with(ErrorCode.Success);
+		} catch (DAOException e) {
+			log.error("checkPermission Error.", e);
+		}
+		return Result.newError().with(ErrorCode.Error_Permission);
 	}
 }

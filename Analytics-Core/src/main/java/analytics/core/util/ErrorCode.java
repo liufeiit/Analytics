@@ -29,6 +29,8 @@ public enum ErrorCode {
 	Error_ErrPasswd						(-2002, 	"密码错误"),
 	
 	Error_Query							(-3000, 	"查询失败"),
+	
+	Error_Permission					(-9000, 	"非法权限"),
 	;
 	public final int code;
 	public final String description;
