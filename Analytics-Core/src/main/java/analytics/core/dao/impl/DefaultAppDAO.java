@@ -28,11 +28,11 @@ public class DefaultAppDAO extends BaseDAO implements AppDAO {
 	public static final String UPDATE_SQL = "UPDATE app SET "
 			+ "user_id = :user_id, name = :name, token = :token, description = :description, gmt_modified = NOW() WHERE id = :id;";
 
-	public static final String SELECT_SQL = "SELECT id, user_id, name, token, description, gmt_created, gmt_modified WHERE id = :id;";
+	public static final String SELECT_SQL = "SELECT id, user_id, name, token, description, gmt_created, gmt_modified FROM app WHERE id = :id;";
 
 	public static final String DELETE_SQL = "DELETE FROM app WHERE id = :id;";
 
-	public static final String SELECT_ALL_SQL = "SELECT id, user_id, name, token, description, gmt_created, gmt_modified;";
+	public static final String SELECT_ALL_SQL = "SELECT id, user_id, name, token, description, gmt_created, gmt_modified FROM app;";
 
 	@Override
 	public void insertApp(AppDO app) throws DAOException {
