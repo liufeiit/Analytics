@@ -214,4 +214,14 @@ public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
 			throw new DAOException("RemoveStats Error.", e);
 		}
 	}
+
+	@Override
+	public void deleteStats(long labelId) throws DAOException {
+		try {
+			jdbcTemplate.update(DELETE_LABEL_SQL, BeanParameterMapper.newSingleParameterMapper("label_id", labelId));
+		} catch (DataAccessException e) {
+			log.error("RemoveStats Error.", e);
+			throw new DAOException("RemoveStats Error.", e);
+		}
+	}
 }

@@ -1,5 +1,7 @@
 package analytics.core.dao;
 
+import java.util.List;
+
 import analytics.core.dataobject.LabelDO;
 
 /**
@@ -13,4 +15,5 @@ public interface LabelDAO {
 	void updateLabel(LabelDO label) throws DAOException;
 	LabelDO selectLabel(long labelId) throws DAOException;
 	void deleteLabel(LabelDO label) throws DAOException;
+	List<LabelDO> getEventLabel(long eventId) throws DAOException;
 }

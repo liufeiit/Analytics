@@ -14,7 +14,13 @@ public enum ErrorCode {
 	Error_Accumulation(-300, "请输入合法的Accumulation"),
 	
 	Error_CreateApp(-400, "创建应用失败"),
-	Delete_CreateApp(-500, "删除应用失败"),
+	Error_DeleteApp(-500, "删除应用失败"),
+
+	Error_CreateEvent(-600, "创建应用统计事件失败"),
+
+	Error_CreateLabel(-700, "创建应用统计事件的分类失败"),
+
+	Error_CreateModel(-800, "创建应用统计事件的分类展示模型失败"),
 	;
 	public final int code;
 	public final String description;

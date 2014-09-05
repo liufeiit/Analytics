@@ -20,6 +20,8 @@ public interface StatsMapper {
 
 	String DELETE_SQL = "DELETE FROM stats WHERE id = :id;";
 
+	String DELETE_LABEL_SQL = "DELETE FROM stats WHERE label_id = :label_id;";
+
 	String YEAR_WHERE = "WHERE label_id = :labelId AND year = :year AND type = :type";
 	String CHECK_STAT_YEAR = "SELECT COUNT(id) FROM stats " + YEAR_WHERE;
 	String INCR_STAT_YEAR = "UPDATE stats SET accumulation = accumulation + :accumulation, gmt_modified = :gmt_modified "

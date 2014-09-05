@@ -20,4 +20,6 @@ public interface StatsDAO {
 	void incrStat(long labelId, int year, int month, int accumulation, Date date) throws DAOException;
 	void incrStat(long labelId, int year, int month, int day, int accumulation, Date date) throws DAOException;
 	void incrStat(long labelId, int year, int month, int day, int hour, int accumulation, Date date) throws DAOException;
+	
+	void deleteStats(long labelId) throws DAOException;
 }

@@ -1,5 +1,7 @@
 package analytics.core.dao.impl;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +29,8 @@ public class DefaultLabelDAO extends BaseDAO implements LabelDAO {
 			+ "event_id = :event_id, model_id = :model_id, name = :name, description = :description, gmt_modified = NOW() WHERE id = :id;";
 	
 	public static final String SELECT_SQL = "SELECT id, event_id, model_id, name, description, gmt_created, gmt_modified FROM label WHERE id = :id;";
+	
+	public static final String SELECT_EVENT_LABEL_SQL = "SELECT id, event_id, model_id, name, description, gmt_created, gmt_modified FROM label WHERE event_id = :event_id;";
 	
 	public static final String DELETE_SQL = "DELETE FROM label WHERE id = :id;";
 	
@@ -58,6 +62,16 @@ public class DefaultLabelDAO extends BaseDAO implements LabelDAO {
 		} catch (DataAccessException e) {
 			log.error("SelectLabel Error.", e);
 			throw new DAOException("SelectLabel Error.", e);
+		}
+	}
+
+	@Override
+	public List<LabelDO> getEventLabel(long eventId) throws DAOException {
+		try {
+			return jdbcTemplate.queryForList(SELECT_EVENT_LABEL_SQL, BeanParameterMapper.newSingleParameterMapper("event_id", eventId), LabelDO.class);
+		} catch (DataAccessException e) {
+			log.error("getEventLabel Error.", e);
+			throw new DAOException("getEventLabel Error.", e);
 		}
 	}
 

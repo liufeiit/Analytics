@@ -1,5 +1,7 @@
 package analytics.core.dao.impl;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +29,8 @@ public class DefaultEventDAO extends BaseDAO implements EventDAO {
 			+ "app_id = :app_id, name = :name, description = :description, gmt_modified = NOW() WHERE id = :id;";
 	
 	public static final String SELECT_SQL = "SELECT id, app_id, name, description, gmt_created, gmt_modified FROM event WHERE id = :id;";
+	
+	public static final String SELECT_APP_EVENT_SQL = "SELECT id, app_id, name, description, gmt_created, gmt_modified FROM event WHERE app_id = :app_id;";
 	
 	public static final String DELETE_SQL = "DELETE FROM event WHERE id = :id;";
 	
@@ -58,6 +62,16 @@ public class DefaultEventDAO extends BaseDAO implements EventDAO {
 		} catch (DataAccessException e) {
 			log.error("SelectEvent Error.", e);
 			throw new DAOException("SelectEvent Error.", e);
+		}
+	}
+	
+	@Override
+	public List<EventDO> getAppEvent(long appId) throws DAOException {
+		try {
+			return jdbcTemplate.queryForList(SELECT_APP_EVENT_SQL, BeanParameterMapper.newSingleParameterMapper("app_id", appId), EventDO.class);
+		} catch (DataAccessException e) {
+			log.error("getAppEvent Error.", e);
+			throw new DAOException("getAppEvent Error.", e);
 		}
 	}
 

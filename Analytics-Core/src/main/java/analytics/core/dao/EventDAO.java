@@ -1,5 +1,7 @@
 package analytics.core.dao;
 
+import java.util.List;
+
 import analytics.core.dataobject.EventDO;
 
 /**
@@ -13,4 +15,5 @@ public interface EventDAO {
 	void updateEvent(EventDO event) throws DAOException;
 	EventDO selectEvent(long eventId) throws DAOException;
 	void deleteEvent(EventDO event) throws DAOException;
+	List<EventDO> getAppEvent(long appId) throws DAOException;
 }

@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import tulip.util.CollectionUtil;
 import analytics.core.dao.DAOException;
 import analytics.core.dataobject.AppDO;
+import analytics.core.dataobject.EventDO;
+import analytics.core.dataobject.LabelDO;
 import analytics.core.service.AppService;
 import analytics.core.service.BaseService;
 import analytics.core.service.Result;
@@ -56,9 +59,24 @@ public class DefaultAppService extends BaseService implements AppService {
 		app.setId(appId);
 		try {
 			appDAO.deleteApp(app);
+			List<EventDO> appEvent = eventDAO.getAppEvent(appId);
+			if(CollectionUtil.isEmpty(appEvent)) {
+				return Result.SUCCESS.with(ErrorCode.Success);
+			}
+			for (EventDO eventDO : appEvent) {
+				eventDAO.deleteEvent(eventDO);
+				List<LabelDO> eventLabel = labelDAO.getEventLabel(eventDO.getId());
+				if(CollectionUtil.isEmpty(eventLabel)) {
+					continue;
+				}
+				for (LabelDO labelDO : eventLabel) {
+					labelDAO.deleteLabel(labelDO);
+					statsDAO.deleteStats(labelDO.getId());
+				}
+			}
 		} catch (DAOException e) {
 			log.error("deleteApp Error.", e);
-			return Result.ERR.with(ErrorCode.Delete_CreateApp);
+			return Result.ERR.with(ErrorCode.Error_DeleteApp);
 		}
 		return Result.SUCCESS.with(ErrorCode.Success);
 	}

@@ -8,6 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import analytics.core.service.AnalyticsService;
 import analytics.core.service.AppService;
+import analytics.core.service.EventService;
+import analytics.core.service.LabelService;
+import analytics.core.service.ModelService;
 import analytics.core.service.Result;
 
 /**
@@ -17,7 +20,9 @@ import analytics.core.service.Result;
  * @since 2014年8月25日 下午1:55:47
  */
 public class BaseController {
+	
 	protected final Log log = LogFactory.getLog(getClass());
+	
 	@Autowired
 	@Qualifier(value = "analyticsService")
 	protected AnalyticsService analyticsService;
@@ -25,6 +30,18 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value = "appService")
 	protected AppService appService;
+
+	@Autowired
+	@Qualifier(value = "eventService")
+	protected EventService eventService;
+
+	@Autowired
+	@Qualifier(value = "labelService")
+	protected LabelService labelService;
+
+	@Autowired
+	@Qualifier(value = "modelService")
+	protected ModelService modelService;
 
 	protected ModelAndView returnView(ModelAndView mv, Result result) {
 		mv.addObject("success", result.isSuccess());
