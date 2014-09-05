@@ -24,21 +24,21 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 	@Override
 	public Result event(long labelId, int accumulation) {
 		if(labelId <= 0L) {
-			return Result.ERR.with(ErrorCode.Error_LabelID);
+			return Result.newError().with(ErrorCode.Error_LabelID);
 		}
 		if(accumulation <= 0) {
-			return Result.ERR.with(ErrorCode.Error_Accumulation);
+			return Result.newError().with(ErrorCode.Error_Accumulation);
 		}
 		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
 		task.initialize(this);
 		task.setAccumulation(accumulation);
 		task.setLabelId(labelId);
 		SynTaskPool.execute(task);
-		return Result.SUCCESS.with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
 	@Override
 	public Result checkPermission(long appId, String token) {
-		return Result.SUCCESS.with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 }

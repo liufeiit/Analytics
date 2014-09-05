@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import tulip.util.CollectionUtil;
 import analytics.core.dao.DAOException;
 import analytics.core.dataobject.LabelDO;
 import analytics.core.service.BaseService;
@@ -35,18 +36,22 @@ public class DefaultLabelService extends BaseService implements LabelService {
 			labelDAO.insertLabel(label);
 		} catch (DAOException e) {
 			log.error("CreateLabel Error.", e);
-			return Result.ERR.with(ErrorCode.Error_CreateLabel);
+			return Result.newError().with(ErrorCode.Error_CreateLabel);
 		}
-		return Result.SUCCESS.with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
 	@Override
-	public List<LabelDO> getEventLabel(long eventId) {
+	public Result getEventLabel(long eventId) {
 		try {
-			return labelDAO.getEventLabel(eventId);
+			List<LabelDO> eventLabel = labelDAO.getEventLabel(eventId);
+			if(CollectionUtil.isEmpty(eventLabel)) {
+				return Result.newError().with(ErrorCode.Error_Query);
+			}
+			return Result.newSuccess().with(ErrorCode.Success).with("eventLabel", eventLabel);
 		} catch (DAOException e) {
 			log.error("getEventLabel Error.", e);
 		}
-		return null;
+		return Result.newError().with(ErrorCode.Error_Query);
 	}
 }

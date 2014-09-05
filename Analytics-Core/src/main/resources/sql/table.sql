@@ -1,7 +1,23 @@
 
+DROP TABLE `analytics`.`usr` IF EXISTS;
+CREATE  TABLE `analytics`.`usr` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID序列' ,
+  `name` VARCHAR(256) NOT NULL COMMENT '用户昵称' ,
+  `email` VARCHAR(128) NOT NULL COMMENT '电子邮件' ,
+  `mobile` VARCHAR(128) NOT NULL COMMENT '手机号码联系方式' ,
+  `weixin` VARCHAR(128) NULL COMMENT '微信联系方式' ,
+  `password` VARCHAR(256) NULL COMMENT '登录密码' ,
+  `gmt_created` DATETIME NOT NULL COMMENT '创建时间' ,
+  `gmt_modified` DATETIME NOT NULL COMMENT '最后修改时间' ,
+  PRIMARY KEY (`id`) )
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci
+COMMENT = '用户信息';
+
 DROP TABLE `analytics`.`app` IF EXISTS;
 CREATE  TABLE `analytics`.`app` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID序列' ,
+  `user_id` BIGINT NOT NULL COMMENT '用户ID' ,
   `name` VARCHAR(256) NOT NULL COMMENT 'App名称' ,
   `token` VARCHAR(128) NOT NULL COMMENT '访问token，注册之后系统自动分配' ,
   `description` VARCHAR(1024) NULL COMMENT 'App描述' ,

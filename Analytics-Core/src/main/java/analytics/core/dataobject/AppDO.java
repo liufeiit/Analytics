@@ -12,12 +12,23 @@ public class AppDO extends BaseDO {
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "user_id")
+	private long userId;// 用户ID
+	
 	@Column(name = "name")
 	private String name;// App名称
 	@Column(name = "token")
 	private String token;// 访问token，注册之后系统自动分配
 	@Column(name = "description")
 	private String description;// App描述
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
 
 	public String getName() {
 		return name;

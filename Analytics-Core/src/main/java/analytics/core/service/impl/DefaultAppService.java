@@ -26,8 +26,9 @@ import analytics.core.util.TokenUtils;
 public class DefaultAppService extends BaseService implements AppService {
 
 	@Override
-	public Result createApp(String name, String description) {
+	public Result createApp(long userId, String name, String description) {
 		AppDO app = new AppDO();
+		app.setUserId(userId);
 		app.setName(name);
 		app.setDescription(description);
 		app.setToken(TokenUtils.generate());
@@ -38,19 +39,23 @@ public class DefaultAppService extends BaseService implements AppService {
 			appDAO.insertApp(app);
 		} catch (DAOException e) {
 			log.error("createApp Error.", e);
-			return Result.ERR.with(ErrorCode.Error_CreateApp);
+			return Result.newError().with(ErrorCode.Error_CreateApp);
 		}
-		return Result.SUCCESS.with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
 	@Override
-	public AppDO getAppDO(long appId) {
+	public Result getAppDO(long appId) {
 		try {
-			return appDAO.selectApp(appId);
+			AppDO app = appDAO.selectApp(appId);
+			if(app == null) {
+				return Result.newError().with(ErrorCode.Error_Query);
+			}
+			return Result.newSuccess().with(ErrorCode.Success).with("app", app);
 		} catch (DAOException e) {
 			log.error("getApp Error.", e);
 		}
-		return null;
+		return Result.newError().with(ErrorCode.Error_Query);
 	}
 
 	@Override
@@ -61,7 +66,7 @@ public class DefaultAppService extends BaseService implements AppService {
 			appDAO.deleteApp(app);
 			List<EventDO> appEvent = eventDAO.getAppEvent(appId);
 			if(CollectionUtil.isEmpty(appEvent)) {
-				return Result.SUCCESS.with(ErrorCode.Success);
+				return Result.newSuccess().with(ErrorCode.Success);
 			}
 			for (EventDO eventDO : appEvent) {
 				eventDAO.deleteEvent(eventDO);
@@ -76,18 +81,22 @@ public class DefaultAppService extends BaseService implements AppService {
 			}
 		} catch (DAOException e) {
 			log.error("deleteApp Error.", e);
-			return Result.ERR.with(ErrorCode.Error_DeleteApp);
+			return Result.newError().with(ErrorCode.Error_DeleteApp);
 		}
-		return Result.SUCCESS.with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
 	@Override
-	public List<AppDO> getAllApp() {
+	public Result getAllApp() {
 		try {
-			return appDAO.selectAll();
+			List<AppDO> allApp =  appDAO.selectAll();
+			if(CollectionUtil.isEmpty(allApp)) {
+				return Result.newError().with(ErrorCode.Error_Query);
+			}
+			return Result.newSuccess().with(ErrorCode.Success).with("allApp", allApp);
 		} catch (DAOException e) {
 			log.error("getAllApp Error.", e);
 		}
-		return null;
+		return Result.newError().with(ErrorCode.Error_Query);
 	}
 }

@@ -5,6 +5,7 @@ import analytics.core.dao.EventDAO;
 import analytics.core.dao.LabelDAO;
 import analytics.core.dao.ModelDAO;
 import analytics.core.dao.StatsDAO;
+import analytics.core.dao.UserDAO;
 
 /**
  * 
@@ -18,6 +19,7 @@ public class SynSource {
 	protected LabelDAO labelDAO;
 	protected ModelDAO modelDAO;
 	protected StatsDAO statsDAO;
+	protected UserDAO userDAO;
 	
 	public void initialize(SynSourceInitialize initialize) {
 		initialize.initialize(this);
@@ -41,6 +43,10 @@ public class SynSource {
 
 	public void setStatsDAO(StatsDAO statsDAO) {
 		this.statsDAO = statsDAO;
+	}
+	
+	public void setUserDAO(UserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
 	
 	public interface SynSourceInitialize {

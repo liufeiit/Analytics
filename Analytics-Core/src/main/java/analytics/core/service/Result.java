@@ -1,7 +1,10 @@
 package analytics.core.service;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
+import analytics.core.dataobject.UserDO;
 import analytics.core.util.ErrorCode;
 
 /**
@@ -14,12 +17,11 @@ public class Result implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final Result SUCCESS = Result.newInstance(true);
-	public static final Result ERR = Result.newInstance(false);
-	
 	private boolean success;
 	private String message;
 	private int errorCode;
+	
+	private final Map<String, Object> data = new HashMap<String, Object>();
 	
 	public Result() {
 		this(false);
@@ -30,8 +32,26 @@ public class Result implements Serializable {
 		this.success = success;
 	}
 	
-	public static Result newInstance(boolean success) {
-		return new Result(success);
+	public static Result newError() {
+		return new Result(false);
+	}
+	
+	public static Result newSuccess() {
+		return new Result(true);
+	}
+	
+	public Result withUser(UserDO user) {
+		data.put("user", user);
+		return this;
+	}
+	
+	public UserDO getUser() {
+		return (UserDO) data.get("user");
+	}
+	
+	public Result with(String key, Object value) {
+		data.put(key, value);
+		return this;
 	}
 	
 	public Result with(ErrorCode errorCode) {

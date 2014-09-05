@@ -1,9 +1,5 @@
 package analytics.core.service;
 
-import java.util.List;
-
-import analytics.core.dataobject.LabelDO;
-
 /**
  * 
  * @author 刘飞 E-mail:liufei_it@126.com
@@ -14,5 +10,5 @@ public interface LabelService {
 
 	Result createLabel(long eventId, long modelId, String name, String description);
 	
-	List<LabelDO> getEventLabel(long eventId);
+	Result getEventLabel(long eventId);
 }

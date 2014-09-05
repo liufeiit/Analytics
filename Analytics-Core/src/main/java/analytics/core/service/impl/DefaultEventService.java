@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import tulip.util.CollectionUtil;
 import analytics.core.dao.DAOException;
 import analytics.core.dataobject.EventDO;
 import analytics.core.service.BaseService;
@@ -34,18 +35,22 @@ public class DefaultEventService extends BaseService implements EventService {
 			eventDAO.insertEvent(event);
 		} catch (DAOException e) {
 			log.error("CreateEvent Error.", e);
-			return Result.ERR.with(ErrorCode.Error_CreateEvent);
+			return Result.newError().with(ErrorCode.Error_CreateEvent);
 		}
-		return Result.SUCCESS.with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
 	@Override
-	public List<EventDO> getAppEvent(long appId) {
+	public Result getAppEvent(long appId) {
 		try {
-			return eventDAO.getAppEvent(appId);
+			List<EventDO> appEvent =  eventDAO.getAppEvent(appId);
+			if(CollectionUtil.isEmpty(appEvent)) {
+				return Result.newError().with(ErrorCode.Error_Query);
+			}
+			return Result.newSuccess().with(ErrorCode.Success).with("appEvent", appEvent);
 		} catch (DAOException e) {
 			log.error("getAppEvent Error.", e);
 		}
-		return null;
+		return Result.newError().with(ErrorCode.Error_Query);
 	}
 }

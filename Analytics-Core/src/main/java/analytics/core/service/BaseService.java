@@ -18,6 +18,7 @@ import analytics.core.dao.EventDAO;
 import analytics.core.dao.LabelDAO;
 import analytics.core.dao.ModelDAO;
 import analytics.core.dao.StatsDAO;
+import analytics.core.dao.UserDAO;
 import analytics.core.service.syn.SynSource;
 import analytics.core.service.syn.SynSource.SynSourceInitialize;
 
@@ -46,6 +47,9 @@ public abstract class BaseService implements SynSourceInitialize, InitializingBe
 	@Autowired
 	@Qualifier(value="statsDAO")
 	protected StatsDAO statsDAO;
+	@Autowired
+	@Qualifier(value="userDAO")
+	protected UserDAO userDAO;
 	
 	protected ApplicationContext application;
 	protected ApplicationEventPublisher publisher;
@@ -58,6 +62,7 @@ public abstract class BaseService implements SynSourceInitialize, InitializingBe
 		source.setLabelDAO(labelDAO);
 		source.setModelDAO(modelDAO);
 		source.setStatsDAO(statsDAO);
+		source.setUserDAO(userDAO);
 	}
 	
 	@Override
@@ -109,5 +114,9 @@ public abstract class BaseService implements SynSourceInitialize, InitializingBe
 	
 	public void setStatsDAO(StatsDAO statsDAO) {
 		this.statsDAO = statsDAO;
+	}
+	
+	public void setUserDAO(UserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
 }

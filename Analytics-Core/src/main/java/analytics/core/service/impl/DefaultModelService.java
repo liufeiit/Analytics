@@ -32,18 +32,22 @@ public class DefaultModelService extends BaseService implements ModelService {
 			modelDAO.insertModel(m);
 		} catch (DAOException e) {
 			log.error("CreateModel Error.", e);
-			return Result.ERR.with(ErrorCode.Error_CreateModel);
+			return Result.newError().with(ErrorCode.Error_CreateModel);
 		}
-		return Result.SUCCESS.with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
 	@Override
-	public ModelDO getModel(long modelId) {
+	public Result getModel(long modelId) {
 		try {
-			return modelDAO.selectModel(modelId);
+			ModelDO model = modelDAO.selectModel(modelId);
+			if(model == null) {
+				return Result.newError().with(ErrorCode.Error_Query);
+			}
+			return Result.newSuccess().with(ErrorCode.Success).with("model", model);
 		} catch (DAOException e) {
 			log.error("getModel Error.", e);
 		}
-		return null;
+		return Result.newError().with(ErrorCode.Error_Query);
 	}
 }

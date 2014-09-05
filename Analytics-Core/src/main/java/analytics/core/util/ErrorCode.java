@@ -21,6 +21,15 @@ public enum ErrorCode {
 	Error_CreateLabel(-700, "创建应用统计事件的分类失败"),
 
 	Error_CreateModel(-800, "创建应用统计事件的分类展示模型失败"),
+
+	Error_CreateUser(-1000, "创建用户失败"),
+	
+	Error_UserLogin(-2000, "用户登录失败"),
+	Error_NonUser(-2001, "用户不存在"),
+	Error_ErrPasswd(-2002, "密码错误"),
+	
+
+	Error_Query(-3000, "查询失败"),
 	;
 	public final int code;
 	public final String description;
