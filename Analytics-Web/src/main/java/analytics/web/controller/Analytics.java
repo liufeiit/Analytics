@@ -26,11 +26,7 @@ public class Analytics extends BaseController {
 		String token = request.getParameter("token");
 		long labelId = NumberUtils.toLong(request.getParameter("label_id"), -1L);
 		int accumulation = NumberUtils.toInt(request.getParameter("accumulation"), -1);
-		Result result = analyticsService.checkPermission(appId, token);
-		if(!result.isSuccess()) {
-			return returnView(mv, result);
-		}
-		result = analyticsService.event(labelId, accumulation);
+		Result result = analyticsService.event(appId, token, labelId, accumulation);
 		if(!result.isSuccess()) {
 			return returnView(mv, result);
 		}

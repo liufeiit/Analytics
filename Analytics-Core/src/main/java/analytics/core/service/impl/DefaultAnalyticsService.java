@@ -24,12 +24,16 @@ import analytics.core.util.ErrorCode;
 public class DefaultAnalyticsService extends BaseService implements AnalyticsService {
 
 	@Override
-	public Result event(long labelId, int accumulation) {
+	public Result event(long appId, String token, long labelId, int accumulation) {
 		if(labelId <= 0L) {
 			return Result.newError().with(ErrorCode.Error_LabelID);
 		}
 		if(accumulation <= 0) {
 			return Result.newError().with(ErrorCode.Error_Accumulation);
+		}
+		Result result = checkPermission(appId, token);
+		if(!result.isSuccess()) {
+			return result;
 		}
 		SynEventTask task = new SynEventTask(new Date(), TaskCommand.Event);
 		task.initialize(this);

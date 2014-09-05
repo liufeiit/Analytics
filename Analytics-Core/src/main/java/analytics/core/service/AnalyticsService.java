@@ -9,7 +9,7 @@ package analytics.core.service;
  */
 public interface AnalyticsService {
 	
-	Result event(long labelId, int accumulation);
+	Result event(long appId, String token, long labelId, int accumulation);
 	
 	Result checkPermission(long appId, String token);
 }
