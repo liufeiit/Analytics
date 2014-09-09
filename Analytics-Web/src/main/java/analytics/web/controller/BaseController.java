@@ -62,9 +62,17 @@ public class BaseController {
 	}
 	
 	protected ModelAndView post(String action, Map<String, Object> data) {
+		return post(action, data, false, null);
+	}
+	
+	protected ModelAndView post(String action, Map<String, Object> data, boolean alert, String alertMsg) {
 		ModelAndView mv = new ModelAndView("post");
 		mv.addObject("data", data);
 		mv.addObject("action", action);
+		if(alert) {
+			mv.addObject("alert", alert);
+			mv.addObject("alertMsg", alertMsg);
+		}
 		return mv;
 	}
 }

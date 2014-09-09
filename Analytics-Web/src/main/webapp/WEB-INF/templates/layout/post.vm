@@ -4,12 +4,15 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=8" />
         <meta charset="UTF-8">
-        <title>统计分析系统 - 定位中...</title>
+        <title>统计分析系统 - 登录中...</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <script src="js/jquery.min.js"></script>
 		<script type="text/javascript">
             $(document).ready(function(){
-				 document.posting.submit();
+				#if($!alert)
+					alert("$!alertMsg");
+				#end
+				document.posting.submit();
             });
 		</script>
 		<style type="text/css">

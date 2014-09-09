@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,14 +22,14 @@ import analytics.core.service.Result;
 public class Home extends BaseController {
 	
 	@RequestMapping(value = "/index.htm")
-	public ModelAndView loginpage(HttpServletRequest request) {
+	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("login");
 		mv.addObject("errorMsg", request.getParameter("errorMsg"));
 		return mv;
 	}
 	
 	@RequestMapping(value = "/login.htm")
-	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView login(HttpServletRequest request) {
 		Map<String, Object> data = new HashMap<String, Object>();
 		String name = request.getParameter("name");
 		data.put("name", name);
@@ -40,12 +39,13 @@ public class Home extends BaseController {
 			return post("home.htm", data);
 		}
 		data.put("errorMsg", result.getMessage());
-		return post("index.htm", data);
+		return post("index.htm", data, true, result.getMessage());
 	}
 	
 	@RequestMapping(value = "/home.htm")
-	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView home(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("home");
+		mv.addObject("name", request.getParameter("name"));
 		return mv;
 	}
 }
