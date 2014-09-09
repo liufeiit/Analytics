@@ -2,12 +2,15 @@ package analytics.web.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.servlet.ModelAndView;
 
+import analytics.core.dataobject.UserDO;
 import analytics.core.service.AnalyticsService;
 import analytics.core.service.AppService;
 import analytics.core.service.EventService;
@@ -15,6 +18,7 @@ import analytics.core.service.LabelService;
 import analytics.core.service.ModelService;
 import analytics.core.service.Result;
 import analytics.core.service.UserService;
+import analytics.web.util.Static;
 
 /**
  * 
@@ -23,7 +27,7 @@ import analytics.core.service.UserService;
  * @since 2014年8月25日 下午1:55:47
  */
 public class BaseController {
-	
+
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	@Autowired
@@ -75,5 +79,9 @@ public class BaseController {
 			mv.addObject("alertMsg", alertMsg);
 		}
 		return mv;
+	}
+	
+	protected void setUser(HttpSession session, UserDO user) {
+		session.setAttribute(Static.ONLINE_USER, user);
 	}
 }
