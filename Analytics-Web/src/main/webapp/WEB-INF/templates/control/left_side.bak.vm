@@ -10,8 +10,10 @@
 			</div>
 		</div>
 		<ul class="sidebar-menu">
+			
 			#*
 			CSS字体列表
+			
 			fa-dashboard
 			fa-th
 			fa-bar-chart-o
@@ -21,6 +23,7 @@
 			fa-calendar
 			fa-envelope
 			fa-folder
+			
 			*#
 			<li class="active">
 				<a href="#">
