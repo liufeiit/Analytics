@@ -36,10 +36,10 @@ public class Home extends BaseController {
 		String passwd = request.getParameter("passwd");
 		Result result = userService.login(name, passwd);
 		if(result.isSuccess()) {
-			return post("home.htm", data);
+			return post("home.htm", data, "登录中...");
 		}
 		data.put("errorMsg", result.getMessage());
-		return post("index.htm", data, true, result.getMessage());
+		return post("index.htm", data, true, result.getMessage(), "登录中...");
 	}
 	
 	@RequestMapping(value = "/home.htm")

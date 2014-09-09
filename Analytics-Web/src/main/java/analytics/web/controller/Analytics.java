@@ -31,6 +31,5 @@ public class Analytics extends BaseController {
 			return returnView(mv, result);
 		}
 		return returnView(mv, result);
-		
 	}
 }
