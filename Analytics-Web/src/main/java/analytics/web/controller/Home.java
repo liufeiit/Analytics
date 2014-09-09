@@ -36,6 +36,7 @@ public class Home extends BaseController {
 		String passwd = request.getParameter("passwd");
 		Result result = userService.login(name, passwd);
 		if(result.isSuccess()) {
+			data.put("uid", result.getUser().getId());
 			return post("home.htm", data, "登录中...");
 		}
 		data.put("errorMsg", result.getMessage());
