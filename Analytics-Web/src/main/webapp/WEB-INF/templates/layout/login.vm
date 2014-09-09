@@ -11,6 +11,6 @@
         <script src="js/adpacks.js"></script>
     </head>
     <body style="background-color: #FFFFFF; margin: 0px auto; padding: 0px;width: 100%">
-		$screen_placeholder
+		$!screen_placeholder
     </body>
 </html>

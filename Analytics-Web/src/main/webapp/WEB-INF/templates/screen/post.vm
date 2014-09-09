@@ -1,0 +1,5 @@
+<form name="posting" action="$!action" method="post">
+	#foreach($field in $data.entrySet())
+        <input type="hidden" name="$!field.getKey()" value="$!field.getValue()"/>
+    #end
+</form>

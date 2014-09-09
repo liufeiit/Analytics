@@ -2,6 +2,8 @@ package analytics.core.service.impl;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Service;
+
 import tulip.util.StringUtil;
 import analytics.core.dao.DAOException;
 import analytics.core.dataobject.UserDO;
@@ -17,6 +19,7 @@ import analytics.core.util.PasswdUtil;
  * @version 1.0
  * @since 2014年9月5日 上午11:10:30
  */
+@Service("userService")
 public class DefaultUserService extends BaseService implements UserService {
 
 	@Override
@@ -37,6 +40,10 @@ public class DefaultUserService extends BaseService implements UserService {
 			return Result.newError().with(ErrorCode.Error_CreateUser);
 		}
 		return Result.newSuccess().with(ErrorCode.Success);
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(PasswdUtil.signPwsswd("liufei1229"));
 	}
 
 	@Override

@@ -38,7 +38,7 @@
         			</ol>
         		</section>
         		<section class="content">
-        			$screen_placeholder
+        			$!screen_placeholder
         		</section>
         	</aside>
         </div>

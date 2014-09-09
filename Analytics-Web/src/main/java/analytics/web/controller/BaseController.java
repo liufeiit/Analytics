@@ -1,5 +1,7 @@
 package analytics.web.controller;
 
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import analytics.core.service.EventService;
 import analytics.core.service.LabelService;
 import analytics.core.service.ModelService;
 import analytics.core.service.Result;
+import analytics.core.service.UserService;
 
 /**
  * 
@@ -47,10 +50,21 @@ public class BaseController {
 	@Qualifier(value = "modelService")
 	protected ModelService modelService;
 
+	@Autowired
+	@Qualifier(value = "userService")
+	protected UserService userService;
+
 	protected ModelAndView returnView(ModelAndView mv, Result result) {
 		mv.addObject("success", result.isSuccess());
 		mv.addObject("message", result.getMessage());
 		mv.addObject("errorCode", result.getErrorCode());
+		return mv;
+	}
+	
+	protected ModelAndView post(String action, Map<String, Object> data) {
+		ModelAndView mv = new ModelAndView("post");
+		mv.addObject("data", data);
+		mv.addObject("action", action);
 		return mv;
 	}
 }

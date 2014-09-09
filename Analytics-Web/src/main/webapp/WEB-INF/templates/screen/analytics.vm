@@ -1,5 +1,5 @@
 {
-    "success" : ${success},
-    "message" : ${message},
-    "errorCode" : ${errorCode}
+    "success" : $!{success},
+    "message" : $!{message},
+    "errorCode" : $!{errorCode}
 }

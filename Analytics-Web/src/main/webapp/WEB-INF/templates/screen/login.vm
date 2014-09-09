@@ -1,11 +1,14 @@
-<form id="login">
+<form id="login" action="login.htm" method="post">
     <h1>统计分析</h1>
     <fieldset id="inputs">
-        <input id="username" type="text" placeholder="用户名" autofocus required>   
-        <input id="password" type="password" placeholder="密码" required>
+        <input id="username" name="name" type="text" placeholder="用户名" autofocus required>   
+        <input id="password" name="passwd" type="password" placeholder="密码" required>
     </fieldset>
     <fieldset id="actions">
         <input type="submit" id="submit" value="登录">
         <a href="">忘记密码?</a><a href="">注册</a>
     </fieldset>
+	<p style="color:#e60012;">
+		$!errorMsg
+    </p>
 </form>

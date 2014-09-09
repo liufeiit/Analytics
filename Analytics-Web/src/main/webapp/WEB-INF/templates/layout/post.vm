@@ -4,10 +4,28 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=8" />
         <meta charset="UTF-8">
-        <title>哎玛，出错啦！</title>
+        <title>统计分析系统 - 定位中...</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <script src="js/jquery.min.js"></script>
+		<script type="text/javascript">
+            $(document).ready(function(){
+				 document.posting.submit();
+            });
+		</script>
+		<style type="text/css">
+			#loading {
+				height: 100px;
+				width: 100px;
+				margin-right: auto;
+				margin-left: auto;
+				margin-top: 100px;
+			}
+        </style>
     </head>
     <body style="background-color: #FFFFFF; margin: 0px auto; padding: 0px;width: 100%">
 		$!screen_placeholder
+		<div id="loading">
+			<img src="image/ajax-loader1.gif"/>
+        </div>
     </body>
 </html>

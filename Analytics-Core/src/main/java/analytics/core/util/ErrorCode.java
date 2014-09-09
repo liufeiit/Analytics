@@ -38,4 +38,30 @@ public enum ErrorCode {
 		this.code = code;
 		this.description = description;
 	}
+	
+	public boolean eq(int code) {
+		return this.code == code;
+	}
+	
+	public boolean eq(ErrorCode code) {
+		return this.code == code.code;
+	}
+	
+	public static ErrorCode parse(int code) {
+		for(ErrorCode e : values()) {
+			if(e.code == code) {
+				return e;
+			}
+		}
+		return Error_UserLogin;
+	}
+	
+	public static String getMessage(int code) {
+		for(ErrorCode e : values()) {
+			if(e.code == code) {
+				return e.description;
+			}
+		}
+		return null;
+	}
 }
