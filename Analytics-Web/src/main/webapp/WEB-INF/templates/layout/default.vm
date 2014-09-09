@@ -24,9 +24,9 @@
 		
     </head>
     <body class="skin-blue" data-uid="${uid}" data-name="$!{name}">
-		$control.target("header")
+		$!control.with("name", $!{name}).target("header")
         <div class="wrapper row-offcanvas row-offcanvas-left">
-			$control.target("left_side")
+			$!control.with("name", $!{name}).target("left_side")
         	<aside class="right-side">
         		<section class="content-header">
         			<h1>
