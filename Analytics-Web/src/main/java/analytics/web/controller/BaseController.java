@@ -96,4 +96,12 @@ public class BaseController {
 	protected UserDO getUser(HttpServletRequest request) {
 		return (UserDO) request.getSession(true).getAttribute(Static.ONLINE_USER);
 	}
+	
+	protected long getUserId(HttpServletRequest request) {
+		UserDO user = getUser(request);
+		if(user == null) {
+			return -1L;
+		}
+		return user.getId();
+	}
 }

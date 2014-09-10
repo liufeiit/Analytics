@@ -40,7 +40,7 @@ public class Home extends BaseController {
 		Result result = userService.login(name, passwd);
 		if(result.isSuccess()) {
 			setUser(request, result.getUser());
-			return post("home.htm", data, "登录中...");
+			return post("apps.htm", data, "登录中...");
 		}
 		data.put("errorMsg", result.getMessage());
 		return post("index.htm", data, true, result.getMessage(), "登录中...");
@@ -54,7 +54,7 @@ public class Home extends BaseController {
 	
 	public static void main(String[] args) {
 		try {
-			URL url = new URL("http://127.0.0.1:8080/analytics/event?label_id=200&accumulation=200");
+			URL url = new URL("http://127.0.0.1:8080/analytics/create/app?name=nova_android&description=nova_android");
 			HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
 			httpConn.setRequestMethod("POST");
 			httpConn.setDoOutput(true);

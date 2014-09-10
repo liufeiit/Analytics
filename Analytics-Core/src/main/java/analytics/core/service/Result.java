@@ -54,6 +54,10 @@ public class Result implements Serializable {
 		return this;
 	}
 	
+	public Object get(String key) {
+		return data.get(key);
+	}
+	
 	public Result with(ErrorCode errorCode) {
 		errorCode(errorCode.code);
 		message(errorCode.description);
