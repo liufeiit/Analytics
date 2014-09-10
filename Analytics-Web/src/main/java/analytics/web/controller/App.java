@@ -36,6 +36,27 @@ public class App extends BaseController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/create_event.htm")
+	public ModelAndView create_event_page(HttpServletRequest request) {
+		ModelAndView mv = newViewWithUser(request, "create_event", "创建事件", "事件概况");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/create_label.htm")
+	public ModelAndView create_label_page(HttpServletRequest request) {
+		ModelAndView mv = newViewWithUser(request, "create_label", "创建标签", "标签概况");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/setting.htm")
+	public ModelAndView setting_page(HttpServletRequest request) {
+		ModelAndView mv = newViewWithUser(request, "setting", "设置", "设置概况");
+		
+		return mv;
+	}
+	
 	@RequestMapping(value = "/create/app")
 	public ModelAndView home(HttpServletRequest request) {
 		long userId = getUserId(request);
