@@ -22,7 +22,7 @@ public class App extends BaseController {
 	
 	@RequestMapping(value = "/apps.htm")
 	public ModelAndView apps(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUser(request, "apps");
+		ModelAndView mv = newViewWithUser(request, "apps", "应用", "应用概况");
 		Result result = appService.getAllApp();
 		mv.addObject("success", result.isSuccess());
 		mv.addObject("allApp", result.get("allApp"));
@@ -31,7 +31,7 @@ public class App extends BaseController {
 
 	@RequestMapping(value = "/create_app.htm")
 	public ModelAndView create_app_page(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUser(request, "create_app");
+		ModelAndView mv = newViewWithUser(request, "create_app", "创建应用", "应用概况");
 		
 		return mv;
 	}

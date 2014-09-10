@@ -31,108 +31,33 @@
 				</a>
 			</li>
 			
-			#*
 			<li>
 				<a href="#">
-					<i class="fa fa-th"></i>
-					<span>消息</span>
+					<i class="fa fa-bar-chart-o"></i>
+					<span>统计</span>
 					##<small class="badge pull-right bg-green">new</small>
 				</a>
 			</li>
-			*#
 			
 			<li class="treeview">
-				<a href="#"> <i class="fa fa-bar-chart-o"></i>
-					<span>统计</span> <i class="fa fa-angle-left pull-right"></i>
+				<a href="#"> <i class="fa fa-laptop"></i>
+					<span>管理</span> <i class="fa fa-angle-left pull-right"></i>
 				</a>
 				<ul class="treeview-menu">
 					<li>
-						<a href="#"><i class="fa fa-angle-double-right"></i>人数</a>
+						<a href="#"><i class="fa fa-angle-double-right"></i>添加事件</a>
 					</li>
 					<li>
-						<a href="#"><i class="fa fa-angle-double-right"></i>价值</a>
-					</li>
-					<li><a href="#"><i class="fa fa-angle-double-right"></i>次数</a>
-					</li>
-				</ul>
-			</li>
-			
-			<li class="treeview">
-				<a href="#">
-					<i class="fa fa-laptop"></i>
-					<span>秀场</span><i class="fa fa-angle-left pull-right"></i>
-				</a>
-				<ul class="treeview-menu">
-					<li>
-						<a href="#"><i class="fa fa-angle-double-right"></i>平均时间</a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-angle-double-right"></i>秀场数目</a>
-					</li>
-				</ul>
-			</li>
-			
-			<li class="treeview">
-				<a href="#">
-					<i class="fa fa-edit"></i>
-					<span>排队</span><i class="fa fa-angle-left pull-right"></i>
-				</a>
-				<ul class="treeview-menu">
-					<li>
-						<a href="#"><i class="fa fa-angle-double-right"></i>人数</a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-angle-double-right"></i>包月</a>
-					</li>
-				</ul>
-			</li>
-			
-			<li class="treeview">
-				<a href="#">
-					<i class="fa fa-table"></i>
-					<span>收入</span> <i class="fa fa-angle-left pull-right"></i>
-				</a>
-				<ul class="treeview-menu">
-					<li>
-						<a href="#"><i class="fa fa-angle-double-right"></i>91</a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-angle-double-right"></i>Apple</a>
+						<a href="#"><i class="fa fa-angle-double-right"></i>添加标签</a>
 					</li>
 				</ul>
 			</li>
 			
 			<li>
 				<a href="#">
-					<i class="fa fa-calendar"></i> <span>游戏</span>
-					##<small class="badge pull-right bg-red">3</small>
-				</a>
-			</li>
-			
-			<li>
-				<a href="#">
-					<i class="fa fa-envelope"></i><span>管理</span>
+					<i class="fa fa-edit"></i><span>设置</span>
 					##<small class="badge pull-right bg-yellow">12</small>
 				</a>
-			</li>
-			
-			<li class="treeview">
-				<a href="#">
-					<i class="fa fa-folder"></i><span>邀请</span>
-					<i class="fa fa-angle-left pull-right"></i>
-				</a>
-				<ul class="treeview-menu">
-					<li>
-						<a href="#">
-							<i class="fa fa-angle-double-right"></i>金币
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<i class="fa fa-angle-double-right"></i>在线
-						</a>
-					</li>
-				</ul>
 			</li>
 			
 		</ul>

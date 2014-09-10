@@ -40,7 +40,7 @@ public class Home extends BaseController {
 		Result result = userService.login(name, passwd);
 		if(result.isSuccess()) {
 			setUser(request, result.getUser());
-			return post("apps.htm", data, "登录中...");
+			return post("home.htm", data, "登录中...");
 		}
 		data.put("errorMsg", result.getMessage());
 		return post("index.htm", data, true, result.getMessage(), "登录中...");
@@ -48,7 +48,10 @@ public class Home extends BaseController {
 	
 	@RequestMapping(value = "/home.htm")
 	public ModelAndView home(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUser(request, "home");
+		ModelAndView mv = newViewWithUser(request, "home", "首页", "首页概况");
+		Result result = appService.getAllApp();
+		mv.addObject("success", result.isSuccess());
+		mv.addObject("allApp", result.get("allApp"));
 		return mv;
 	}
 	

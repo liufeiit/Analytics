@@ -22,19 +22,25 @@
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
         <script src="js/AdminLTE/app.js" type="text/javascript"></script>
 		
+		##皮肤设置
+		##<script src="js/AdminLTE/demo.js" type="text/javascript"></script>
+		
     </head>
-    <body class="skin-blue" data-uid="$!{uid}" data-name="$!{name}">
+    <body 
+		class="skin-blue"
+		##class="skin-black"
+		data-uid="$!{uid}" data-name="$!{name}">
 		$!control.with("uid", $!{uid}).with("name", $!{name}).target("header")
         <div class="wrapper row-offcanvas row-offcanvas-left">
 			$!control.with("uid", $!{uid}).with("name", $!{name}).target("left_side")
         	<aside class="right-side">
         		<section class="content-header">
         			<h1>
-        				首页<small>概况</small>
+        				$!{nav}<small>$!{nav_desc}</small>
         			</h1>
         			<ol class="breadcrumb">
-        				<li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
-        				<li class="active">首页</li>
+        				<li><a href="home.htm"><i class="fa fa-dashboard"></i>首页</a></li>
+        				<li class="active">$!{nav}</li>
         			</ol>
         		</section>
         		<section class="content">

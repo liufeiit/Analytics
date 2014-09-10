@@ -81,11 +81,14 @@ public class BaseController {
 		return mv;
 	}
 	
-	protected ModelAndView newViewWithUser(HttpServletRequest request, String name) {
+	protected ModelAndView newViewWithUser(HttpServletRequest request, String name, String nav, String nav_desc) {
 		ModelAndView mv = new ModelAndView(name);
 		UserDO user = getUser(request);
 		mv.addObject("name", user.getName());
 		mv.addObject("uid", user.getId());
+
+		mv.addObject("nav", nav);
+		mv.addObject("nav_desc", nav_desc);
 		return mv;
 	}
 	
