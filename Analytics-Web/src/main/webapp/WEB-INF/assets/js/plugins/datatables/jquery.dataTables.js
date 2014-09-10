@@ -4714,7 +4714,7 @@
 				}
 				else
 				{
-					throw new Error(sAlert);
+					//throw new Error(sAlert);
 				}
 				return;
 			}
