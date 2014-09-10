@@ -48,10 +48,13 @@
 						<a href="apps.htm"><i class="fa fa-angle-double-right"></i>所有应用</a>
 					</li>
 					<li>
-						<a href="create_event.htm"><i class="fa fa-angle-double-right"></i>添加事件</a>
+						<a href="create_app.htm"><i class="fa fa-angle-double-right"></i>创建应用</a>
 					</li>
 					<li>
-						<a href="create_label.htm"><i class="fa fa-angle-double-right"></i>添加标签</a>
+						<a href="create_event.htm"><i class="fa fa-angle-double-right"></i>创建事件</a>
+					</li>
+					<li>
+						<a href="create_label.htm"><i class="fa fa-angle-double-right"></i>创建标签</a>
 					</li>
 				</ul>
 			</li>

@@ -1,5 +1,7 @@
 package analytics.core.dataobject;
 
+import java.util.List;
+
 import tulip.data.annotation.Column;
 
 /**
@@ -21,6 +23,16 @@ public class AppDO extends BaseDO {
 	private String token;// 访问token，注册之后系统自动分配
 	@Column(name = "description")
 	private String description;// App描述
+	
+	private List<EventDO> eventList;
+
+	public List<EventDO> getEventList() {
+		return eventList;
+	}
+
+	public void setEventList(List<EventDO> eventList) {
+		this.eventList = eventList;
+	}
 
 	public long getUserId() {
 		return userId;

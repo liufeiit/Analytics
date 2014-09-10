@@ -12,5 +12,5 @@ public interface AppService {
 	
 	Result deleteApp(long appId);
 	
-	Result getAllApp();
+	Result getAllApp(boolean withEvent);
 }

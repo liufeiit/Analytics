@@ -10,20 +10,24 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">您的应用</h3>
-            </div><!-- /.box-header -->
+            </div>
             <div class="box-body table-responsive">
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>项目名称</th>
+                            <th>应用ID</th>
+                            <th>应用名称</th>
                             <th>Token</th>
-                            <th>项目描述</th>
+                            <th>应用描述</th>
                         </tr>
                     </thead>
                     <tbody>
                         #if($!{success})
                     		#foreach($app in $allApp)
                     			<tr >
+                            		<td >
+                            			$app.id
+                                    </td>
                             		<td >
                             			<a href="#" target="_self">
 											$app.name
@@ -49,6 +53,7 @@
 					#*
                     <tfoot>
                         <tr>
+                            <th>应用ID</th>
                             <th>项目名称</th>
                             <th>Token</th>
                             <th>项目描述</th>

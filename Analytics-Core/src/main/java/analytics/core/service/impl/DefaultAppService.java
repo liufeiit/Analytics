@@ -87,11 +87,20 @@ public class DefaultAppService extends BaseService implements AppService {
 	}
 
 	@Override
-	public Result getAllApp() {
+	public Result getAllApp(boolean withEvent) {
 		try {
 			List<AppDO> allApp =  appDAO.selectAll();
 			if(CollectionUtil.isEmpty(allApp)) {
 				return Result.newError().with(ErrorCode.Error_Query);
+			}
+			if(withEvent) {
+				for (AppDO appDO : allApp) {
+					try {
+						appDO.setEventList(eventDAO.getAppEvent(appDO.getId()));
+					} catch (Exception e) {
+						log.error("getAppEvent Error.", e);
+					}
+				}
 			}
 			return Result.newSuccess().with(ErrorCode.Success).with("allApp", allApp);
 		} catch (DAOException e) {

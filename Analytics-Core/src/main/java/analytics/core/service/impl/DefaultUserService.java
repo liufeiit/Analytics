@@ -43,7 +43,7 @@ public class DefaultUserService extends BaseService implements UserService {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(PasswdUtil.signPwsswd("liufei1229"));
+		System.out.println(PasswdUtil.signPwsswd("Ruoogle90an"));
 	}
 
 	@Override

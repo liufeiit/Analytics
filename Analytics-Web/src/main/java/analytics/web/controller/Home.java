@@ -49,7 +49,7 @@ public class Home extends BaseController {
 	@RequestMapping(value = "/home.htm")
 	public ModelAndView home(HttpServletRequest request) {
 		ModelAndView mv = newViewWithUser(request, "home", "首页", "首页概况");
-		Result result = appService.getAllApp();
+		Result result = appService.getAllApp(false);
 		mv.addObject("success", result.isSuccess());
 		mv.addObject("allApp", result.get("allApp"));
 		return mv;
