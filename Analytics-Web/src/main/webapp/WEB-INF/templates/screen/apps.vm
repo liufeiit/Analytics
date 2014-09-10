@@ -1,8 +1,3 @@
-<h4 >
-	亲爱的<label>$!{name}</label>，您好！欢迎登录统计系统！
-</h4>
-	
-
 <link href="css/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 
 <div class="row">
@@ -43,7 +38,7 @@
                     		#end
                     	#else
                     	<tr >
-                    		<td colspan="3">
+                    		<td colspan="4">
                     			您还没有任何应用
                             </td>
                         </tr>
