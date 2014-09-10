@@ -2,7 +2,7 @@ package analytics.web.controller;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,7 +81,19 @@ public class BaseController {
 		return mv;
 	}
 	
-	protected void setUser(HttpSession session, UserDO user) {
-		session.setAttribute(Static.ONLINE_USER, user);
+	protected ModelAndView newViewWithUser(HttpServletRequest request, String name) {
+		ModelAndView mv = new ModelAndView(name);
+		UserDO user = getUser(request);
+		mv.addObject("name", user.getName());
+		mv.addObject("uid", user.getId());
+		return mv;
+	}
+	
+	protected void setUser(HttpServletRequest request, UserDO user) {
+		request.getSession(true).setAttribute(Static.ONLINE_USER, user);
+	}
+	
+	protected UserDO getUser(HttpServletRequest request) {
+		return (UserDO) request.getSession(true).getAttribute(Static.ONLINE_USER);
 	}
 }

@@ -1,5 +1,9 @@
 package analytics.web.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,13 +37,11 @@ public class Home extends BaseController {
 	public ModelAndView login(HttpServletRequest request) {
 		Map<String, Object> data = new HashMap<String, Object>();
 		String name = request.getParameter("name");
-		data.put("name", name);
 		String passwd = request.getParameter("passwd");
 		Result result = userService.login(name, passwd);
 		if(result.isSuccess()) {
 			UserDO user = result.getUser();
-			setUser(request.getSession(true), user);
-			data.put("uid", user.getId());
+			setUser(request, user);
 			return post("home.htm", data, "登录中...");
 		}
 		data.put("errorMsg", result.getMessage());
@@ -48,8 +50,31 @@ public class Home extends BaseController {
 	
 	@RequestMapping(value = "/home.htm")
 	public ModelAndView home(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("home");
-		mv.addObject("name", request.getParameter("name"));
+		ModelAndView mv = newViewWithUser(request, "home");
 		return mv;
+	}
+	
+	public static void main(String[] args) {
+		try {
+			URL url = new URL("http://127.0.0.1:8080/analytics/event?label_id=200&accumulation=200");
+			HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+			httpConn.setRequestMethod("POST");
+			httpConn.setDoOutput(true);
+			String params = "{\"label_id\":\"200\",\"accumulation\"=\"200\"}";
+			byte[] b = params.toString().getBytes();// 和get的方法一样的
+			httpConn.getOutputStream().write(b, 0, b.length);
+			httpConn.getOutputStream().flush();
+			httpConn.getOutputStream().close();
+			InputStreamReader l_urlStream = new InputStreamReader(httpConn.getInputStream(), "UTF-8");
+			BufferedReader l_reader = new BufferedReader(l_urlStream);
+			String sCurrentLine = "";
+			String responseStr = "";
+			while ((sCurrentLine = l_reader.readLine()) != null) {
+				responseStr += sCurrentLine;
+			}
+			System.out.println(responseStr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

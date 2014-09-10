@@ -38,7 +38,7 @@ public class OnlineFilter implements Filter {
 		String reqURL = request.getRequestURL().toString();
 		HttpServletResponse response = (HttpServletResponse) resp;
 		Object data = request.getSession().getAttribute(Static.ONLINE_USER);
-		if(!(reqURL.contains("login.htm") || reqURL.contains("index.htm")) && data == null) {
+		if(!(reqURL.contains("login.htm") || reqURL.contains("index.htm") || reqURL.contains("analytics/event")) && data == null) {
 			response.sendRedirect("index.htm");
 			log.error("用户session失效，重新登录！");
 			return;

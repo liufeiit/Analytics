@@ -10,6 +10,7 @@
 			</div>
 		</div>
 		<ul class="sidebar-menu">
+			
 			#*
 			CSS字体列表
 			fa-dashboard
@@ -22,8 +23,9 @@
 			fa-envelope
 			fa-folder
 			*#
+			
 			<li class="active">
-				<a href="#">
+				<a href="home.htm">
 					<i class="fa fa-dashboard"></i>
 					<span>首页</span>
 				</a>
@@ -41,7 +43,7 @@
 			
 			<li class="treeview">
 				<a href="#"> <i class="fa fa-bar-chart-o"></i>
-					<span>管理</span> <i class="fa fa-angle-left pull-right"></i>
+					<span>统计</span> <i class="fa fa-angle-left pull-right"></i>
 				</a>
 				<ul class="treeview-menu">
 					<li>
@@ -52,7 +54,9 @@
 					</li>
 					<li><a href="#"><i class="fa fa-angle-double-right"></i>次数</a>
 					</li>
-				</ul></li>
+				</ul>
+			</li>
+			
 			<li class="treeview">
 				<a href="#">
 					<i class="fa fa-laptop"></i>
