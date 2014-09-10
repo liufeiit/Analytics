@@ -3,6 +3,7 @@ package analytics.core.dataobject;
 import java.util.List;
 
 import tulip.data.annotation.Column;
+import tulip.util.CollectionUtil;
 
 /**
  * 
@@ -32,6 +33,10 @@ public class AppDO extends BaseDO {
 
 	public void setEventList(List<EventDO> eventList) {
 		this.eventList = eventList;
+	}
+	
+	public boolean hasEvent() {
+		return !CollectionUtil.isEmpty(eventList);
 	}
 
 	public long getUserId() {

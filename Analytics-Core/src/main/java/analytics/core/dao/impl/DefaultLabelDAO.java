@@ -68,7 +68,7 @@ public class DefaultLabelDAO extends BaseDAO implements LabelDAO {
 	@Override
 	public List<LabelDO> getEventLabel(long eventId) throws DAOException {
 		try {
-			return jdbcTemplate.queryForList(SELECT_EVENT_LABEL_SQL, BeanParameterMapper.newSingleParameterMapper("event_id", eventId), LabelDO.class);
+			return jdbcTemplate.query(SELECT_EVENT_LABEL_SQL, BeanParameterMapper.newSingleParameterMapper("event_id", eventId), BeanRowMapper.newInstance(LabelDO.class));
 		} catch (DataAccessException e) {
 			log.error("getEventLabel Error.", e);
 			throw new DAOException("getEventLabel Error.", e);

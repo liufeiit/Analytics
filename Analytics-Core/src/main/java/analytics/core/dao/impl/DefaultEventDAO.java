@@ -68,7 +68,7 @@ public class DefaultEventDAO extends BaseDAO implements EventDAO {
 	@Override
 	public List<EventDO> getAppEvent(long appId) throws DAOException {
 		try {
-			return jdbcTemplate.queryForList(SELECT_APP_EVENT_SQL, BeanParameterMapper.newSingleParameterMapper("app_id", appId), EventDO.class);
+			return jdbcTemplate.query(SELECT_APP_EVENT_SQL, BeanParameterMapper.newSingleParameterMapper("app_id", appId), BeanRowMapper.newInstance(EventDO.class));
 		} catch (DataAccessException e) {
 			log.error("getAppEvent Error.", e);
 			throw new DAOException("getAppEvent Error.", e);
