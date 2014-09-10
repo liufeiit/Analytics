@@ -2,52 +2,47 @@ package analytics.web.handler;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.web.filter.GenericFilterBean;
 
 import analytics.web.util.Static;
 
 /**
- * 
  * @author 刘飞 E-mail:liufei_it@126.com
  * @version 1.0
  * @since 2014年9月9日 下午5:47:15
  */
-public class OnlineFilter implements Filter {
+public class OnlineFilter extends GenericFilterBean {
 
-	private final Log log = LogFactory.getLog(getClass());
-
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		
-	}
+	private final static String[] INGORE_URLS = new String[] { "login.htm", "index.htm", "analytics/event" };
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException,
 			ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
-		String reqURL = request.getRequestURL().toString();
 		HttpServletResponse response = (HttpServletResponse) resp;
 		Object data = request.getSession().getAttribute(Static.ONLINE_USER);
-		if(!(reqURL.contains("login.htm") || reqURL.contains("index.htm") || reqURL.contains("analytics/event")) && data == null) {
-			response.sendRedirect("index.htm");
-			log.error("用户session失效，重新登录！");
+		if (!(isIngore(request)) && data == null) {
+			response.sendRedirect(INGORE_URLS[1]);
 			return;
 		}
 		chain.doFilter(request, response);
 	}
 
-	@Override
-	public void destroy() {
-		
+	private boolean isIngore(HttpServletRequest request) {
+		String reqURL = request.getRequestURL().toString();
+		for (String url : INGORE_URLS) {
+			if (StringUtils.contains(reqURL, url)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

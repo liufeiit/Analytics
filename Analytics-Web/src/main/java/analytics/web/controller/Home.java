@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import analytics.core.dataobject.UserDO;
 import analytics.core.service.Result;
 
 /**
@@ -40,8 +39,7 @@ public class Home extends BaseController {
 		String passwd = request.getParameter("passwd");
 		Result result = userService.login(name, passwd);
 		if(result.isSuccess()) {
-			UserDO user = result.getUser();
-			setUser(request, user);
+			setUser(request, result.getUser());
 			return post("home.htm", data, "登录中...");
 		}
 		data.put("errorMsg", result.getMessage());
