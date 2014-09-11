@@ -21,7 +21,7 @@ import analytics.web.util.Static;
  */
 public class OnlineFilter extends GenericFilterBean {
 
-	private final static String[] INGORE_URLS = new String[] { "login.htm", "index.htm", "analytics/event" };
+	private final static String[] INGORE_URLS = new String[] { "login.htm", "index.htm", "analytics/event", "/image/", "/js/", "/css/", "/fonts/" };
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException,

@@ -1,13 +1,11 @@
 $(function() {
 	
-	/*for (var i = 0; i < 14; i += 0.5) {
-		sin.push([ i, Math.sin(i) ]);
-	}*/
-	var line_data1 = {
+	var line_data = {
 		data : sin,
 		color : "#3c8dbc"
 	};
-	$.plot("#line-analytis", [ line_data1 ], {
+	
+	$.plot("#line-analytis", [ line_data ], {
 		grid : {
 			hoverable : true,
 			borderColor : "#f3f3f3",
@@ -22,7 +20,7 @@ $(function() {
 			points : {
 				show : true
 			},
-			label : "统计"
+			label : "Analytis"
 		},
 		lines : {
 			fill : false,
@@ -47,7 +45,7 @@ $(function() {
 					var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
 					$("#line-chart-tooltip")
 					.html(item.series.label + " of " + x + " = " + y)
-					.css({top : item.pageY + 5, left : item.pageX + 5}).fadeIn(200);
+					.css({top : item.pageY + 5, left : item.pageX + 5}).fadeIn(300);
 				} else {
 					$("#line-chart-tooltip").hide();
 				}
