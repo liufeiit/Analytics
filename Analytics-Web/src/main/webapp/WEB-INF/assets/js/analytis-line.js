@@ -1,18 +1,13 @@
 $(function() {
-	var sin = [], cos = [];
-	for (var i = 0; i < 14; i += 0.5) {
+	
+	/*for (var i = 0; i < 14; i += 0.5) {
 		sin.push([ i, Math.sin(i) ]);
-		cos.push([ i, Math.cos(i) ]);
-	}
+	}*/
 	var line_data1 = {
 		data : sin,
 		color : "#3c8dbc"
 	};
-	var line_data2 = {
-		data : cos,
-		color : "#00c0ef"
-	};
-	$.plot("#line-analytis", [ line_data1, line_data2 ], {
+	$.plot("#line-analytis", [ line_data1 ], {
 		grid : {
 			hoverable : true,
 			borderColor : "#f3f3f3",
@@ -31,7 +26,7 @@ $(function() {
 		},
 		lines : {
 			fill : false,
-			color : [ "#3c8dbc", "#f56954" ]
+			color : [ "#3c8dbc" ]
 		},
 		yaxis : {
 			show : true,
