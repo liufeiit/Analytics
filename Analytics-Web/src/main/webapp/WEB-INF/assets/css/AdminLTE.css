@@ -26,6 +26,15 @@ a:focus {
   text-decoration: none;
   color: #72afd2;
 }
+select {
+	cursor: pointer;
+}
+optgroup {
+	cursor: pointer;
+}
+option {
+	cursor: pointer;
+}
 /* Layouts */
 .wrapper {
   min-height: 100%;
