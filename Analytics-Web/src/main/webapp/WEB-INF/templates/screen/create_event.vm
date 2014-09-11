@@ -9,7 +9,7 @@
                     <label for="app">所属应用</label>
 					<div class="input-group">
                         <div class="input-group-addon">
-                            <i class="fa fa-laptop"></i>
+                            <i class="fa fa-edit"></i>
                         </div>
                         <select class="form-control" name="app_id">
     						<optgroup label="请选择所属应用">
@@ -28,7 +28,7 @@
                     <label for="name">事件名称</label>
 					<div class="input-group">
                         <div class="input-group-addon">
-                            <i class="fa fa-laptop"></i>
+                            <i class="fa fa-edit"></i>
                         </div>
                         <input name="name" type="text" class="form-control" id="name" placeholder="事件名称">
                     </div>
@@ -37,7 +37,7 @@
                     <label for="description">事件描述</label>
 					<div class="input-group">
                         <div class="input-group-addon">
-                            <i class="fa fa-laptop"></i>
+                            <i class="fa fa-edit"></i>
                         </div>
                         <input name="description" type="text" class="form-control" id="description" placeholder="事件描述">
                     </div>
