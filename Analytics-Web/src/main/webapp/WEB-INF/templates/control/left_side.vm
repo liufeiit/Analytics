@@ -61,7 +61,7 @@
 			
 			<li>
 				<a href="setting.htm">
-					<i class="fa fa-edit"></i><span>设置</span>
+					<i class="fa fa-gear"></i><span>设置</span>
 					##<small class="badge pull-right bg-yellow">12</small>
 				</a>
 			</li>

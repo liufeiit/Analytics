@@ -21,18 +21,18 @@
                     		#foreach($app in $allApp)
                     			<tr >
                             		<td >
-                            			$app.id
+                            			$!{app.id}
                                     </td>
                             		<td >
-                            			<a href="#" target="_self">
-											$app.name
+                            			<a href="app_detail.htm?id=$!{app.id}" target="_self">
+											$!{app.name}
                                         </a>
                                     </td>
                             		<td >
-										$app.token
+										$!{app.token}
                                     </td>
                             		<td >
-										$app.description
+										$!{app.description}
                                     </td>
                                 </tr>
                     		#end

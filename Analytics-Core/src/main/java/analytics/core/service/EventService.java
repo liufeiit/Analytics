@@ -10,4 +10,6 @@ public interface EventService {
 	Result createEvent(long appId, String name, String description);
 	
 	Result getAppEvent(long appId);
+	
+	Result getEvent(long eventId);
 }

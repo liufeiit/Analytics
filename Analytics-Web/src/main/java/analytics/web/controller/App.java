@@ -5,10 +5,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import analytics.core.dataobject.AppDO;
 import analytics.core.service.Result;
 
 /**
@@ -25,6 +27,27 @@ public class App extends BaseController {
 		Result result = appService.getAllApp(false);
 		mv.addObject("success", result.isSuccess());
 		mv.addObject("allApp", result.get("allApp"));
+		return mv;
+	}
+	
+	@RequestMapping(value = "/app_detail.htm")
+	public ModelAndView app_detail_page(HttpServletRequest request) {
+		long app_id = NumberUtils.toLong(request.getParameter("id"), -1L);
+		Result resultApp = appService.getAppDO(app_id);
+		if(!resultApp.isSuccess()) {
+			ModelAndView mv = newViewWithUser(request, "apps", "应用", "应用概况");
+			Result result = appService.getAllApp(false);
+			mv.addObject("success", result.isSuccess());
+			mv.addObject("allApp", result.get("allApp"));
+			return mv;
+		}
+		AppDO app = (AppDO) resultApp.get("app");
+		String name = app.getName();
+		ModelAndView mv = newViewWithUser(request, "app_events", "应用详情", name);
+		mv.addObject("app_name", name);
+		Result result = eventService.getAppEvent(app_id);
+		mv.addObject("hasEvents", result.isSuccess());
+		mv.addObject("allEvents", result.get("appEvent"));
 		return mv;
 	}
 

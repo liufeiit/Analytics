@@ -23,6 +23,8 @@ public class Result implements Serializable {
 	
 	private final Map<String, Object> data = new HashMap<String, Object>();
 	
+	private UserDO user;
+	
 	public Result() {
 		this(false);
 	}
@@ -41,12 +43,12 @@ public class Result implements Serializable {
 	}
 	
 	public Result withUser(UserDO user) {
-		data.put("user", user);
+		this.user = user;
 		return this;
 	}
 	
 	public UserDO getUser() {
-		return (UserDO) data.get("user");
+		return user;
 	}
 	
 	public Result with(String key, Object value) {

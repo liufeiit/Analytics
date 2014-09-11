@@ -1,0 +1,25 @@
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">标签列表</h3>
+    </div>
+    <div class="box-body">
+        <p>$!{event_name}统计标签:</p>
+        <div class="margin">
+			#if($!{hasLabels})
+				#foreach($label in $allLabels)
+					<a class="btn btn-default btn-flat" href="#">
+						${label.name}
+                    </a>
+				#end
+			#else
+				该事件还没有任何标签！
+			#end
+			
+        </div>
+    </div>
+</div>
+<style type="text/css">
+	.btn {
+		margin-top: 5px;
+	}
+</style>

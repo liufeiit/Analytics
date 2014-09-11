@@ -53,4 +53,18 @@ public class DefaultEventService extends BaseService implements EventService {
 		}
 		return Result.newError().with(ErrorCode.Error_Query);
 	}
+
+	@Override
+	public Result getEvent(long eventId) {
+		try {
+			EventDO event = eventDAO.selectEvent(eventId);
+			if(event == null) {
+				return Result.newError().with(ErrorCode.Error_Query);
+			}
+			return Result.newSuccess().with(ErrorCode.Success).with("event", event);
+		} catch (DAOException e) {
+			log.error("getEvent Error.", e);
+		}
+		return Result.newError().with(ErrorCode.Error_Query);
+	}
 }

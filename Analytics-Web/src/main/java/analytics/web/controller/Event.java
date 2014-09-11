@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import analytics.core.dataobject.EventDO;
 import analytics.core.service.Result;
 
 /**
@@ -20,6 +21,27 @@ import analytics.core.service.Result;
  */
 @Controller
 public class Event extends BaseController {
+	
+	@RequestMapping(value = "/event_detail.htm")
+	public ModelAndView event_detail_page(HttpServletRequest request) {
+		long event_id = NumberUtils.toLong(request.getParameter("id"), -1L);
+		Result resultEvent = eventService.getEvent(event_id);
+		if(!resultEvent.isSuccess()) {
+			ModelAndView mv = newViewWithUser(request, "apps", "应用", "应用概况");
+			Result result = appService.getAllApp(false);
+			mv.addObject("success", result.isSuccess());
+			mv.addObject("allApp", result.get("allApp"));
+			return mv;
+		}
+		EventDO event = (EventDO) resultEvent.get("event");
+		String name = event.getName();
+		ModelAndView mv = newViewWithUser(request, "event_labels", "事件详情", name);
+		mv.addObject("event_name", name);
+		Result result = labelService.getEventLabel(event_id);
+		mv.addObject("hasLabels", result.isSuccess());
+		mv.addObject("allLabels", result.get("eventLabel"));
+		return mv;
+	}
 
 	@RequestMapping(value = "/create_event.htm")
 	public ModelAndView create_event_page(HttpServletRequest request) {
