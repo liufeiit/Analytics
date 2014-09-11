@@ -25,4 +25,10 @@ public class Analytics extends BaseController {
 		int accumulation = NumberUtils.toInt(request.getParameter("accumulation"), -1);
 		return returnView(new ModelAndView("json"), analyticsService.event(appId, token, labelId, accumulation));
 	}
+	
+	@RequestMapping(value = "/flot.htm")
+	public ModelAndView apps(HttpServletRequest request) {
+		ModelAndView mv = newViewWithUser(request, "flot", "统计", "统计概况");
+		return mv;
+	}
 }
