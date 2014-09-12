@@ -29,6 +29,20 @@ public class Analytics extends BaseController {
 	@RequestMapping(value = "/flot.htm")
 	public ModelAndView apps(HttpServletRequest request) {
 		ModelAndView mv = newViewWithUser(request, "flot", "统计", "统计概况");
+		mv.addObject(
+				
+				"data", 
+				
+				"[ "
+				+ "[ 2, 300.0 ], [ 3, 93.3 ], [ 4, 102.0 ], "
+				+ "[ 5, 108.5 ], [ 6, 115.7 ], [ 7, 215.6 ], "
+				+ "[ 8, 194.6 ], [ 9, 230.3 ], [ 10, 164.3 ], "
+				+ "[ 11, 241.4 ], [ 12, 146.5 ], [ 13, 151.7 ], "
+				+ "[ 14, 159.9 ], [ 15, 162.4 ], [ 16, 267.8 ], "
+				+ "[ 17, 268.7 ], [ 18, 129.5 ], [ 19, 268.0 ] "
+				+ "]"
+				
+				);
 		return mv;
 	}
 }
