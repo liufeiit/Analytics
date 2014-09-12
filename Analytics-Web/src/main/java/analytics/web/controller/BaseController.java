@@ -67,6 +67,14 @@ public class BaseController {
 		mv.addObject("tip_end", tip_end);
 		return mv;
 	}
+	
+	protected ModelAndView returnApps(HttpServletRequest request) {
+		ModelAndView mv = newViewWithUser(request, "apps", "应用", "应用概况");
+		Result result = appService.getAllApp(false);
+		mv.addObject("success", result.isSuccess());
+		mv.addObject("allApp", result.get("allApp"));
+		return mv;
+	}
 
 	protected ModelAndView returnView(ModelAndView mv, Result result) {
 		mv.addObject("success", result.isSuccess());

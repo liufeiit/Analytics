@@ -27,11 +27,7 @@ public class Event extends BaseController {
 		long event_id = NumberUtils.toLong(request.getParameter("id"), -1L);
 		Result resultEvent = eventService.getEvent(event_id);
 		if(!resultEvent.isSuccess()) {
-			ModelAndView mv = newViewWithUser(request, "apps", "应用", "应用概况");
-			Result result = appService.getAllApp(false);
-			mv.addObject("success", result.isSuccess());
-			mv.addObject("allApp", result.get("allApp"));
-			return mv;
+			return returnApps(request);
 		}
 		EventDO event = (EventDO) resultEvent.get("event");
 		String name = event.getName();

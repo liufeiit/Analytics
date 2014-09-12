@@ -23,6 +23,20 @@ import analytics.core.util.ErrorCode;
 public class DefaultLabelService extends BaseService implements LabelService {
 
 	@Override
+	public Result getLabel(long labelId) {
+		try {
+			LabelDO label = labelDAO.selectLabel(labelId);
+			if(label == null) {
+				return Result.newError().with(ErrorCode.Error_Query);
+			}
+			return Result.newSuccess().with(ErrorCode.Success).with("label", label);
+		} catch (DAOException e) {
+			log.error("getLabel Error.", e);
+		}
+		return Result.newError().with(ErrorCode.Error_Query);
+	}
+
+	@Override
 	public Result createLabel(long eventId, long modelId, String name, String description) {
 		LabelDO label = new LabelDO();
 		label.setEventId(eventId);

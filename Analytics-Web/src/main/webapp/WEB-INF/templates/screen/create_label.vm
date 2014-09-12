@@ -36,7 +36,19 @@
                         <div class="input-group-addon">
                             <i class="fa fa-edit"></i>
                         </div>
-                        <input name="name" type="text" class="form-control" id="name" placeholder="标签名称">
+                        <input name="name" type="text" class="form-control" id="name" placeholder="标签名称"/>
+                    </div>
+                </div>
+				
+				<div class="form-group">
+                    <label for="name">统计模型</label>
+					<div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-edit"></i>
+                        </div>
+						<SELECT class="form-control" name="model_id">
+							<option value="1">默认（目前只支持默认）</option>
+                        </SELECT>
                     </div>
                 </div>
 				
@@ -46,7 +58,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-edit"></i>
                         </div>
-                        <input name="description" type="text" class="form-control" id="description" placeholder="标签描述">
+                        <input name="description" type="text" class="form-control" id="description" placeholder="标签描述"/>
                     </div>
                 </div>
             </div>

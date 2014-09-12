@@ -39,7 +39,8 @@ public class Label extends BaseController {
 		}
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
-		Result result = labelService.createLabel(event_id, 0, name, description);
+		long model_id = NumberUtils.toLong(request.getParameter("model_id"), 1l);
+		Result result = labelService.createLabel(event_id, model_id, name, description);
 		if (result.isSuccess()) {
 			return post("apps.htm", data, "创建中...");
 		}

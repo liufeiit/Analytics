@@ -7,13 +7,59 @@
 $!control.with("data", $!{data}).with("label", $!{label}).with("tip_start", $!{tip_start}).with("tip_end", $!{tip_end}).target("line_js_data")
 
 <div class="row">
-    <div class="col-xs-12">
-		
-		
-
-    </div>
+	<form role="form" action="report_line.htm" method="get" >
+		<input type="hidden" name="id" value="$!{label_id}"/>
+		<div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon">年份</span>
+                <SELECT name="year" class="form-control">
+					#foreach($year in $years)
+						<OPTION value="$!year">$!year 年</OPTION>
+					#end
+                </SELECT>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon">月份</span>
+                <SELECT name="month" class="form-control">
+					#set($months = [1 .. 12])
+					#foreach($month in $months)
+						<OPTION value="$!month">$!month 月</OPTION>
+					#end
+                </SELECT>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group">
+                <span class="input-group-addon">日份</span>
+                <SELECT name="day" class="form-control">
+					#set($days = [1 .. 31])
+					#foreach($day in $days)
+						<OPTION value="$!day">$!day 日</OPTION>
+					#end
+                </SELECT>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group">
+                <span class="input-group-addon">维度</span>
+                <SELECT name="type" class="form-control">
+					<OPTION value="1">年</OPTION>
+					<OPTION value="2">月</OPTION>
+					<OPTION value="3">日</OPTION>
+					<OPTION value="4" selected = "selected" >时</OPTION>
+                </SELECT>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+	</form>
 </div>
-
+<BR/>
 <div class="row">
     <div class="col-xs-12">
 		

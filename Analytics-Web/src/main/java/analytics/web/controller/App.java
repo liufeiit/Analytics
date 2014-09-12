@@ -23,11 +23,7 @@ public class App extends BaseController {
 
 	@RequestMapping(value = "/apps.htm")
 	public ModelAndView apps(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUser(request, "apps", "应用", "应用概况");
-		Result result = appService.getAllApp(false);
-		mv.addObject("success", result.isSuccess());
-		mv.addObject("allApp", result.get("allApp"));
-		return mv;
+		return returnApps(request);
 	}
 	
 	@RequestMapping(value = "/app_detail.htm")
@@ -35,11 +31,7 @@ public class App extends BaseController {
 		long app_id = NumberUtils.toLong(request.getParameter("id"), -1L);
 		Result resultApp = appService.getAppDO(app_id);
 		if(!resultApp.isSuccess()) {
-			ModelAndView mv = newViewWithUser(request, "apps", "应用", "应用概况");
-			Result result = appService.getAllApp(false);
-			mv.addObject("success", result.isSuccess());
-			mv.addObject("allApp", result.get("allApp"));
-			return mv;
+			return returnApps(request);
 		}
 		AppDO app = (AppDO) resultApp.get("app");
 		String name = app.getName();

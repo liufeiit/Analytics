@@ -1,5 +1,5 @@
 <form id="login" action="login.htm" method="post">
-    <h1>统计分析</h1>
+    <h1>统计系统</h1>
     <fieldset id="inputs">
         <input id="username" name="name" type="text" placeholder="用户名" autofocus required>   
         <input id="password" name="passwd" type="password" placeholder="密码" required>

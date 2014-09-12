@@ -11,4 +11,6 @@ public interface LabelService {
 	Result createLabel(long eventId, long modelId, String name, String description);
 	
 	Result getEventLabel(long eventId);
+	
+	Result getLabel(long labelId);
 }

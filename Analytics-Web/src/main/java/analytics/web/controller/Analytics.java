@@ -1,5 +1,9 @@
 package analytics.web.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,6 +11,9 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import analytics.core.dataobject.LabelDO;
+import analytics.core.service.Result;
 
 /**
  * 
@@ -27,8 +34,17 @@ public class Analytics extends BaseController {
 	}
 	
 	@RequestMapping(value = "/report_line.htm")
-	public ModelAndView apps(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUser(request, "report.line", "统计", "统计概况");
+	public ModelAndView report_line(HttpServletRequest request) {
+		long label_id = NumberUtils.toLong(request.getParameter("id"), -1L);
+		Result result = labelService.getLabel(label_id);
+		if(!result.isSuccess()) {
+			return returnApps(request);
+		}
+		LabelDO label = (LabelDO) result.get("label");
+		String name = label.getName();
+		ModelAndView mv = newViewWithUser(request, "report.line", name + "统计", "统计概况");
+		mv.addObject("years", years());
+		mv.addObject("label_id", label_id);
 		Number[][] data = new Number[][]{
 				new Number[]{2, 1000.0},
 				new Number[]{3, 200.0},
@@ -50,6 +66,18 @@ public class Analytics extends BaseController {
 				new Number[]{19, 3200.0},
 				new Number[]{20, 5000.0}
 		};
-		return lineDataView(mv, data, "私信", "2014年9月", "日");
+		return lineDataView(mv, data, name, "2014年9月", "日");
+	}
+	
+	private List<Integer> years() {
+		List<Integer> list = new ArrayList<Integer>();
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		list.add(year);
+		for(int i = 0; i < 10; i++) {
+			year -= 1;
+			list.add(year);
+		}
+		return list;
 	}
 }
