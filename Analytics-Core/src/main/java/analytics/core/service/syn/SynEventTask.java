@@ -44,10 +44,10 @@ public class SynEventTask extends SynSource implements Runnable {
 		this.dateTime = this.date.getTime();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(this.date);
-		year = calendar.get(Calendar.YEAR);
-		month = calendar.get(Calendar.MONTH) + 1;
-		day = calendar.get(Calendar.DAY_OF_MONTH);
-		hour = calendar.get(Calendar.HOUR_OF_DAY);
+		year = CalendarUtil.year(calendar);
+		month = CalendarUtil.month(calendar);
+		day = CalendarUtil.day(calendar);
+		hour = CalendarUtil.hour(calendar);
 		taskXML = toXML();
 	}
 

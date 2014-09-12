@@ -31,6 +31,8 @@ public enum ErrorCode {
 	Error_Query							(-3000, 	"查询失败"),
 	
 	Error_Permission					(-9000, 	"非法权限"),
+	
+	Error_Report					(-7000, 	"统计错误"),
 	;
 	public final int code;
 	public final String description;

@@ -24,6 +24,13 @@ import analytics.core.util.ErrorCode;
 public class DefaultAnalyticsService extends BaseService implements AnalyticsService {
 	
 	@Override
+	public Result report(long labelId, int year, int month, int day, int type) {
+		
+//		return Result.newError().with(ErrorCode.Error_Report);
+		return Result.newSuccess().with(ErrorCode.Success);
+	}
+	
+	@Override
 	public Result event(long appId, String token, long labelId, int accumulation) {
 		if(labelId <= 0L) {
 			return Result.newError().with(ErrorCode.Error_LabelID);

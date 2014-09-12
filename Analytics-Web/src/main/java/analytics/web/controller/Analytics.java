@@ -1,7 +1,6 @@
 package analytics.web.controller;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import tulip.util.CalendarUtil;
 import analytics.core.dataobject.LabelDO;
 import analytics.core.service.Result;
+import analytics.core.util.Static;
 
 /**
  * 
@@ -40,11 +41,27 @@ public class Analytics extends BaseController {
 		if(!result.isSuccess()) {
 			return returnApps(request);
 		}
+		
+		int year = NumberUtils.toInt(request.getParameter("year"), CalendarUtil.year());
+		int month = NumberUtils.toInt(request.getParameter("month"), CalendarUtil.month());
+		int day = NumberUtils.toInt(request.getParameter("day"), CalendarUtil.day());
+		int type = NumberUtils.toInt(request.getParameter("type"), Static.HOUR_OF_DAY);
+		
+		Result report = analyticsService.report(label_id, year, month, day, type);
+		if(!report.isSuccess()) {
+			return returnApps(request);
+		}
 		LabelDO label = (LabelDO) result.get("label");
 		String name = label.getName();
 		ModelAndView mv = newViewWithUser(request, "report.line", name + "统计", "统计概况");
 		mv.addObject("years", years());
 		mv.addObject("label_id", label_id);
+		
+		mv.addObject("selected_year", year);
+		mv.addObject("selected_month", month);
+		mv.addObject("selected_day", day);
+		mv.addObject("selected_type", type);
+		
 		Number[][] data = new Number[][]{
 				new Number[]{2, 1000.0},
 				new Number[]{3, 200.0},
@@ -71,8 +88,7 @@ public class Analytics extends BaseController {
 	
 	private List<Integer> years() {
 		List<Integer> list = new ArrayList<Integer>();
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
+		int year = CalendarUtil.year();
 		list.add(year);
 		for(int i = 0; i < 10; i++) {
 			year -= 1;

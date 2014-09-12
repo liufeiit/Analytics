@@ -12,44 +12,56 @@ $!control.with("data", $!{data}).with("label", $!{label}).with("tip_start", $!{t
 		<div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon">年份</span>
-                <SELECT name="year" class="form-control">
-					#foreach($year in $years)
-						<OPTION value="$!year">$!year 年</OPTION>
-					#end
-                </SELECT>
+                <select name="year" class="form-control">
+					<optgroup label="请选择年份维度">
+						<option value="0" #if($!{selected_year} == 0) selected="selected" #end>请选择年份维度</option>
+						#foreach($year in $years)
+    						<option value="$!year" #if($!{selected_year} == $!year) selected="selected" #end>$!year 年</option>
+    					#end
+                    </optgroup>
+                </select>
             </div>
         </div>
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon">月份</span>
-                <SELECT name="month" class="form-control">
-					#set($months = [1 .. 12])
-					#foreach($month in $months)
-						<OPTION value="$!month">$!month 月</OPTION>
-					#end
-                </SELECT>
+                <select name="month" class="form-control">
+					<optgroup label="请选择月份维度">
+						<option value="0" #if($!{selected_month} == 0) selected="selected" #end>请选择月份维度</option>
+						#set($months = [1 .. 12])
+    					#foreach($month in $months)
+    						<option value="$!month" #if($!{selected_month} == $!month) selected="selected" #end>$!month 月</option>
+    					#end
+                    </optgroup>
+                </select>
             </div>
         </div>
         <div class="col-lg-2">
             <div class="input-group">
                 <span class="input-group-addon">日份</span>
-                <SELECT name="day" class="form-control">
-					#set($days = [1 .. 31])
-					#foreach($day in $days)
-						<OPTION value="$!day">$!day 日</OPTION>
-					#end
-                </SELECT>
+                <select name="day" class="form-control">
+					<optgroup label="请选择日份维度">
+						<option value="0" #if($!{selected_day} == 0) selected="selected" #end>请选择日份维度</option>
+						#set($days = [1 .. 31])
+    					#foreach($day in $days)
+    						<option value="$!day" #if($!{selected_day} == $!day) selected="selected" #end>$!day 日</option>
+    					#end
+                    </optgroup>
+                </select>
             </div>
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                <span class="input-group-addon">维度</span>
-                <SELECT name="type" class="form-control">
-					<OPTION value="1">年</OPTION>
-					<OPTION value="2">月</OPTION>
-					<OPTION value="3">日</OPTION>
-					<OPTION value="4" selected = "selected" >时</OPTION>
-                </SELECT>
+                <span class="input-group-addon">统计维度</span>
+                <select name="type" class="form-control">
+					<optgroup label="请选择统计维度">
+						<option value="0" #if($!{selected_type} == 0) selected="selected" #end>请选择统计维度</option>
+						<option value="1" #if($!{selected_type} == 1) selected="selected" #end>年</option>
+    					<option value="2" #if($!{selected_type} == 2) selected="selected" #end>月</option>
+    					<option value="3" #if($!{selected_type} == 3) selected="selected" #end>日</option>
+    					<option value="4" #if($!{selected_type} == 4) selected="selected" #end>时</option>
+                    </optgroup>
+                </select>
             </div>
         </div>
         <div class="col-lg-2">
@@ -59,7 +71,7 @@ $!control.with("data", $!{data}).with("label", $!{label}).with("tip_start", $!{t
         </div>
 	</form>
 </div>
-<BR/>
+<br/>
 <div class="row">
     <div class="col-xs-12">
 		
