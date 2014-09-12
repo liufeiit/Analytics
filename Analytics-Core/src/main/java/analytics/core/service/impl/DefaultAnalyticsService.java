@@ -41,7 +41,8 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 		} else if(Static.HOUR_OF_DAY == type) {
 			
 		}
-		return Result.newError().with(ErrorCode.Error_Report);
+//		return Result.newError().with(ErrorCode.Error_Report);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
 	private Result report_year(long labelId, int year, int count, int type) {
