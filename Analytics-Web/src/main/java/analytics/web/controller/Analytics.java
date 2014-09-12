@@ -1,8 +1,5 @@
 package analytics.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,7 +23,7 @@ import analytics.core.util.Static;
 public class Analytics extends BaseController {
 
 	@RequestMapping(value = "/event")
-	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView event(HttpServletRequest request, HttpServletResponse response) {
 		long appId = NumberUtils.toLong(request.getParameter("app_id"), -1L);
 		String token = request.getParameter("token");
 		long labelId = NumberUtils.toLong(request.getParameter("label_id"), -1L);
@@ -54,7 +51,7 @@ public class Analytics extends BaseController {
 		LabelDO label = (LabelDO) result.get("label");
 		String name = label.getName();
 		ModelAndView mv = newViewWithUser(request, "report.line", name + "统计", "统计概况");
-		mv.addObject("years", years());
+		mv.addObject("years", CalendarUtil.years(10, null));
 		mv.addObject("label_id", label_id);
 		
 		mv.addObject("selected_year", year);
@@ -62,7 +59,7 @@ public class Analytics extends BaseController {
 		mv.addObject("selected_day", day);
 		mv.addObject("selected_type", type);
 		
-		Number[][] data = new Number[][]{
+		/*Number[][] data = new Number[][]{
 				new Number[]{2, 1000.0},
 				new Number[]{3, 200.0},
 				new Number[]{4, 300.0},
@@ -82,18 +79,11 @@ public class Analytics extends BaseController {
 				new Number[]{18, 2000.0},
 				new Number[]{19, 3200.0},
 				new Number[]{20, 5000.0}
-		};
-		return lineDataView(mv, data, name, "2014年9月", "日");
-	}
-	
-	private List<Integer> years() {
-		List<Integer> list = new ArrayList<Integer>();
-		int year = CalendarUtil.year();
-		list.add(year);
-		for(int i = 0; i < 10; i++) {
-			year -= 1;
-			list.add(year);
-		}
-		return list;
+		};*/
+		
+		Number[][] data = (Number[][]) report.get("data");
+		String tip_start = (String) report.get("tip_start");
+		String tip_end = (String) report.get("tip_end");
+		return lineDataView(mv, data, name, tip_start, tip_end);
 	}
 }

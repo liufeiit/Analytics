@@ -3,6 +3,7 @@ package analytics.core.dao.impl;
 import java.beans.PropertyDescriptor;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
@@ -25,6 +26,81 @@ import analytics.core.util.Static;
  */
 @Repository("statsDAO")
 public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
+	
+	String SELECT_YEAR_STATS_SQL = "SELECT year, sum(accumulation) AS accumulation FROM stats "
+			+ "WHERE label_id = :labelId AND type = 1 AND year <= :year GROUP BY year LIMIT :count;";
+	
+	String SELECT_MONTH_STATS_SQL = "SELECT month, sum(accumulation) AS accumulation FROM stats "
+			+ "WHERE label_id = :labelId AND type = 2 AND year = :year AND month <= :month GROUP BY month;";
+	
+	String SELECT_DAY_STATS_SQL = "SELECT day, sum(accumulation) AS accumulation FROM stats "
+			+ "WHERE label_id = :labelId AND type = 3 AND year = :year AND month = :month AND day <= :day GROUP BY day;";
+	
+	String SELECT_HOUR_STATS_SQL = "SELECT hour, sum(accumulation) AS accumulation FROM stats "
+			+ "WHERE label_id = :labelId AND type = 4 AND year = :year AND month = :month AND day = :day AND hour <= :hour GROUP BY hour;";
+	
+	@Override
+	public List<StatsDO> selectYearStats(long labelId, int year, int count) throws DAOException {
+		try {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("year", year);
+			paramMap.put("count", count);
+			paramMap.put("labelId", labelId);
+			return jdbcTemplate.query(SELECT_YEAR_STATS_SQL, BeanParameterMapper.newMapParameterMapper(paramMap), 
+					BeanRowMapper.newInstance(StatsDO.class));
+		} catch (DataAccessException e) {
+			log.error("SelectYearStats Error.", e);
+			throw new DAOException("SelectYearStats Error.", e);
+		}
+	}
+	
+	@Override
+	public List<StatsDO> selectMonthStats(long labelId, int year, int month) throws DAOException {
+		try {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("year", year);
+			paramMap.put("month", month);
+			paramMap.put("labelId", labelId);
+			return jdbcTemplate.query(SELECT_MONTH_STATS_SQL, BeanParameterMapper.newMapParameterMapper(paramMap), 
+					BeanRowMapper.newInstance(StatsDO.class));
+		} catch (DataAccessException e) {
+			log.error("SelectMonthStats Error.", e);
+			throw new DAOException("SelectMonthStats Error.", e);
+		}
+	}
+	
+	@Override
+	public List<StatsDO> selectDayStats(long labelId, int year, int month, int day) throws DAOException {
+		try {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("year", year);
+			paramMap.put("month", month);
+			paramMap.put("day", day);
+			paramMap.put("labelId", labelId);
+			return jdbcTemplate.query(SELECT_DAY_STATS_SQL, BeanParameterMapper.newMapParameterMapper(paramMap), 
+					BeanRowMapper.newInstance(StatsDO.class));
+		} catch (DataAccessException e) {
+			log.error("SelectDayStats Error.", e);
+			throw new DAOException("SelectDayStats Error.", e);
+		}
+	}
+	
+	@Override
+	public List<StatsDO> selectHourStats(long labelId, int year, int month, int day, int hour) throws DAOException {
+		try {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("year", year);
+			paramMap.put("month", month);
+			paramMap.put("day", day);
+			paramMap.put("hour", hour);
+			paramMap.put("labelId", labelId);
+			return jdbcTemplate.query(SELECT_HOUR_STATS_SQL, BeanParameterMapper.newMapParameterMapper(paramMap), 
+					BeanRowMapper.newInstance(StatsDO.class));
+		} catch (DataAccessException e) {
+			log.error("SelectDayStats Error.", e);
+			throw new DAOException("SelectDayStats Error.", e);
+		}
+	}
 	
 	@Override
 	public void incrStat(long labelId, int year, int accumulation, Date date) throws DAOException {
