@@ -7,7 +7,7 @@
         <div class="margin">
 			#if($!{hasLabels})
 				#foreach($label in $allLabels)
-					<a class="btn btn-default btn-flat" href="flot.htm">
+					<a class="btn btn-default btn-flat" href="report_line.htm">
 						${label.name}
                     </a>
 				#end

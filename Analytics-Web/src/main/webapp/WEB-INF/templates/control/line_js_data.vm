@@ -1,0 +1,7 @@
+<script type="text/javascript">
+	var data = $!{data},
+		label = "$!{label}",
+		tip_start = "$!{tip_start}",
+		tip_end = "$!{tip_end}"
+		;
+</script>

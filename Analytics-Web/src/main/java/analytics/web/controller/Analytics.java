@@ -26,23 +26,30 @@ public class Analytics extends BaseController {
 		return returnView(new ModelAndView("json"), analyticsService.event(appId, token, labelId, accumulation));
 	}
 	
-	@RequestMapping(value = "/flot.htm")
+	@RequestMapping(value = "/report_line.htm")
 	public ModelAndView apps(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUser(request, "flot", "统计", "统计概况");
-		mv.addObject(
-				
-				"data", 
-				
-				"[ "
-				+ "[ 2, 300.0 ], [ 3, 93.3 ], [ 4, 102.0 ], "
-				+ "[ 5, 108.5 ], [ 6, 115.7 ], [ 7, 215.6 ], "
-				+ "[ 8, 194.6 ], [ 9, 230.3 ], [ 10, 164.3 ], "
-				+ "[ 11, 241.4 ], [ 12, 146.5 ], [ 13, 151.7 ], "
-				+ "[ 14, 159.9 ], [ 15, 162.4 ], [ 16, 267.8 ], "
-				+ "[ 17, 268.7 ], [ 18, 129.5 ], [ 19, 268.0 ] "
-				+ "]"
-				
-				);
-		return mv;
+		ModelAndView mv = newViewWithUser(request, "report.line", "统计", "统计概况");
+		Number[][] data = new Number[][]{
+				new Number[]{2, 1000.0},
+				new Number[]{3, 200.0},
+				new Number[]{4, 300.0},
+				new Number[]{5, 600.0},
+				new Number[]{6, 800.0},
+				new Number[]{7, 500.0},
+				new Number[]{8, 100.0},
+				new Number[]{9, 900.0},
+				new Number[]{10, 250.0},
+				new Number[]{11, 1300.0},
+				new Number[]{12, 600.0},
+				new Number[]{13, 700.0},
+				new Number[]{14, 800.0},
+				new Number[]{15, 930.0},
+				new Number[]{16, 561.0},
+				new Number[]{17, 980.0},
+				new Number[]{18, 2000.0},
+				new Number[]{19, 3200.0},
+				new Number[]{20, 5000.0}
+		};
+		return lineDataView(mv, data, "私信", "2014年9月", "日");
 	}
 }

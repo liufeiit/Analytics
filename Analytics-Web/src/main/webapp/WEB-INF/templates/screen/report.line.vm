@@ -4,11 +4,7 @@
 <script src="js/plugins/flot/jquery.flot.pie.min.js" type="text/javascript"></script>
 <script src="js/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-var sin = $!{data};
-</script>
-
-<script src="js/analytis-line.js" type="text/javascript"></script>
+$!control.with("data", $!{data}).with("label", $!{label}).with("tip_start", $!{tip_start}).with("tip_end", $!{tip_end}).target("line_js_data")
 
 <div class="row">
     <div class="col-xs-12">
@@ -24,14 +20,14 @@ var sin = $!{data};
         <div class="box box-primary">
             <div class="box-header">
                 <i class="fa fa-bar-chart-o"></i>
-                <h3 class="box-title">统计数据</h3>
+                <h3 class="box-title">$!{label}统计</h3>
             </div>
             <div class="box-body">
-                <div id="line-analytis" style="height: 300px;">
-					
-				</div>
+                <div id="line-analytis" style="height: 450px;"></div>
             </div>
         </div>
 
     </div>
 </div>
+
+<script src="js/report-line.js" type="text/javascript"></script>

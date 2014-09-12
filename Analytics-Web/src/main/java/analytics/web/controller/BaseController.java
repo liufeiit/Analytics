@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,14 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value = "userService")
 	protected UserService userService;
+	
+	protected ModelAndView lineDataView(ModelAndView mv, Number[][] data, String label, String tip_start, String tip_end) {
+		mv.addObject("data", JSONArray.fromObject(data));
+		mv.addObject("label", label);
+		mv.addObject("tip_start", tip_start);
+		mv.addObject("tip_end", tip_end);
+		return mv;
+	}
 
 	protected ModelAndView returnView(ModelAndView mv, Result result) {
 		mv.addObject("success", result.isSuccess());
