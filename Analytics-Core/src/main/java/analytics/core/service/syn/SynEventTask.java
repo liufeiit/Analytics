@@ -6,8 +6,8 @@ import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import tulip.util.CalendarUtil;
 import analytics.core.dao.DAOException;
+import analytics.core.util.CalendarUtil;
 import analytics.core.util.Static;
 
 /**

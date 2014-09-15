@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import tulip.util.CalendarUtil;
 import tulip.util.CollectionUtil;
 import analytics.core.dao.DAOException;
 import analytics.core.dataobject.AppDO;
@@ -18,6 +17,7 @@ import analytics.core.service.Result;
 import analytics.core.service.syn.SynEventTask;
 import analytics.core.service.syn.SynTaskPool;
 import analytics.core.service.syn.TaskCommand;
+import analytics.core.util.CalendarUtil;
 import analytics.core.util.ErrorCode;
 import analytics.core.util.Static;
 
@@ -41,7 +41,6 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 		} else if(Static.HOUR_OF_DAY == type) {
 			
 		}
-//		return Result.newError().with(ErrorCode.Error_Report);
 		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
