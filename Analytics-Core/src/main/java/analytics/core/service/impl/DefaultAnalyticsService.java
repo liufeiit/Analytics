@@ -57,8 +57,8 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 				if(sd == null) {
 					sd = 0.0d;
 				}
-				data[h][0] = h;
-				data[h][1] = sd;
+				data[h - 1][0] = h;
+				data[h - 1][1] = sd;
 			}
 			return Result.newSuccess().with(ErrorCode.Success).with("data", data).with("tip_start", year + "年" + month + "月" + day + "日").with("tip_end", "时");
 		} catch (DAOException e) {
@@ -80,8 +80,8 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 				if(sd == null) {
 					sd = 0.0d;
 				}
-				data[d][0] = d;
-				data[d][1] = sd;
+				data[d - 1][0] = d;
+				data[d - 1][1] = sd;
 			}
 			return Result.newSuccess().with(ErrorCode.Success).with("data", data).with("tip_start", year + "年" + month + "月").with("tip_end", "日");
 		} catch (DAOException e) {
@@ -103,8 +103,8 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 				if(sd == null) {
 					sd = 0.0d;
 				}
-				data[m][0] = m;
-				data[m][1] = sd;
+				data[m - 1][0] = m;
+				data[m - 1][1] = sd;
 			}
 			return Result.newSuccess().with(ErrorCode.Success).with("data", data).with("tip_start", year + "年").with("tip_end", "月");
 		} catch (DAOException e) {
