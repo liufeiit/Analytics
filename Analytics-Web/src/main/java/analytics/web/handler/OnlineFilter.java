@@ -29,15 +29,20 @@ public class OnlineFilter extends GenericFilterBean {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		Object data = request.getSession().getAttribute(Static.ONLINE_USER);
-		if (!(isIngore(request)) && data == null) {
+		String reqURL = request.getRequestURL().toString();
+		if (!(isIngore(request, reqURL)) && data == null) {
 			response.sendRedirect(INGORE_URLS[1]);
 			return;
+		}
+		if(StringUtils.contains(reqURL, "report_line.htm")) {
+			response.setHeader("Cache-Control","no-cache");
+			response.setHeader("Pragma","no-cache");
+			response.setDateHeader ("Expires", 0);
 		}
 		chain.doFilter(request, response);
 	}
 
-	private boolean isIngore(HttpServletRequest request) {
-		String reqURL = request.getRequestURL().toString();
+	private boolean isIngore(HttpServletRequest request, String reqURL) {
 		for (String url : INGORE_URLS) {
 			if (StringUtils.contains(reqURL, url)) {
 				return true;
