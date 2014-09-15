@@ -42,8 +42,10 @@
 			*#
 			
 			<li class="treeview">
-				<a href="#"> <i class="fa fa-laptop"></i>
-					<span>统计管理</span> <i class="fa fa-angle-left pull-right"></i>
+				<a href="#">
+					<i class="fa fa-laptop"></i>
+					<span>统计管理</span>
+					<i class="fa fa-angle-left pull-right"></i>
 				</a>
 				<ul class="treeview-menu">
 					<li>
@@ -63,7 +65,8 @@
 			
 			<li>
 				<a href="setting.htm">
-					<i class="fa fa-gear"></i><span>系统设置</span>
+					<i class="fa fa-gear"></i>
+					<span>系统设置</span>
 					##<small class="badge pull-right bg-yellow">12</small>
 				</a>
 			</li>
