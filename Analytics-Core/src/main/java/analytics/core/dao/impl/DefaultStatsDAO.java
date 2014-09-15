@@ -27,18 +27,6 @@ import analytics.core.util.Static;
 @Repository("statsDAO")
 public class DefaultStatsDAO extends BaseDAO implements StatsDAO, StatsMapper {
 	
-	String SELECT_YEAR_STATS_SQL = "SELECT year, sum(accumulation) AS accumulation FROM stats "
-			+ "WHERE label_id = :labelId AND type = 1 AND year <= :year GROUP BY year LIMIT :count;";
-	
-	String SELECT_MONTH_STATS_SQL = "SELECT month, sum(accumulation) AS accumulation FROM stats "
-			+ "WHERE label_id = :labelId AND type = 2 AND year = :year AND month <= :month GROUP BY month;";
-	
-	String SELECT_DAY_STATS_SQL = "SELECT day, sum(accumulation) AS accumulation FROM stats "
-			+ "WHERE label_id = :labelId AND type = 3 AND year = :year AND month = :month AND day <= :day GROUP BY day;";
-	
-	String SELECT_HOUR_STATS_SQL = "SELECT hour, sum(accumulation) AS accumulation FROM stats "
-			+ "WHERE label_id = :labelId AND type = 4 AND year = :year AND month = :month AND day = :day AND hour <= :hour GROUP BY hour;";
-	
 	@Override
 	public List<StatsDO> selectYearStats(long labelId, int year, int count) throws DAOException {
 		try {

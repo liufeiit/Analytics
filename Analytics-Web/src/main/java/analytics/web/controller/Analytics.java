@@ -59,28 +59,6 @@ public class Analytics extends BaseController {
 		mv.addObject("selected_day", day);
 		mv.addObject("selected_type", type);
 		
-		/*Number[][] data = new Number[][]{
-				new Number[]{2, 1000.0},
-				new Number[]{3, 200.0},
-				new Number[]{4, 300.0},
-				new Number[]{5, 600.0},
-				new Number[]{6, 800.0},
-				new Number[]{7, 500.0},
-				new Number[]{8, 100.0},
-				new Number[]{9, 900.0},
-				new Number[]{10, 250.0},
-				new Number[]{11, 1300.0},
-				new Number[]{12, 600.0},
-				new Number[]{13, 700.0},
-				new Number[]{14, 800.0},
-				new Number[]{15, 930.0},
-				new Number[]{16, 561.0},
-				new Number[]{17, 980.0},
-				new Number[]{18, 2000.0},
-				new Number[]{19, 3200.0},
-				new Number[]{20, 5000.0}
-		};*/
-		
 		Number[][] data = (Number[][]) report.get("data");
 		String tip_start = (String) report.get("tip_start");
 		String tip_end = (String) report.get("tip_end");
