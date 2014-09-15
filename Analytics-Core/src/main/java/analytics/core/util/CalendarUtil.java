@@ -70,6 +70,13 @@ public class CalendarUtil {
 		return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 	}
 	
+	/*public static List<Integer> month(int year, int month, Comparator<Integer> c) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month - 1);
+		
+	}
+	*/
 	public static List<Integer> years(int count, Comparator<Integer> c) {
 		List<Integer> list = new ArrayList<Integer>();
 		int year = CalendarUtil.year();

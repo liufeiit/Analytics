@@ -35,13 +35,38 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 		if(Static.YEAR == type) {
 			return report_year(labelId, year, 10, type);
 		} else if(Static.MONTH == type) {
-			
+			return report_month(labelId, year, month, type);
 		} else if(Static.DAY_OF_MONTH == type) {
 			
 		} else if(Static.HOUR_OF_DAY == type) {
 			
 		}
 		return Result.newSuccess().with(ErrorCode.Success);
+	}
+	
+	private Result report_month(long labelId, int year, int month, int type) {
+		try {
+			List<StatsDO> statsList = statsDAO.selectMonthStats(labelId, year, month);
+			if (CollectionUtil.isEmpty(statsList)) {
+				return Result.newError().with(ErrorCode.Error_Report);
+			}
+			Map<Integer, Double> statsMapper = statsMapper(statsList, type);
+			int[] months = new int[]{};
+			Number[][] data = new Number[12][2];
+			/*for(int i = 0; i < count; i++) {
+				int y = years.get(i);
+				Double d = statsMapper.get(y);
+				if(d == null || d < 0d) {
+					d = 0.0d;
+				}
+				data[i][0] = y;
+				data[i][1] = d;
+			}*/
+			return Result.newSuccess().with(ErrorCode.Success).with("data", data).with("tip_start", "").with("tip_end", "");
+		} catch (DAOException e) {
+			log.error("report_year Error.", e);
+		}
+		return Result.newError().with(ErrorCode.Error_Report);
 	}
 
 	private Result report_year(long labelId, int year, int count, int type) {
@@ -50,12 +75,12 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 			if (CollectionUtil.isEmpty(statsList)) {
 				return Result.newError().with(ErrorCode.Error_Report);
 			}
-			Map<Integer, Double> mapper = mapper(statsList, type);
+			Map<Integer, Double> statsMapper = statsMapper(statsList, type);
 			List<Integer> years = CalendarUtil.years(count, CalendarUtil.INT_ASC);
 			Number[][] data = new Number[count][2];
 			for(int i = 0; i < count; i++) {
 				int y = years.get(i);
-				Double d = mapper.get(y);
+				Double d = statsMapper.get(y);
 				if(d == null || d < 0d) {
 					d = 0.0d;
 				}
@@ -69,7 +94,7 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 		return Result.newError().with(ErrorCode.Error_Report);
 	}
 
-	private Map<Integer, Double> mapper(List<StatsDO> statsList, int type) {
+	private Map<Integer, Double> statsMapper(List<StatsDO> statsList, int type) {
 		Map<Integer, Double> mapper = new HashMap<Integer, Double>();
 		for (StatsDO stats : statsList) {
 			if(Static.YEAR == type) {

@@ -42,7 +42,7 @@ $(function() {
 				if (item) {
 					var x = item.datapoint[0].toFixed(0), y = item.datapoint[1].toFixed(2);
 					
-					$("#line-chart-tooltip").html(item.series.label + + " " + tip_start + x + tip_end + " : " + y)
+					$("#line-chart-tooltip").html(item.series.label + " " + tip_start + x + tip_end + " : " + y)
 					
 					.css({top : item.pageY + 5, left : item.pageX + 5}).fadeIn(300);
 				} else {
