@@ -37,9 +37,55 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 		} else if(Static.MONTH == type) {
 			return report_month(labelId, year, month, type);
 		} else if(Static.DAY_OF_MONTH == type) {
-			
+			return report_day(labelId, year, month, day, type);
 		} else if(Static.HOUR_OF_DAY == type) {
-			
+			return report_hour(labelId, year, month, day, CalendarUtil.hour(), type);
+		}
+		return Result.newSuccess().with(ErrorCode.Success);
+	}
+	
+	private Result report_hour(long labelId, int year, int month, int day, int hour, int type) {
+		try {
+			List<StatsDO> statsList = statsDAO.selectHourStats(labelId, year, month, day, hour);
+			if (CollectionUtil.isEmpty(statsList)) {
+				return Result.newSuccess().with(ErrorCode.Success);
+			}
+			Map<Integer, Double> statsMapper = statsMapper(statsList, type);
+			Number[][] data = new Number[hour][2];
+			for(int h = 1; h <= hour; h++) {
+				Double sd = statsMapper.get(h);
+				if(sd == null) {
+					sd = 0.0d;
+				}
+				data[h][0] = h;
+				data[h][1] = sd;
+			}
+			return Result.newSuccess().with(ErrorCode.Success).with("data", data).with("tip_start", year + "年" + month + "月" + day + "日").with("tip_end", "时");
+		} catch (DAOException e) {
+			log.error("report_month Error.", e);
+		}
+		return Result.newSuccess().with(ErrorCode.Success);
+	}
+	
+	private Result report_day(long labelId, int year, int month, int day, int type) {
+		try {
+			List<StatsDO> statsList = statsDAO.selectDayStats(labelId, year, month, day);
+			if (CollectionUtil.isEmpty(statsList)) {
+				return Result.newSuccess().with(ErrorCode.Success);
+			}
+			Map<Integer, Double> statsMapper = statsMapper(statsList, type);
+			Number[][] data = new Number[day][2];
+			for(int d = 1; d <= day; d++) {
+				Double sd = statsMapper.get(d);
+				if(sd == null) {
+					sd = 0.0d;
+				}
+				data[d][0] = d;
+				data[d][1] = sd;
+			}
+			return Result.newSuccess().with(ErrorCode.Success).with("data", data).with("tip_start", year + "年" + month + "月").with("tip_end", "日");
+		} catch (DAOException e) {
+			log.error("report_month Error.", e);
 		}
 		return Result.newSuccess().with(ErrorCode.Success);
 	}
@@ -48,50 +94,48 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 		try {
 			List<StatsDO> statsList = statsDAO.selectMonthStats(labelId, year, month);
 			if (CollectionUtil.isEmpty(statsList)) {
-				return Result.newError().with(ErrorCode.Error_Report);
+				return Result.newSuccess().with(ErrorCode.Success);
 			}
 			Map<Integer, Double> statsMapper = statsMapper(statsList, type);
-			int[] months = new int[]{};
-			Number[][] data = new Number[12][2];
-			/*for(int i = 0; i < count; i++) {
-				int y = years.get(i);
-				Double d = statsMapper.get(y);
-				if(d == null || d < 0d) {
-					d = 0.0d;
+			Number[][] data = new Number[month][2];
+			for(int m = 1; m <= month; m++) {
+				Double sd = statsMapper.get(m);
+				if(sd == null) {
+					sd = 0.0d;
 				}
-				data[i][0] = y;
-				data[i][1] = d;
-			}*/
-			return Result.newSuccess().with(ErrorCode.Success).with("data", data).with("tip_start", "").with("tip_end", "");
+				data[m][0] = m;
+				data[m][1] = sd;
+			}
+			return Result.newSuccess().with(ErrorCode.Success).with("data", data).with("tip_start", year + "年").with("tip_end", "月");
 		} catch (DAOException e) {
-			log.error("report_year Error.", e);
+			log.error("report_month Error.", e);
 		}
-		return Result.newError().with(ErrorCode.Error_Report);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
 	private Result report_year(long labelId, int year, int count, int type) {
 		try {
 			List<StatsDO> statsList = statsDAO.selectYearStats(labelId, year, count);
 			if (CollectionUtil.isEmpty(statsList)) {
-				return Result.newError().with(ErrorCode.Error_Report);
+				return Result.newSuccess().with(ErrorCode.Success);
 			}
 			Map<Integer, Double> statsMapper = statsMapper(statsList, type);
 			List<Integer> years = CalendarUtil.years(count, CalendarUtil.INT_ASC);
 			Number[][] data = new Number[count][2];
 			for(int i = 0; i < count; i++) {
 				int y = years.get(i);
-				Double d = statsMapper.get(y);
-				if(d == null || d < 0d) {
-					d = 0.0d;
+				Double sd = statsMapper.get(y);
+				if(sd == null) {
+					sd = 0.0d;
 				}
 				data[i][0] = y;
-				data[i][1] = d;
+				data[i][1] = sd;
 			}
-			return Result.newSuccess().with(ErrorCode.Success).with("data", data).with("tip_start", "").with("tip_end", "");
+			return Result.newSuccess().with(ErrorCode.Success).with("data", data).with("tip_start", "").with("tip_end", "年");
 		} catch (DAOException e) {
 			log.error("report_year Error.", e);
 		}
-		return Result.newError().with(ErrorCode.Error_Report);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
 	private Map<Integer, Double> statsMapper(List<StatsDO> statsList, int type) {
