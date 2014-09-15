@@ -48,6 +48,7 @@ public class Analytics extends BaseController {
 		if(!report.isSuccess()) {
 			return returnApps(request);
 		}
+		
 		LabelDO label = (LabelDO) result.get("label");
 		String name = label.getName();
 		ModelAndView mv = newViewWithUser(request, "report.line", name + "统计", "统计概况");
