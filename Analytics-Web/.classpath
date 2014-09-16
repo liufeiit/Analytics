@@ -19,6 +19,16 @@
   <classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.1/jta-1.1.jar" sourcepath="M2_REPO/javax/transaction/jta/1.1/jta-1.1-sources.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="src" path="/Analytics-Core"/>
+  <classpathentry kind="var" path="M2_REPO/redis/clients/jedis/2.5.2/jedis-2.5.2.jar" sourcepath="M2_REPO/redis/clients/jedis/2.5.2/jedis-2.5.2-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/lf/m2/redis/clients/jedis/2.5.2/jedis-2.5.2-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-pool2/2.0/commons-pool2-2.0.jar" sourcepath="M2_REPO/org/apache/commons/commons-pool2/2.0/commons-pool2-2.0-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/lf/m2/org/apache/commons/commons-pool2/2.0/commons-pool2-2.0-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
   <classpathentry kind="var" path="M2_REPO/tulip/tulip-web/1.0.0-RELEASE/tulip-web-1.0.0-RELEASE.jar" sourcepath="M2_REPO/tulip/tulip-web/1.0.0-RELEASE/tulip-web-1.0.0-RELEASE-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/velocity/velocity/1.7/velocity-1.7.jar" sourcepath="M2_REPO/org/apache/velocity/velocity/1.7/velocity-1.7-sources.jar">
     <attributes>

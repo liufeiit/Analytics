@@ -70,6 +70,13 @@
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>
 	
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="hostName" value="${redis.host}"/>
+		<property name="port" value="${redis.port}"/>
+		<property name="timeout" value="${redis.timeout}"/>
+		<property name="usePool" value="${redis.usePool}"/>
+	</bean>
+	
 	<!-- <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
 		<property name="serviceName" value="AnalyticsService"/>
 		<property name="service" ref="analyticsService"/>
