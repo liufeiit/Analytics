@@ -95,11 +95,11 @@
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 	
-	<!-- <listener>
+	<listener>
 		<listener-class>analytics.web.handler.SessionManager</listener-class>
-	</listener> -->
+	</listener>
 	
-	<!-- <session-config>
+	<session-config>
 		<session-timeout>30</session-timeout>
-	</session-config> -->
+	</session-config>
 </web-app>

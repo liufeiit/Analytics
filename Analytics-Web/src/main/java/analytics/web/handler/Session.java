@@ -26,7 +26,8 @@ public class Session {
 	private static final Log log = LogFactory.getLog(Session.class);
 
 	public static void login(HttpSession session, RedisTemplate<String, String> redisTemplate, UserDO user) {
-		final byte[] sessionId = CharsetUtils.getUTF8Bytes(session.getId());
+		final String id = session.getId();
+		final byte[] sessionId = CharsetUtils.getUTF8Bytes(id);
 		final String userGson = Static.gson.toJson(user);
 		final String name = user.getName();
 		redisTemplate.execute(new RedisCallback<Boolean>() {
@@ -34,24 +35,29 @@ public class Session {
 			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 				connection.hSet(sessionId, CharsetUtils.getUTF8Bytes(Static.ONLINE_USER), CharsetUtils.getUTF8Bytes(userGson));
 				connection.expire(sessionId, TIME_OUT);
-				log.error("Session[" + sessionId + "] Binding User Named : " + name + " is login Success, will timeout in " + TIME_OUT + " seconds.");
-				System.err.println("Session[" + sessionId + "] Binding User Named : " + name + " is login Success, will timeout in " + TIME_OUT + " seconds.");
+				log.error("Session[" + id + "] Binding User Named : " + name + " is login Success, will timeout in " + TIME_OUT + " seconds.");
+				System.err.println("Session[" + id + "] Binding User Named : " + name + " is login Success, will timeout in " + TIME_OUT + " seconds.");
 				return true;
 			}
 		});
 	}
 
 	public static void logout(HttpSession session, RedisTemplate<String, String> redisTemplate) {
-		final byte[] sessionId = CharsetUtils.getUTF8Bytes(session.getId());
-		redisTemplate.execute(new RedisCallback<Boolean>() {
-			@Override
-			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
-				connection.hDel(sessionId, CharsetUtils.getUTF8Bytes(Static.ONLINE_USER));
-				log.error("User Session[" + sessionId + "] " + " is logout Success.");
-				System.err.println("User Session[" + sessionId + "] " + " is logout Success.");
-				return true;
-			}
-		});
+		try {
+			final String id = session.getId();
+			final byte[] sessionId = CharsetUtils.getUTF8Bytes(id);
+			redisTemplate.execute(new RedisCallback<Boolean>() {
+				@Override
+				public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+					connection.hDel(sessionId, CharsetUtils.getUTF8Bytes(Static.ONLINE_USER));
+					log.error("User Session[" + id + "] " + " is logout Success.");
+					System.err.println("User Session[" + id + "] " + " is logout Success.");
+					return true;
+				}
+			});
+		} catch (Exception e) {
+			//
+		}
 	}
 
 	public static boolean isLogin(HttpSession session, RedisTemplate<String, String> redisTemplate) {
