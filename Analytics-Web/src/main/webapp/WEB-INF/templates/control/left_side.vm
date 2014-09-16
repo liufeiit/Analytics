@@ -43,7 +43,7 @@
 				<a href="configurer.htm">
 					<i class="fa fa-bar-chart-o"></i>
 					<span>在线参数</span>
-					<small class="badge pull-right bg-green">new</small>
+					<small class="badge pull-right bg-green">建设中</small>
 				</a>
 			</li>
 			
@@ -75,7 +75,7 @@
 					<i class="fa fa-gear"></i>
 					<span>设置</span>
 					##<small class="badge pull-right bg-yellow">12</small>
-					<small class="badge pull-right bg-green">new</small>
+					<small class="badge pull-right bg-green">建设中</small>
 				</a>
 			</li>
 			
