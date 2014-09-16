@@ -26,6 +26,18 @@ public class App extends BaseController {
 		return returnApps(request);
 	}
 	
+	@RequestMapping(value = "/stats.htm")
+	public ModelAndView apps_stats(HttpServletRequest request) {
+		Result result = appService.getAllApp(true);
+		if(!result.isSuccess()) {
+			return returnApps(request);
+		}
+		ModelAndView mv = newViewWithUser(request, "stats", "统计", "详情");
+		mv.addObject("success", result.isSuccess());
+		mv.addObject("apps", result.get("allApp"));
+		return mv;
+	}
+	
 	@RequestMapping(value = "/app_detail.htm")
 	public ModelAndView app_detail_page(HttpServletRequest request) {
 		long app_id = NumberUtils.toLong(request.getParameter("id"), -1L);

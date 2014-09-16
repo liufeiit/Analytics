@@ -3,7 +3,7 @@
         <h3 class="box-title">事件列表</h3>
     </div>
     <div class="box-body">
-        <p>$!{app_name}统计事件:</p>
+        <p>$!{app_name} 统计事件</p>
         <div class="margin">
 			#if($!{hasEvents})
 				#foreach($event in $allEvents)

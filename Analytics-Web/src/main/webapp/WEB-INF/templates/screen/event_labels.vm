@@ -3,7 +3,7 @@
         <h3 class="box-title">标签列表</h3>
     </div>
     <div class="box-body">
-        <p>$!{event_name}统计标签:</p>
+        <p>$!{event_name} 统计标签</p>
         <div class="margin">
 			#if($!{hasLabels})
 				#foreach($label in $allLabels)

@@ -1,0 +1,33 @@
+#if($!{success})
+	#foreach($!app in $!apps)
+		<div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <h3 class="box-title">$!{app.name} 统计</h3>
+                    </div>
+                    <div class="box-body">
+                        #if($!app.hasEvent())
+							#foreach($event in $!{app.eventList})
+            					<a class="btn btn-default btn-flat" href="event_detail.htm?id=$!{event.id}">
+            						${event.name}
+                                </a>
+            				#end
+						#else
+							该应用无任何统计
+						#end
+                    </div>
+                </div>
+            </div>
+        </div>
+		<br/>
+	#end
+#else
+	您还没有任何应用统计
+#end
+<style type="text/css">
+	.btn {
+		margin-top: 5px;
+	}
+</style>
