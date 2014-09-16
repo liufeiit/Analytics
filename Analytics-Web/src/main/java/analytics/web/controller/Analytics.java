@@ -51,7 +51,7 @@ public class Analytics extends BaseController {
 		
 		LabelDO label = (LabelDO) result.get("label");
 		String name = label.getName();
-		ModelAndView mv = newViewWithUser(request, "report.line", name + "统计", "统计概况");
+		ModelAndView mv = newViewWithUserAndApps(request, "report.line", name + "统计", "统计概况");
 		mv.addObject("years", CalendarUtil.years(10, null));
 		mv.addObject("label_id", label_id);
 		

@@ -74,10 +74,7 @@ public class BaseController {
 	}
 	
 	protected ModelAndView returnApps(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUser(request, "apps", "应用", "应用概况");
-		Result result = appService.getAllApp(false);
-		mv.addObject("success", result.isSuccess());
-		mv.addObject("allApp", result.get("allApp"));
+		ModelAndView mv = newViewWithUserAndApps(request, "apps", "应用", "应用概况");
 		return mv;
 	}
 
@@ -104,7 +101,7 @@ public class BaseController {
 		return mv;
 	}
 	
-	protected ModelAndView newViewWithUser(HttpServletRequest request, String name, String nav, String nav_desc) {
+	protected ModelAndView newViewWithUserAndApps(HttpServletRequest request, String name, String nav, String nav_desc) {
 		ModelAndView mv = new ModelAndView(name);
 		UserDO user = getLoginUser(request);
 		mv.addObject("name", user.getName());
@@ -112,6 +109,12 @@ public class BaseController {
 
 		mv.addObject("nav", nav);
 		mv.addObject("nav_desc", nav_desc);
+		
+		Result result = appService.getAllApp(false);
+		mv.addObject("success", result.isSuccess());
+		mv.addObject("hasApp", result.isSuccess());
+		mv.addObject("allApp", result.get("allApp"));
+		
 		return mv;
 	}
 	

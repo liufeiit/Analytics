@@ -92,6 +92,23 @@
 				</li>
 				任务提醒下拉菜单 *#
 				
+				<li class="dropdown messages-menu">
+					
+					<form role="form" action="home.htm" method="post">
+						<select class="form-control" name="app_id">
+    						#if($!{hasApp})
+								<option value="0">全部应用</option>
+    							#foreach($app in $allApp)
+    								<option value="$!{app.id}">$!{app.name}</option>
+    							#end
+    						#else
+    							<option value="0">您还没有任何应用</option>
+    						#end
+                        </select>
+                    </form>
+					
+				</li>
+				
 				## 个人信息
 				<li class="dropdown user user-menu">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -23,7 +23,7 @@ public class Label extends BaseController {
 	
 	@RequestMapping(value = "/create_label.htm")
 	public ModelAndView create_label_page(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUser(request, "create_label", "创建标签", "标签概况");
+		ModelAndView mv = newViewWithUserAndApps(request, "create_label", "创建标签", "标签概况");
 		Result result = appService.getAllApp(true);
 		mv.addObject("hasApp", result.isSuccess());
 		mv.addObject("allApp", result.get("allApp"));

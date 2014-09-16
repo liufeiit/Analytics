@@ -40,7 +40,7 @@
 		class="skin-blue"
 		##class="skin-black"
 		data-uid="$!{uid}" data-name="$!{name}">
-		$!control.with("uid", $!{uid}).with("name", $!{name}).target("header")
+		$!control.with("uid", $!{uid}).with("hasApp", $!{hasApp}).with("allApp", $!{allApp}).with("name", $!{name}).target("header")
         <div class="wrapper row-offcanvas row-offcanvas-left">
 			$!control.with("uid", $!{uid}).with("name", $!{name}).target("left_side")
         	<aside class="right-side">

@@ -32,7 +32,7 @@ public class App extends BaseController {
 		if(!result.isSuccess()) {
 			return returnApps(request);
 		}
-		ModelAndView mv = newViewWithUser(request, "stats", "统计", "详情");
+		ModelAndView mv = newViewWithUserAndApps(request, "stats", "统计", "详情");
 		mv.addObject("success", result.isSuccess());
 		mv.addObject("apps", result.get("allApp"));
 		return mv;
@@ -47,7 +47,7 @@ public class App extends BaseController {
 		}
 		AppDO app = (AppDO) resultApp.get("app");
 		String name = app.getName();
-		ModelAndView mv = newViewWithUser(request, "app_events", "应用详情", name);
+		ModelAndView mv = newViewWithUserAndApps(request, "app_events", "应用详情", name);
 		mv.addObject("app_name", name);
 		Result result = eventService.getAppEvent(app_id);
 		mv.addObject("hasEvents", result.isSuccess());
@@ -57,7 +57,7 @@ public class App extends BaseController {
 
 	@RequestMapping(value = "/create_app.htm")
 	public ModelAndView create_app_page(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUser(request, "create_app", "创建应用", "应用概况");
+		ModelAndView mv = newViewWithUserAndApps(request, "create_app", "创建应用", "应用概况");
 		return mv;
 	}
 
