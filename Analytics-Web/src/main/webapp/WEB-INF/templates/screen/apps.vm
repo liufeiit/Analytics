@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <div class="box">
+        <div class="box box-danger">
             <div class="box-header">
                 <h3 class="box-title">您的应用</h3>
             </div>
@@ -60,23 +60,25 @@
             </div>
         </div>
     </div>
-    <script src="js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-    <script src="js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(function() {
-            //$("#example1").dataTable();
-            $('#example2').dataTable({
-                "bPaginate": false,//分页
-                "bLengthChange": false,
-                "bFilter": false,
-                "bSort": true,
-                "bInfo": true,
-                "bAutoWidth": false,
-				"oLanguage": {
-					"sInfo": "",
-					"sInfoEmpty": ""
-			 	}
-            });
-        });
-    </script>
+    
 </div>
+	
+<script src="js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+<script src="js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function() {
+        //$("#example1").dataTable();
+        $('#example2').dataTable({
+            "bPaginate": false,//分页
+            "bLengthChange": false,
+            "bFilter": false,
+            "bSort": true,
+            "bInfo": true,
+            "bAutoWidth": false,
+			"oLanguage": {
+				"sInfo": "",
+				"sInfoEmpty": ""
+		 	}
+        });
+    });
+</script>
