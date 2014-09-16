@@ -15,8 +15,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
-import analytics.web.util.Static;
-
 /**
  * @author 刘飞 E-mail:liufei_it@126.com
  * @version 1.0
@@ -47,9 +45,9 @@ public class OnlineFilter extends GenericFilterBean {
 			ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		Object data = request.getSession().getAttribute(Static.ONLINE_USER);
+		boolean isLogin = Session.isLogin(request.getSession(true), redisTemplate);
 		String reqURL = request.getRequestURL().toString();
-		if (!(isIngore(request, reqURL)) && data == null) {
+		if (!(isIngore(request, reqURL)) && !isLogin) {
 			response.sendRedirect(INGORE_URLS[1]);
 			return;
 		}

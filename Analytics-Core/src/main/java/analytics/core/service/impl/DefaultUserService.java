@@ -62,6 +62,7 @@ public class DefaultUserService extends BaseService implements UserService {
 			if(!PasswdUtil.signPwsswd(passwd).equals(user.getPassword())) {
 				return Result.newError().with(ErrorCode.Error_ErrPasswd);
 			}
+			user.setPassword("");
 			return Result.newSuccess().with(ErrorCode.Success).withUser(user);
 		} catch (DAOException e) {
 			log.error("Login Error.", e);

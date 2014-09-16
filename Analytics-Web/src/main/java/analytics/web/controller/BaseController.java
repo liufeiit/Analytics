@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import analytics.core.dataobject.UserDO;
@@ -20,7 +21,7 @@ import analytics.core.service.LabelService;
 import analytics.core.service.ModelService;
 import analytics.core.service.Result;
 import analytics.core.service.UserService;
-import analytics.web.util.Static;
+import analytics.web.handler.Session;
 
 /**
  * 
@@ -59,6 +60,10 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value = "userService")
 	protected UserService userService;
+	
+	@Autowired
+	@Qualifier(value = "redisTemplate")
+	private RedisTemplate<String, String> redisTemplate;
 	
 	protected ModelAndView lineDataView(ModelAndView mv, Number[][] data, String label, String tip_start, String tip_end) {
 		mv.addObject("data", JSONArray.fromObject(data));
@@ -111,11 +116,13 @@ public class BaseController {
 	}
 	
 	protected void setUser(HttpServletRequest request, UserDO user) {
-		request.getSession(true).setAttribute(Static.ONLINE_USER, user);
+		// request.getSession(true).setAttribute(Static.ONLINE_USER, user);
+		Session.login(request.getSession(true), redisTemplate, user);
 	}
 	
 	protected UserDO getUser(HttpServletRequest request) {
-		return (UserDO) request.getSession(true).getAttribute(Static.ONLINE_USER);
+		// return (UserDO) request.getSession(true).getAttribute(Static.ONLINE_USER);
+		return Session.getUser(request.getSession(true), redisTemplate);
 	}
 	
 	protected long getUserId(HttpServletRequest request) {

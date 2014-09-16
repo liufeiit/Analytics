@@ -21,6 +21,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>4.0.7.RELEASE</version>
@@ -93,12 +99,12 @@
 			<artifactId>spring-data-oracle</artifactId>
 			<version>1.0.0.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
-	        <groupId>org.springframework.data</groupId>
-	        <artifactId>spring-data-redis</artifactId>
-	        <version>1.4.0.RELEASE</version>
-	    </dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.4.0.RELEASE</version>
+		</dependency>
 
 		<dependency>
 			<groupId>commons-pool</groupId>
