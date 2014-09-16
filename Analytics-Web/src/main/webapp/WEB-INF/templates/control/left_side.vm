@@ -40,7 +40,7 @@
 			</li>
 			
 			<li>
-				<a href="#">
+				<a href="configurer.htm">
 					<i class="fa fa-bar-chart-o"></i>
 					<span>在线参数</span>
 					<small class="badge pull-right bg-green">new</small>
