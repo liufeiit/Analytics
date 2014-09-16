@@ -44,7 +44,7 @@
                     		#end
                     	#else
                     	<tr >
-                    		<td colspan="4">
+                    		<td colspan="5">
                     			该事件还没有任何标签！
                             </td>
                         </tr>
