@@ -106,7 +106,7 @@ public class BaseController {
 	
 	protected ModelAndView newViewWithUser(HttpServletRequest request, String name, String nav, String nav_desc) {
 		ModelAndView mv = new ModelAndView(name);
-		UserDO user = getUser(request);
+		UserDO user = getLoginUser(request);
 		mv.addObject("name", user.getName());
 		mv.addObject("uid", user.getId());
 
@@ -115,18 +115,18 @@ public class BaseController {
 		return mv;
 	}
 	
-	protected void setUser(HttpServletRequest request, UserDO user) {
+	protected void userLogin(HttpServletRequest request, UserDO user) {
 		// request.getSession(true).setAttribute(Static.ONLINE_USER, user);
 		Session.login(request.getSession(true), redisTemplate, user);
 	}
 	
-	protected UserDO getUser(HttpServletRequest request) {
+	protected UserDO getLoginUser(HttpServletRequest request) {
 		// return (UserDO) request.getSession(true).getAttribute(Static.ONLINE_USER);
 		return Session.getUser(request.getSession(true), redisTemplate);
 	}
 	
 	protected long getUserId(HttpServletRequest request) {
-		UserDO user = getUser(request);
+		UserDO user = getLoginUser(request);
 		if(user == null) {
 			return -1L;
 		}

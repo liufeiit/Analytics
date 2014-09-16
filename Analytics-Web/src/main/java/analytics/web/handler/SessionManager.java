@@ -2,9 +2,6 @@ package analytics.web.handler;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionActivationListener;
-import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
@@ -20,7 +17,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @version 1.0
  * @since 2014年9月16日 上午11:51:09
  */
-public class SessionManager implements HttpSessionListener, HttpSessionActivationListener, HttpSessionAttributeListener {
+public class SessionManager implements HttpSessionListener {
 
 	private final Log log = LogFactory.getLog(getClass());
 
@@ -48,30 +45,5 @@ public class SessionManager implements HttpSessionListener, HttpSessionActivatio
 	public void sessionDestroyed(HttpSessionEvent event) {
 		HttpSession session = event.getSession();
 		Session.logout(session, redisTemplate);
-	}
-
-	@Override
-	public void attributeAdded(HttpSessionBindingEvent event) {
-		
-	}
-
-	@Override
-	public void attributeRemoved(HttpSessionBindingEvent event) {
-		
-	}
-
-	@Override
-	public void attributeReplaced(HttpSessionBindingEvent event) {
-		
-	}
-
-	@Override
-	public void sessionWillPassivate(HttpSessionEvent event) {
-		
-	}
-
-	@Override
-	public void sessionDidActivate(HttpSessionEvent event) {
-		
 	}
 }
