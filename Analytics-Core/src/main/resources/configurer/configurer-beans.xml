@@ -77,7 +77,12 @@
 		<property name="usePool" value="${redis.usePool}"/>
 	</bean>
 	
-	<!-- <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory"/>
+	</bean>
+	
+	<!-- 
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
 		<property name="serviceName" value="AnalyticsService"/>
 		<property name="service" ref="analyticsService"/>
 		<property name="serviceInterface" value="analytics.core.service.AnalyticsService"/>
@@ -87,5 +92,6 @@
 	<bean id="remoteAnalytics" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
 		<property name="serviceUrl" value="rmi://127.0.0.1:1199/AnalyticsService"/>
 		<property name="serviceInterface" value="analytics.core.service.AnalyticsService"/>
-	</bean> -->
+	</bean>
+	 -->
 </beans>

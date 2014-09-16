@@ -39,10 +39,19 @@
 				</a>
 			</li>
 			
+			<li>
+				<a href="#">
+					<i class="fa fa-bar-chart-o"></i>
+					<span>在线参数</span>
+					<small class="badge pull-right bg-green">new</small>
+				</a>
+			</li>
+			
 			<li class="treeview">
 				<a href="apps.htm">
 					<i class="fa fa-laptop"></i>
 					<span>管理</span>
+					<small class="badge pull-right bg-yellow">4</small>
 					<i class="fa fa-angle-left pull-right"></i>
 				</a>
 				<ul class="treeview-menu">
