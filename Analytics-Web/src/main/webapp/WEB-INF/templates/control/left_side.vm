@@ -75,6 +75,7 @@
 					<i class="fa fa-gear"></i>
 					<span>设置</span>
 					##<small class="badge pull-right bg-yellow">12</small>
+					<small class="badge pull-right bg-green">new</small>
 				</a>
 			</li>
 			
