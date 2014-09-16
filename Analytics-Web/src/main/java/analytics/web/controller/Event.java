@@ -59,7 +59,8 @@ public class Event extends BaseController {
 		String description = request.getParameter("description");
 		Result result = eventService.createEvent(app_id, name, description);
 		if (result.isSuccess()) {
-			return post("apps.htm", data, "创建中...");
+			data.put("id", app_id);
+			return post("app_detail.htm", data, "创建中...");
 		}
 		return post("create_event.htm", data, true, result.getMessage(), "创建中...");
 	}
