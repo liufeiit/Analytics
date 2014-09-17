@@ -16,7 +16,7 @@
         						<optgroup label="请选择所属应用">
         							#if($!{hasApp})
             							#foreach($app in $allApp)
-            								<option value="$!{app.id}">$!{app.name}</option>
+            								<option value="$!{app.id}" #if($!{app.id} == $!{selected_app}) selected="selected" #end>$!{app.name}</option>
             							#end
             						#else
             							<option value="0">您还没有任何应用</option>
