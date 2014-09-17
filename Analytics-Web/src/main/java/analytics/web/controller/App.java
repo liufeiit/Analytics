@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import analytics.core.dataobject.AppDO;
 import analytics.core.service.Result;
+import analytics.web.handler.SessionManager;
 
 /**
  * @author 刘飞 E-mail:liufei_it@126.com
@@ -28,6 +29,12 @@ public class App extends BaseController {
 	
 	@RequestMapping(value = "/stats.htm")
 	public ModelAndView apps_stats(HttpServletRequest request) {
+		long appId = SessionManager.getSelectedApp(request.getSession(true));
+		if(appId > 0L) {
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("id", appId);
+			return post("app_detail.htm", data, "统计中...");
+		}
 		ModelAndView mv = returnView(request, "stats", "统计", "详情", true);
 		return mv;
 	}
