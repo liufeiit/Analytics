@@ -28,7 +28,7 @@ public class Analytics extends BaseController {
 		String token = request.getParameter("token");
 		long labelId = NumberUtils.toLong(request.getParameter("label_id"), -1L);
 		int accumulation = NumberUtils.toInt(request.getParameter("accumulation"), -1);
-		return returnView(new ModelAndView("json"), analyticsService.event(appId, token, labelId, accumulation));
+		return returnJson(new ModelAndView("json"), analyticsService.event(appId, token, labelId, accumulation));
 	}
 	
 	@RequestMapping(value = "/report_line.htm")
@@ -36,7 +36,7 @@ public class Analytics extends BaseController {
 		long label_id = NumberUtils.toLong(request.getParameter("id"), -1L);
 		Result result = labelService.getLabel(label_id);
 		if(!result.isSuccess()) {
-			return returnApps(request);
+			return returnApps(request, false);
 		}
 		
 		int year = NumberUtils.toInt(request.getParameter("year"), CalendarUtil.year());
@@ -46,12 +46,12 @@ public class Analytics extends BaseController {
 		
 		Result report = analyticsService.report(label_id, year, month, day, type);
 		if(!report.isSuccess()) {
-			return returnApps(request);
+			return returnApps(request, false);
 		}
 		
 		LabelDO label = (LabelDO) result.get("label");
 		String name = label.getName();
-		ModelAndView mv = newViewWithUserAndApps(request, "report.line", name + "统计", "统计概况");
+		ModelAndView mv = returnView(request, "report.line", name + "统计", "统计概况", false);
 		mv.addObject("years", CalendarUtil.years(10, null));
 		mv.addObject("label_id", label_id);
 		

@@ -1,6 +1,3 @@
-<style type="text/css">
-	
-</style>
 <header class="header">
 	<a href="home.htm" class="logo" target="_self" style="background-color: #2E3339;">Ruoogle Analytics</a>
 	<nav class="navbar navbar-static-top" role="navigation" style="background-color: #2E3339;">
@@ -11,12 +8,12 @@
 			<span class="icon-bar"></span>
 		</a>
 		<div class="navbar-left">
-			<form role="form" action="home.htm" method="post">
-				<select class="form-control select-head" name="app_id">
+			<form role="form" action="selected_app.htm" method="post" name="selectApps">
+				<select id="select_app" class="form-control select-head" name="selectedApp">
 					#if($!{hasApp})
 						<option value="0">全部应用</option>
 						#foreach($app in $allApp)
-							<option value="$!{app.id}">$!{app.name}</option>
+							<option value="$!{app.id}" #if($!{app.id} == $!{selected_app}) selected="selected" #end>$!{app.name}</option>
 						#end
 					#else
 						<option value="0">您还没有任何应用</option>

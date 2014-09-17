@@ -33,6 +33,11 @@
 			$(function() {
                 //$(".left-side").css("height", $(window).height());
                 $(".left-side").css("height", $(document).height());
+				
+				$("#select_app").change(function(){        
+                    document.selectApps.submit();
+                });
+				
             });
         </script>
     </head>

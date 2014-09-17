@@ -27,11 +27,11 @@ public class Event extends BaseController {
 		long event_id = NumberUtils.toLong(request.getParameter("id"), -1L);
 		Result resultEvent = eventService.getEvent(event_id);
 		if(!resultEvent.isSuccess()) {
-			return returnApps(request);
+			return returnApps(request, false);
 		}
 		EventDO event = (EventDO) resultEvent.get("event");
 		String name = event.getName();
-		ModelAndView mv = newViewWithUserAndApps(request, "event_labels", "事件详情", name);
+		ModelAndView mv = returnView(request, "event_labels", "事件详情", name, false);
 		mv.addObject("event_name", name);
 		Result result = labelService.getEventLabel(event_id);
 		mv.addObject("hasLabels", result.isSuccess());
@@ -41,10 +41,7 @@ public class Event extends BaseController {
 
 	@RequestMapping(value = "/create_event.htm")
 	public ModelAndView create_event_page(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUserAndApps(request, "create_event", "创建事件", "事件概况");
-		Result result = appService.getAllApp(false);
-		mv.addObject("hasApp", result.isSuccess());
-		mv.addObject("allApp", result.get("allApp"));
+		ModelAndView mv = returnView(request, "create_event", "创建事件", "事件概况", false);
 		return mv;
 	}
 

@@ -17,7 +17,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        #if($!{success})
+                        #if($!{hasApp})
                     		#foreach($app in $allApp)
                     			<tr >
                             		<td >

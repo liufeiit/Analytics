@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -57,11 +58,16 @@ public class Home extends BaseController {
 	
 	@RequestMapping(value = "/home.htm")
 	public ModelAndView home(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUserAndApps(request, "home", "首页", "首页概况");
-		Result result = appService.getAllApp(false);
-		mv.addObject("success", result.isSuccess());
-		mv.addObject("allApp", result.get("allApp"));
+		ModelAndView mv = returnView(request, "home", "首页", "首页概况", false);
 		return mv;
+	}
+	
+	@RequestMapping(value = "/selected_app.htm")
+	public ModelAndView selected_app(HttpServletRequest request) {
+		long appId = NumberUtils.toLong(request.getParameter("selectedApp"), 0L);
+		SessionManager.selectedApp(request.getSession(true), appId);
+		System.out.println("set selected app : " + appId);
+		return returnApps(request, false);
 	}
 	
 	public static void main(String[] args) {

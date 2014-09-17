@@ -68,12 +68,26 @@ public class BaseController {
 		return mv;
 	}
 	
-	protected ModelAndView returnApps(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUserAndApps(request, "apps", "应用", "应用概况");
+	protected ModelAndView returnApps(HttpServletRequest request, boolean withAppEvent) {
+		ModelAndView mv = returnView(request, "apps", "应用", "应用概况", withAppEvent);
+		return mv;
+	}
+	
+	protected ModelAndView returnView(HttpServletRequest request, String name, String nav, String nav_desc, boolean withAppEvent) {
+		ModelAndView mv = new ModelAndView(name);
+		UserDO user = getLoginUser(request);
+		mv.addObject("name", user.getName());
+		mv.addObject("uid", user.getId());
+		mv.addObject("nav", nav);
+		mv.addObject("nav_desc", nav_desc);
+		Result result = appService.getAllApp(withAppEvent);
+		mv.addObject("hasApp", result.isSuccess());
+		mv.addObject("allApp", result.get("allApp"));
+		mv.addObject("selected_app", SessionManager.getSelectedApp(request.getSession(true)));
 		return mv;
 	}
 
-	protected ModelAndView returnView(ModelAndView mv, Result result) {
+	protected ModelAndView returnJson(ModelAndView mv, Result result) {
 		mv.addObject("success", result.isSuccess());
 		mv.addObject("message", result.getMessage());
 		mv.addObject("errorCode", result.getErrorCode());
@@ -93,23 +107,6 @@ public class BaseController {
 			mv.addObject("alert", alert);
 			mv.addObject("alertMsg", alertMsg);
 		}
-		return mv;
-	}
-	
-	protected ModelAndView newViewWithUserAndApps(HttpServletRequest request, String name, String nav, String nav_desc) {
-		ModelAndView mv = new ModelAndView(name);
-		UserDO user = getLoginUser(request);
-		mv.addObject("name", user.getName());
-		mv.addObject("uid", user.getId());
-
-		mv.addObject("nav", nav);
-		mv.addObject("nav_desc", nav_desc);
-		
-		Result result = appService.getAllApp(false);
-		mv.addObject("success", result.isSuccess());
-		mv.addObject("hasApp", result.isSuccess());
-		mv.addObject("allApp", result.get("allApp"));
-		
 		return mv;
 	}
 	

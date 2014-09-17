@@ -17,7 +17,7 @@ public class Configurer extends BaseController {
 
 	@RequestMapping(value = "/configurer.htm")
 	public ModelAndView configurer_page(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUserAndApps(request, "configurer", "在线参数", "参数概况");
+		ModelAndView mv = returnView(request, "configurer", "在线参数", "参数概况", false);
 		return mv;
 	}
 }

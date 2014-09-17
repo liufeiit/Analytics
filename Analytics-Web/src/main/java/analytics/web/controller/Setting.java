@@ -17,7 +17,7 @@ public class Setting extends BaseController {
 
 	@RequestMapping(value = "/setting.htm")
 	public ModelAndView setting_page(HttpServletRequest request) {
-		ModelAndView mv = newViewWithUserAndApps(request, "setting", "设置", "设置概况");
+		ModelAndView mv = returnView(request, "setting", "设置", "设置概况", false);
 		return mv;
 	}
 }

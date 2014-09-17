@@ -17,6 +17,19 @@ public class SessionManager {
 
 	static final Log log = LogFactory.getLog(SessionManager.class);
 
+	public static void selectedApp(HttpSession session, long appId) {
+		session.setAttribute(Static.SELECTED_APP, appId);
+	}
+	
+	public static long getSelectedApp(HttpSession session) {
+		Object val = session.getAttribute(Static.SELECTED_APP);
+		System.out.println("get selected app : " + val);
+		if(val == null) {
+			return 0L;
+		}
+		return ((Long) val).longValue();
+	}
+	
 	public static void login(HttpSession session, UserDO user) {
 		session.setAttribute(Static.ONLINE_USER, user);
 		/*if(!Application.isRedisAvailable()) {
