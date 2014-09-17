@@ -36,8 +36,8 @@ public class SessionManager {
 				final byte[] sessionId = CharsetUtils.getUTF8Bytes(id);
 				final String userGson = Static.gson.toJson(user);
 				connection.hSet(sessionId, CharsetUtils.getUTF8Bytes(Static.ONLINE_USER), CharsetUtils.getUTF8Bytes(userGson));
-				log.error("Session[" + id + "] Binding User Named : " + name + " is login Success.");
-				System.err.println("Session[" + id + "] Binding User Named : " + name + " is login Success.");
+				log.error("Session[" + id + "] Binding User Named " + name + " is login Success.");
+				System.err.println("Session[" + id + "] Binding User Named " + name + " is login Success.");
 				return true;
 			}
 		});

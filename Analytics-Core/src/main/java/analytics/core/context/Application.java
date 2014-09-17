@@ -2,6 +2,7 @@ package analytics.core.context;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,7 +26,7 @@ public class Application implements ApplicationContextAware {
 	public static RedisTemplate<String, String> redisTemplate;
 	private static JedisConnectionFactory jedisConnectionFactory;
 	
-	private static volatile boolean redis_available ;
+	private static AtomicBoolean redis_available = new AtomicBoolean(false);
 	
 	@Override
 	public final void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -36,35 +37,44 @@ public class Application implements ApplicationContextAware {
 		}
 	}
 	
+	public static void main(String[] args) {
+		System.out.println(redis_available.get());//false
+		redis_available.compareAndSet(false, true);
+		System.out.println(redis_available.get());//true
+		System.out.println(redis_available.getAndSet(false));//true
+		System.out.println(redis_available.get());//false
+		redis_available.lazySet(true);
+		System.out.println(redis_available.get());//true
+		redis_available.set(false);
+		System.out.println(redis_available.get());//false
+	}
+	
 	@SuppressWarnings("unchecked")
 	protected void init(ApplicationContext applicationContext) throws Exception {
 		Application.context = applicationContext;
 		Application.redisTemplate = (RedisTemplate<String, String>) applicationContext.getBean("redisTemplate");
 		Application.jedisConnectionFactory = (JedisConnectionFactory) applicationContext.getBean("jedisConnectionFactory");
-		Application.redis_available = Application.REDIS_AVAILABLE_RESPONSE.equals(Application.jedisConnectionFactory.getConnection().ping());
-		if(Application.redis_available) {
+		checkRedisAvailable();
+		new Timer(true).schedule(new TimerTask() {
+			public void run() {
+				checkRedisAvailable();
+			}
+		}, 3000, 10000);
+	}
+	
+	protected void checkRedisAvailable() {
+		Application.redis_available.compareAndSet(false, Application.REDIS_AVAILABLE_RESPONSE.equals(Application.jedisConnectionFactory.getConnection().ping()));
+		if(Application.redis_available.get()) {
 			log.error(getRedisInfo() + " is available.");
 			System.err.println(getRedisInfo() + " is available.");
 		} else {
 			log.error(getRedisInfo() + " is unavailable.");
 			System.err.println(getRedisInfo() + " is unavailable.");
 		}
-		new Timer(true).schedule(new TimerTask() {
-			public void run() {
-				Application.redis_available = Application.REDIS_AVAILABLE_RESPONSE.equals(Application.jedisConnectionFactory.getConnection().ping());
-				if(Application.redis_available) {
-					log.error(getRedisInfo() + " is available.");
-					System.err.println(getRedisInfo() + " is available.");
-				} else {
-					log.error(getRedisInfo() + " is unavailable.");
-					System.err.println(getRedisInfo() + " is unavailable.");
-				}
-			}
-		}, 3000, 10000);
 	}
 	
 	public static boolean isRedisAvailable() {
-		return Application.redis_available;
+		return Application.redis_available.get();
 	}
 	
 	private String getRedisInfo() {
