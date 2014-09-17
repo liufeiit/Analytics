@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import analytics.core.service.Result;
+import analytics.web.handler.SessionManager;
 
 /**
  * Web首页。
@@ -29,6 +30,14 @@ public class Home extends BaseController {
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("login");
 		mv.addObject("errorMsg", request.getParameter("errorMsg"));
+		return mv;
+	}
+	
+	@RequestMapping(value = "/logout.htm")
+	public ModelAndView logout(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("login");
+		mv.addObject("errorMsg", request.getParameter("errorMsg"));
+		SessionManager.logout(request.getSession(true));
 		return mv;
 	}
 	
