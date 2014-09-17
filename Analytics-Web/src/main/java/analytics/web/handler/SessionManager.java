@@ -26,7 +26,11 @@ public class SessionManager {
 		if(val == null) {
 			return 0L;
 		}
-		return ((Long) val).longValue();
+		long appId = ((Long) val).longValue();
+		if(appId <= 0L) {
+			return 0L;
+		}
+		return appId;
 	}
 	
 	public static void login(HttpSession session, UserDO user) {

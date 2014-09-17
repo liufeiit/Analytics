@@ -17,11 +17,21 @@
         						#if($!{hasApp})
         							#foreach($app in $allApp)
         								#if($!app.hasEvent())
-        									<optgroup label="$!{app.name}">
-                    							#foreach($event in $!app.eventList)
-            										<option value="$!{event.id}">$!{event.name}</option>
-            									#end
-                                            </optgroup>
+											#if($!{selected_app} != 0)
+												##已经选择了App
+												#if($!{app.id} == $!{selected_app})
+													#foreach($event in $!app.eventList)
+                										<option value="$!{event.id}">$!{event.name}</option>
+                									#end
+												#end
+											#else
+												##没有选择App
+												<optgroup label="$!{app.name}">
+                        							#foreach($event in $!app.eventList)
+                										<option value="$!{event.id}">$!{event.name}</option>
+                									#end
+                                                </optgroup>
+											#end
         								#end
         							#end
         						#else
