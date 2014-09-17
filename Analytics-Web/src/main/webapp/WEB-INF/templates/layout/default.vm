@@ -48,6 +48,26 @@
         			<h1>
         				$!{nav}<small>$!{nav_desc}</small>
         			</h1>
+					
+					#*
+					<ol>
+        				<li>
+							<form role="form" action="home.htm" method="post">
+        						<select class="form-control" name="app_id">
+            						#if($!{hasApp})
+        								<option value="0">全部应用</option>
+            							#foreach($app in $allApp)
+            								<option value="$!{app.id}">$!{app.name}</option>
+            							#end
+            						#else
+            							<option value="0">您还没有任何应用</option>
+            						#end
+                                </select>
+                            </form>
+						</li>
+        			</ol>
+					*#
+					
         			<ol class="breadcrumb">
         				<li><a href="home.htm"><i class="fa fa-dashboard"></i>首页</a></li>
         				<li class="active">$!{nav}</li>
