@@ -1,6 +1,8 @@
 package analytics.core.dao.impl;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import tulip.data.jdbc.mapper.BeanParameterMapper;
@@ -26,9 +28,12 @@ public class DefaultUserDAO extends BaseDAO implements UserDAO {
 	public static final String SELECT_BYNAME_SQL = "SELECT id, name, email, mobile, weixin, password, gmt_created, gmt_modified FROM usr WHERE name = :name;";
 	
 	@Override
-	public void insertUser(UserDO userDO) throws DAOException {
+	public void insertUser(UserDO user) throws DAOException {
 		try {
-			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(userDO));
+			KeyHolder holder = new GeneratedKeyHolder();
+			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(user), holder, new String[]{ "id" });
+			Number id = holder.getKey();
+			user.setId(id.longValue());
 		} catch (DataAccessException e) {
 			log.error("InsertUser Error.", e);
 			throw new DAOException("InsertUser Error.", e);

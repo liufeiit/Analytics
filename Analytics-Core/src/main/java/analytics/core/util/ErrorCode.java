@@ -11,6 +11,8 @@ public enum ErrorCode {
 	Success								(200, 		"成功"),
 	Error_AppID							(-100, 		"请输入合法的AppID"),
 	Error_LabelID						(-200, 		"请输入合法的LabelID"),
+	Error_EventID						(-201, 		"请输入合法的EventID"),
+	Error_LabelName						(-202, 		"请输入合法的Label名称"),
 	Error_Accumulation					(-300, 		"请输入合法的Accumulation"),
 	
 	Error_CreateApp						(-400, 		"创建应用失败"),

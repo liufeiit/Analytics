@@ -3,6 +3,8 @@ package analytics.core.dao.impl;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import tulip.data.jdbc.mapper.BeanParameterMapper;
@@ -37,7 +39,10 @@ public class DefaultEventDAO extends BaseDAO implements EventDAO {
 	@Override
 	public void insertEvent(EventDO event) throws DAOException {
 		try {
-			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(event));
+			KeyHolder holder = new GeneratedKeyHolder();
+			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(event), holder, new String[]{ "id" });
+			Number id = holder.getKey();
+			event.setId(id.longValue());
 		} catch (DataAccessException e) {
 			log.error("AddEvent Error.", e);
 			throw new DAOException("AddEvent Error.", e);

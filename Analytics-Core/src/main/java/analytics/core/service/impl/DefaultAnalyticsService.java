@@ -8,8 +8,10 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import tulip.util.CollectionUtil;
+import tulip.util.StringUtil;
 import analytics.core.dao.DAOException;
 import analytics.core.dataobject.AppDO;
+import analytics.core.dataobject.LabelDO;
 import analytics.core.dataobject.StatsDO;
 import analytics.core.service.AnalyticsService;
 import analytics.core.service.BaseService;
@@ -152,6 +154,43 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 			}
 		}
 		return mapper;
+	}
+
+	@Override
+	public Result event(long appId, String token, long eventId, String labelName, int accumulation) {
+		if(eventId <= 0L) {
+			return Result.newError().with(ErrorCode.Error_EventID);
+		}
+		if(StringUtil.isBlank(labelName)) {
+			return Result.newError().with(ErrorCode.Error_LabelName);
+		}
+		if (accumulation <= 0) {
+			return Result.newError().with(ErrorCode.Error_Accumulation);
+		}
+		Result result = checkPermission(appId, token);
+		if (!result.isSuccess()) {
+			return result;
+		}
+		LabelDO label = new LabelDO();
+		label.setEventId(eventId);
+		label.setModelId(1);
+		label.setName(labelName);
+		label.setDescription(labelName);
+		Date date = new Date();
+		label.setGmt_created(date);
+		label.setGmt_modified(date);
+		try {
+			labelDAO.insertLabel(label);
+		} catch (DAOException e) {
+			log.error("CreateLabel Error.", e);
+			return Result.newError().with(ErrorCode.Error_CreateLabel);
+		}
+		SynEventTask task = new SynEventTask(date, TaskCommand.Event);
+		task.initialize(this);
+		task.setAccumulation(accumulation);
+		task.setLabelId(label.getId());
+		SynTaskPool.execute(task);
+		return Result.newSuccess().with(ErrorCode.Success);
 	}
 
 	@Override

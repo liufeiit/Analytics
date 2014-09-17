@@ -3,6 +3,8 @@ package analytics.core.dao.impl;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import tulip.data.jdbc.mapper.BeanParameterMapper;
@@ -37,7 +39,10 @@ public class DefaultLabelDAO extends BaseDAO implements LabelDAO {
 	@Override
 	public void insertLabel(LabelDO label) throws DAOException {
 		try {
-			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(label));
+			KeyHolder holder = new GeneratedKeyHolder();
+			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(label), holder, new String[]{ "id" });
+			Number id = holder.getKey();
+			label.setId(id.longValue());
 		} catch (DataAccessException e) {
 			log.error("AddLabel Error.", e);
 			throw new DAOException("AddLabel Error.", e);

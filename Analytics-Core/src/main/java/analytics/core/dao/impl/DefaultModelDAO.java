@@ -1,6 +1,8 @@
 package analytics.core.dao.impl;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import tulip.data.jdbc.mapper.BeanParameterMapper;
@@ -33,7 +35,10 @@ public class DefaultModelDAO extends BaseDAO implements ModelDAO {
 	@Override
 	public void insertModel(ModelDO model) throws DAOException {
 		try {
-			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(model));
+			KeyHolder holder = new GeneratedKeyHolder();
+			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(model), holder, new String[]{ "id" });
+			Number id = holder.getKey();
+			model.setId(id.longValue());
 		} catch (DataAccessException e) {
 			log.error("AddModel Error.", e);
 			throw new DAOException("AddModel Error.", e);

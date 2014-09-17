@@ -11,6 +11,8 @@ public interface AnalyticsService {
 	
 	Result event(long appId, String token, long labelId, int accumulation);
 	
+	Result event(long appId, String token, long eventId, String labelName, int accumulation);
+	
 	Result checkPermission(long appId, String token);
 
 	Result report(long labelId, int year, int month, int day, int type);

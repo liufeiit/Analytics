@@ -3,6 +3,8 @@ package analytics.core.dao.impl;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import tulip.data.jdbc.mapper.BeanParameterMapper;
@@ -37,7 +39,10 @@ public class DefaultAppDAO extends BaseDAO implements AppDAO {
 	@Override
 	public void insertApp(AppDO app) throws DAOException {
 		try {
-			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(app));
+			KeyHolder holder = new GeneratedKeyHolder();
+			jdbcTemplate.update(ADD_SQL, BeanParameterMapper.newInstance(app), holder, new String[]{ "id" });
+			Number id = holder.getKey();
+			app.setId(id.longValue());
 		} catch (DataAccessException e) {
 			log.error("AddApp Error.", e);
 			throw new DAOException("AddApp Error.", e);
