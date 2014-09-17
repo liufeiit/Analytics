@@ -22,13 +22,23 @@ import analytics.core.util.Static;
 @Controller
 public class Analytics extends BaseController {
 
-	@RequestMapping(value = "/event")
-	public ModelAndView event(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/label")
+	public ModelAndView label(HttpServletRequest request, HttpServletResponse response) {
 		long appId = NumberUtils.toLong(request.getParameter("app_id"), -1L);
 		String token = request.getParameter("token");
 		long labelId = NumberUtils.toLong(request.getParameter("label_id"), -1L);
 		int accumulation = NumberUtils.toInt(request.getParameter("accumulation"), -1);
 		return returnJson(new ModelAndView("json"), analyticsService.event(appId, token, labelId, accumulation));
+	}
+	
+	@RequestMapping(value = "/event")
+	public ModelAndView event(HttpServletRequest request, HttpServletResponse response) {
+		long appId = NumberUtils.toLong(request.getParameter("app_id"), -1L);
+		String token = request.getParameter("token");
+		long eventId = NumberUtils.toLong(request.getParameter("event_id"), -1L);
+		String labelName = request.getParameter("label_name");
+		int accumulation = NumberUtils.toInt(request.getParameter("accumulation"), -1);
+		return returnJson(new ModelAndView("json"), analyticsService.event(appId, token, eventId, labelName, accumulation));
 	}
 	
 	@RequestMapping(value = "/report_line.htm")
