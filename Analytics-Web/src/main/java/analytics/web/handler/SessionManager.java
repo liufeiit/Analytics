@@ -7,9 +7,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import tulip.util.StringUtil;
+import analytics.core.context.Application;
 import analytics.core.dataobject.UserDO;
 import analytics.web.util.Static;
 import analytics.web.util.Static.CharsetUtils;
@@ -23,11 +23,14 @@ public class SessionManager {
 
 	private static final Log log = LogFactory.getLog(SessionManager.class);
 
-	public static void login(HttpSession session, RedisTemplate<String, String> redisTemplate, final UserDO user) {
+	public static void login(HttpSession session, final UserDO user) {
+		if(!Application.isRedisAvailable()) {
+			session.setAttribute(Static.ONLINE_USER, user);
+			return;
+		}
 		final String id = session.getId();
 		final String name = user.getName();
-		redisTemplate.getConnectionFactory().getConnection().ping();
-		redisTemplate.execute(new RedisCallback<Boolean>() {
+		Application.redisTemplate.execute(new RedisCallback<Boolean>() {
 			@Override
 			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 				final byte[] sessionId = CharsetUtils.getUTF8Bytes(id);
@@ -39,11 +42,15 @@ public class SessionManager {
 			}
 		});
 	}
-
-	public static void logout(HttpSession session, RedisTemplate<String, String> redisTemplate) {
+	
+	public static void logout(HttpSession session) {
+		if(!Application.isRedisAvailable()) {
+			session.removeAttribute(Static.ONLINE_USER);
+			return;
+		}
 		final String id = session.getId();
 		final byte[] sessionId = CharsetUtils.getUTF8Bytes(id);
-		redisTemplate.execute(new RedisCallback<Boolean>() {
+		Application.redisTemplate.execute(new RedisCallback<Boolean>() {
 			@Override
 			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 				connection.hDel(sessionId, CharsetUtils.getUTF8Bytes(Static.ONLINE_USER));
@@ -54,9 +61,12 @@ public class SessionManager {
 		});
 	}
 
-	public static boolean isLogin(HttpSession session, RedisTemplate<String, String> redisTemplate) {
+	public static boolean isLogin(HttpSession session) {
+		if(!Application.isRedisAvailable()) {
+			return session.getAttribute(Static.ONLINE_USER) != null;
+		}
 		final byte[] sessionId = CharsetUtils.getUTF8Bytes(session.getId());
-		Boolean isLogin = redisTemplate.execute(new RedisCallback<Boolean>() {
+		Boolean isLogin = Application.redisTemplate.execute(new RedisCallback<Boolean>() {
 			@Override
 			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 				return connection.hExists(sessionId, CharsetUtils.getUTF8Bytes(Static.ONLINE_USER));
@@ -68,9 +78,12 @@ public class SessionManager {
 		return false;
 	}
 
-	public static UserDO getUser(HttpSession session, RedisTemplate<String, String> redisTemplate) {
+	public static UserDO getUser(HttpSession session) {
+		if(!Application.isRedisAvailable()) {
+			return (UserDO) session.getAttribute(Static.ONLINE_USER);
+		}
 		final byte[] sessionId = CharsetUtils.getUTF8Bytes(session.getId());
-		return redisTemplate.execute(new RedisCallback<UserDO>() {
+		return Application.redisTemplate.execute(new RedisCallback<UserDO>() {
 			@Override
 			public UserDO doInRedis(RedisConnection connection) throws DataAccessException {
 				byte[] bytes = connection.hGet(sessionId, CharsetUtils.getUTF8Bytes(Static.ONLINE_USER));

@@ -10,7 +10,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import analytics.core.dataobject.UserDO;
@@ -60,10 +59,6 @@ public class BaseController {
 	@Autowired
 	@Qualifier(value = "userService")
 	protected UserService userService;
-	
-	@Autowired
-	@Qualifier(value = "redisTemplate")
-	private RedisTemplate<String, String> redisTemplate;
 	
 	protected ModelAndView lineDataView(ModelAndView mv, Number[][] data, String label, String tip_start, String tip_end) {
 		mv.addObject("data", JSONArray.fromObject(data));
@@ -119,11 +114,11 @@ public class BaseController {
 	}
 	
 	protected void userLogin(HttpServletRequest request, UserDO user) {
-		SessionManager.login(request.getSession(true), redisTemplate, user);
+		SessionManager.login(request.getSession(true), user);
 	}
 	
 	protected UserDO getLoginUser(HttpServletRequest request) {
-		return SessionManager.getUser(request.getSession(true), redisTemplate);
+		return SessionManager.getUser(request.getSession(true));
 	}
 	
 	protected long getUserId(HttpServletRequest request) {

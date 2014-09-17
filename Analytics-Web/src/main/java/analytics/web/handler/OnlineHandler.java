@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 /**
@@ -24,28 +21,12 @@ public class OnlineHandler extends GenericFilterBean {
 
 	private final static String[] INGORE_URLS = new String[] { "login.htm", "index.htm", "analytics/event", "/image/", "/js/", "/css/", "/fonts/" };
 
-	private RedisTemplate<String, String> redisTemplate;
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void initFilterBean() throws ServletException {
-		super.initFilterBean();
-		if(redisTemplate == null) {
-			try {
-				WebApplicationContext applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-				redisTemplate = (RedisTemplate<String, String>) applicationContext.getBean("redisTemplate");
-			} catch (Exception e) {
-				logger.error("getRedisTemplate Error.", e);
-			}
-		}
-	}
-
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException,
 			ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		boolean isLogin = SessionManager.isLogin(request.getSession(true), redisTemplate);
+		boolean isLogin = SessionManager.isLogin(request.getSession(true));
 		String reqURL = request.getRequestURL().toString();
 		if (!(isIngore(request, reqURL)) && !isLogin) {
 			response.sendRedirect(INGORE_URLS[1]);
