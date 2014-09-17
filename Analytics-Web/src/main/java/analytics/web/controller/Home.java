@@ -66,7 +66,6 @@ public class Home extends BaseController {
 	public ModelAndView selected_app(HttpServletRequest request) {
 		long appId = NumberUtils.toLong(request.getParameter("selectedApp"), 0L);
 		SessionManager.selectedApp(request.getSession(true), appId);
-		System.out.println("set selected app : " + appId);
 		return returnApps(request, false);
 	}
 	

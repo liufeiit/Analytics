@@ -23,7 +23,6 @@ public class SessionManager {
 	
 	public static long getSelectedApp(HttpSession session) {
 		Object val = session.getAttribute(Static.SELECTED_APP);
-		System.out.println("get selected app : " + val);
 		if(val == null) {
 			return 0L;
 		}
