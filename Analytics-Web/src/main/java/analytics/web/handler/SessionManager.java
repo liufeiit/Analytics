@@ -4,15 +4,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
 
-import tulip.util.StringUtil;
-import analytics.core.context.Application;
 import analytics.core.dataobject.UserDO;
 import analytics.web.util.Static;
-import analytics.web.util.Static.CharsetUtils;
 
 /**
  * @author 刘飞 E-mail:liufei_it@126.com
@@ -21,11 +15,11 @@ import analytics.web.util.Static.CharsetUtils;
  */
 public class SessionManager {
 
-	private static final Log log = LogFactory.getLog(SessionManager.class);
+	static final Log log = LogFactory.getLog(SessionManager.class);
 
 	public static void login(HttpSession session, UserDO user) {
 		session.setAttribute(Static.ONLINE_USER, user);
-		if(!Application.isRedisAvailable()) {
+		/*if(!Application.isRedisAvailable()) {
 			return;
 		}
 		final String id = session.getId();
@@ -40,12 +34,12 @@ public class SessionManager {
 				System.err.println("Session[" + id + "] Binding User Named " + name + " is login Success.");
 				return true;
 			}
-		});
+		});*/
 	}
 	
 	public static void logout(HttpSession session) {
 		session.removeAttribute(Static.ONLINE_USER);
-		if(!Application.isRedisAvailable()) {
+		/*if(!Application.isRedisAvailable()) {
 			return;
 		}
 		final String id = session.getId();
@@ -58,11 +52,12 @@ public class SessionManager {
 				System.err.println("User Session[" + id + "] " + " is logout Success.");
 				return true;
 			}
-		});
+		});*/
 	}
 
 	public static boolean isLogin(HttpSession session) {
-		if(!Application.isRedisAvailable()) {
+		return session.getAttribute(Static.ONLINE_USER) != null;
+		/*if(!Application.isRedisAvailable()) {
 			return session.getAttribute(Static.ONLINE_USER) != null;
 		}
 		final byte[] sessionId = CharsetUtils.getUTF8Bytes(session.getId());
@@ -75,11 +70,12 @@ public class SessionManager {
 		if (isLogin != null) {
 			return isLogin;
 		}
-		return false;
+		return false;*/
 	}
 
 	public static UserDO getUser(HttpSession session) {
-		if(!Application.isRedisAvailable()) {
+		return (UserDO) session.getAttribute(Static.ONLINE_USER);
+		/*if(!Application.isRedisAvailable()) {
 			return (UserDO) session.getAttribute(Static.ONLINE_USER);
 		}
 		final byte[] sessionId = CharsetUtils.getUTF8Bytes(session.getId());
@@ -93,6 +89,6 @@ public class SessionManager {
 				}
 				return Static.gson.fromJson(userGson, UserDO.class);
 			}
-		});
+		});*/
 	}
 }

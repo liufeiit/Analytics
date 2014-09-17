@@ -1,7 +1,5 @@
 package analytics.core.context;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.logging.Log;
@@ -42,15 +40,15 @@ public class Application implements ApplicationContextAware {
 		Application.context = applicationContext;
 		Application.redisTemplate = (RedisTemplate<String, String>) applicationContext.getBean("redisTemplate");
 		Application.jedisConnectionFactory = (JedisConnectionFactory) applicationContext.getBean("jedisConnectionFactory");
-		checkRedisAvailable();
+		/*checkRedisAvailable();
 		new Timer(false).schedule(new TimerTask() {
 			public void run() {
 				checkRedisAvailable();
 			}
-		}, 3000, 10000);
+		}, 3000, 10000);*/
 	}
 	
-	protected void checkRedisAvailable() {
+	protected synchronized void checkRedisAvailable() {
 		try {
 			Application.redis_available.compareAndSet(false, Application.REDIS_AVAILABLE_RESPONSE.equals(Application.jedisConnectionFactory.getConnection().ping()));
 			if(Application.redis_available.get()) {
@@ -66,7 +64,7 @@ public class Application implements ApplicationContextAware {
 		}
 	}
 	
-	public static boolean isRedisAvailable() {
+	public static synchronized boolean isRedisAvailable() {
 		return Application.redis_available.get();
 	}
 	
