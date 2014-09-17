@@ -44,7 +44,7 @@
 	
 	<filter>
 		<filter-name>online</filter-name>
-		<filter-class>analytics.web.handler.OnlineFilter</filter-class>
+		<filter-class>analytics.web.handler.OnlineHandler</filter-class>
 	</filter>
 	
 	<filter>
@@ -96,7 +96,7 @@
 	</listener>
 	
 	<listener>
-		<listener-class>analytics.web.handler.SessionManager</listener-class>
+		<listener-class>analytics.web.handler.SessionHandler</listener-class>
 	</listener>
 	
 	<session-config>

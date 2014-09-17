@@ -36,6 +36,8 @@
 	<context:component-scan base-package="analytics.web.controller" />
 	<mvc:annotation-driven />
 	
+	<bean id="exceptionHandler" class="analytics.web.handler.GlobalExceptionHandler"/>
+	
 	<bean class="tulip.web.view.TulipViewResolver">
 		<property name="templateDir" value="WEB-INF/templates"/>
 		<property name="screenDir" value="screen"/>

@@ -38,8 +38,6 @@
 	<context:component-scan base-package="analytics.core.dao.impl"/>
 	<context:component-scan base-package="analytics.core.service.impl"/>
 	
-	<bean id="exceptionHandler" class="analytics.web.handler.GlobalExceptionHandler"/>
-	
 	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClassName}"/>
 		<property name="jdbcUrl" value="${jdbc.url}"/>

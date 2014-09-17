@@ -20,7 +20,7 @@ import org.springframework.web.filter.GenericFilterBean;
  * @version 1.0
  * @since 2014年9月9日 下午5:47:15
  */
-public class OnlineFilter extends GenericFilterBean {
+public class OnlineHandler extends GenericFilterBean {
 
 	private final static String[] INGORE_URLS = new String[] { "login.htm", "index.htm", "analytics/event", "/image/", "/js/", "/css/", "/fonts/" };
 
@@ -45,7 +45,7 @@ public class OnlineFilter extends GenericFilterBean {
 			ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		boolean isLogin = Session.isLogin(request.getSession(true), redisTemplate);
+		boolean isLogin = SessionManager.isLogin(request.getSession(true), redisTemplate);
 		String reqURL = request.getRequestURL().toString();
 		if (!(isIngore(request, reqURL)) && !isLogin) {
 			response.sendRedirect(INGORE_URLS[1]);

@@ -21,7 +21,7 @@ import analytics.core.service.LabelService;
 import analytics.core.service.ModelService;
 import analytics.core.service.Result;
 import analytics.core.service.UserService;
-import analytics.web.handler.Session;
+import analytics.web.handler.SessionManager;
 
 /**
  * 
@@ -119,13 +119,11 @@ public class BaseController {
 	}
 	
 	protected void userLogin(HttpServletRequest request, UserDO user) {
-		// request.getSession(true).setAttribute(Static.ONLINE_USER, user);
-		Session.login(request.getSession(true), redisTemplate, user);
+		SessionManager.login(request.getSession(true), redisTemplate, user);
 	}
 	
 	protected UserDO getLoginUser(HttpServletRequest request) {
-		// return (UserDO) request.getSession(true).getAttribute(Static.ONLINE_USER);
-		return Session.getUser(request.getSession(true), redisTemplate);
+		return SessionManager.getUser(request.getSession(true), redisTemplate);
 	}
 	
 	protected long getUserId(HttpServletRequest request) {
