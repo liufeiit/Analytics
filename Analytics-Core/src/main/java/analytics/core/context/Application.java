@@ -37,25 +37,13 @@ public class Application implements ApplicationContextAware {
 		}
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(redis_available.get());//false
-		redis_available.compareAndSet(false, true);
-		System.out.println(redis_available.get());//true
-		System.out.println(redis_available.getAndSet(false));//true
-		System.out.println(redis_available.get());//false
-		redis_available.lazySet(true);
-		System.out.println(redis_available.get());//true
-		redis_available.set(false);
-		System.out.println(redis_available.get());//false
-	}
-	
 	@SuppressWarnings("unchecked")
 	protected void init(ApplicationContext applicationContext) throws Exception {
 		Application.context = applicationContext;
 		Application.redisTemplate = (RedisTemplate<String, String>) applicationContext.getBean("redisTemplate");
 		Application.jedisConnectionFactory = (JedisConnectionFactory) applicationContext.getBean("jedisConnectionFactory");
 		checkRedisAvailable();
-		new Timer(true).schedule(new TimerTask() {
+		new Timer(false).schedule(new TimerTask() {
 			public void run() {
 				checkRedisAvailable();
 			}
@@ -63,13 +51,18 @@ public class Application implements ApplicationContextAware {
 	}
 	
 	protected void checkRedisAvailable() {
-		Application.redis_available.compareAndSet(false, Application.REDIS_AVAILABLE_RESPONSE.equals(Application.jedisConnectionFactory.getConnection().ping()));
-		if(Application.redis_available.get()) {
-			log.error(getRedisInfo() + " is available.");
-			System.err.println(getRedisInfo() + " is available.");
-		} else {
-			log.error(getRedisInfo() + " is unavailable.");
-			System.err.println(getRedisInfo() + " is unavailable.");
+		try {
+			Application.redis_available.compareAndSet(false, Application.REDIS_AVAILABLE_RESPONSE.equals(Application.jedisConnectionFactory.getConnection().ping()));
+			if(Application.redis_available.get()) {
+				log.error(getRedisInfo() + " is available.");
+				System.err.println(getRedisInfo() + " is available.");
+			} else {
+				log.error(getRedisInfo() + " is unavailable.");
+				System.err.println(getRedisInfo() + " is unavailable.");
+			}
+		} catch (Exception e) {
+			log.error("Check Redis Available Error.", e);
+			Application.redis_available.set(false);
 		}
 	}
 	

@@ -23,18 +23,18 @@ public class SessionManager {
 
 	private static final Log log = LogFactory.getLog(SessionManager.class);
 
-	public static void login(HttpSession session, final UserDO user) {
+	public static void login(HttpSession session, UserDO user) {
+		session.setAttribute(Static.ONLINE_USER, user);
 		if(!Application.isRedisAvailable()) {
-			session.setAttribute(Static.ONLINE_USER, user);
 			return;
 		}
 		final String id = session.getId();
 		final String name = user.getName();
+		final byte[] sessionId = CharsetUtils.getUTF8Bytes(id);
+		final String userGson = Static.gson.toJson(user);
 		Application.redisTemplate.execute(new RedisCallback<Boolean>() {
 			@Override
 			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
-				final byte[] sessionId = CharsetUtils.getUTF8Bytes(id);
-				final String userGson = Static.gson.toJson(user);
 				connection.hSet(sessionId, CharsetUtils.getUTF8Bytes(Static.ONLINE_USER), CharsetUtils.getUTF8Bytes(userGson));
 				log.error("Session[" + id + "] Binding User Named " + name + " is login Success.");
 				System.err.println("Session[" + id + "] Binding User Named " + name + " is login Success.");
@@ -44,8 +44,8 @@ public class SessionManager {
 	}
 	
 	public static void logout(HttpSession session) {
+		session.removeAttribute(Static.ONLINE_USER);
 		if(!Application.isRedisAvailable()) {
-			session.removeAttribute(Static.ONLINE_USER);
 			return;
 		}
 		final String id = session.getId();
