@@ -39,7 +39,7 @@ public class DefaultUserService extends BaseService implements UserService {
 			log.error("CreateUser Error.", e);
 			return Result.newError().with(ErrorCode.Error_CreateUser);
 		}
-		return Result.newSuccess().with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success).with("user", user);
 	}
 	
 	public static void main(String[] args) {

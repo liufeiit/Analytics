@@ -37,7 +37,7 @@ public class DefaultEventService extends BaseService implements EventService {
 			log.error("CreateEvent Error.", e);
 			return Result.newError().with(ErrorCode.Error_CreateEvent);
 		}
-		return Result.newSuccess().with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success).with("event", event);
 	}
 
 	@Override

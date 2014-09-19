@@ -52,7 +52,7 @@ public class DefaultLabelService extends BaseService implements LabelService {
 			log.error("CreateLabel Error.", e);
 			return Result.newError().with(ErrorCode.Error_CreateLabel);
 		}
-		return Result.newSuccess().with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success).with("label", label);
 	}
 
 	@Override

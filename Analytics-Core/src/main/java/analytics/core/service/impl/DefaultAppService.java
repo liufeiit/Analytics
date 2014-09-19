@@ -41,7 +41,7 @@ public class DefaultAppService extends BaseService implements AppService {
 			log.error("createApp Error.", e);
 			return Result.newError().with(ErrorCode.Error_CreateApp);
 		}
-		return Result.newSuccess().with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success).with("app", app);
 	}
 
 	@Override

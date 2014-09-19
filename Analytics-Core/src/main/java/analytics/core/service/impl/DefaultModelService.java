@@ -34,7 +34,7 @@ public class DefaultModelService extends BaseService implements ModelService {
 			log.error("CreateModel Error.", e);
 			return Result.newError().with(ErrorCode.Error_CreateModel);
 		}
-		return Result.newSuccess().with(ErrorCode.Success);
+		return Result.newSuccess().with(ErrorCode.Success).with("model", m);
 	}
 
 	@Override
