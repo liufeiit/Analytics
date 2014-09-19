@@ -27,7 +27,7 @@ public enum ErrorCode {
 	Error_CreateUser					(-1000, 	"创建用户失败"),
 	
 	Error_UserLogin						(-2000, 	"用户登录失败"),
-	Error_NonUser						(-2001, 	"用户不存在"),
+	Error_NonUser						(-2001, 	"用户登录session失效"),
 	Error_ErrPasswd						(-2002, 	"密码错误"),
 	
 	Error_Query							(-3000, 	"查询失败"),
