@@ -41,16 +41,10 @@
 	<bean class="analytics.core.context.Application"/>
 	
 	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
-		<!-- 
 		<property name="driverClass" value="${jdbc.driverClassName}"/>
 		<property name="jdbcUrl" value="${jdbc.url}"/>
 		<property name="username" value="${jdbc.username}"/>
 		<property name="password" value="${jdbc.password}"/>
-		 -->
-		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/analytics?useUnicode=true&amp;characterEncoding=UTF-8"/>
-		<property name="username" value="root"/>
-		<property name="password" value="lF1229lf"/>
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -77,16 +71,10 @@
 	</aop:config>
 	
 	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<!-- 
 		<property name="hostName" value="${redis.host}"/>
 		<property name="port" value="${redis.port}"/>
 		<property name="timeout" value="${redis.timeout}"/>
 		<property name="usePool" value="${redis.usePool}"/>
-		 -->
-		<property name="hostName" value="127.0.0.1"/>
-		<property name="port" value="6379"/>
-		<property name="timeout" value="3000"/>
-		<property name="usePool" value="true"/>
 	</bean>
 	
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
