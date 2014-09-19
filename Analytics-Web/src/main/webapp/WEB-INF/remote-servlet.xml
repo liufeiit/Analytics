@@ -31,13 +31,13 @@
 		"
 	default-lazy-init="false" default-autowire="byName">
 	
-	<bean name="/analytics" class="org.springframework.remoting.caucho.HessianServiceExporter">
+	<bean name="/stats_service.htm" class="org.springframework.remoting.caucho.HessianServiceExporter">
 		<property name="service" ref="analyticsService"/>
 		<property name="serviceInterface" value="analytics.core.service.AnalyticsService"/>
 	</bean>
     
 	<bean name="remoteAnalytics" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
-		<property name="serviceUrl" value="http://127.0.0.1:8080/analytics/analytics"/>
+		<property name="serviceUrl" value="http://stats.ruoogle.com/analytics/stats_service.htm"/>
 		<property name="serviceInterface" value="analytics.core.service.AnalyticsService"/>
 	</bean>
 </beans>
