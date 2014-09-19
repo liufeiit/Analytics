@@ -19,7 +19,7 @@ import org.springframework.web.filter.GenericFilterBean;
  */
 public class OnlineHandler extends GenericFilterBean {
 
-	private final static String[] INGORE_URLS = new String[] { "login.htm", "index.htm", "analytics/event", "/image/", "/js/", "/css/", "/fonts/" };
+	private final static String[] INGORE_URLS = new String[] { "/stats_service.htm", "login.htm", "index.htm", "analytics/event", "/image/", "/js/", "/css/", "/fonts/" };
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException,
