@@ -41,7 +41,9 @@
                     	#else
                     	<tr >
                     		<td colspan="4">
-                    			您还没有任何应用
+                    			<a class="btn btn-default btn-flat" href="create_app.htm">
+            						创建应用
+                                </a>
                             </td>
                         </tr>
 						#end

@@ -45,7 +45,9 @@
                     	#else
                     	<tr >
                     		<td colspan="5">
-                    			该事件还没有任何标签！
+                    			<a class="btn btn-default btn-flat" href="create_label.htm">
+            						添加统计标签
+                                </a>
                             </td>
                         </tr>
 						#end
@@ -74,7 +76,9 @@
                             </a>
         				#end
         			#else
-        				该事件还没有任何标签！
+        				<a class="btn btn-default btn-flat" href="create_label.htm">
+    						添加统计标签
+                        </a>
         			#end
                 </div>
 				*#

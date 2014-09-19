@@ -40,7 +40,9 @@
                     	#else
                     	<tr >
                     		<td colspan="4">
-                    			该应用还没有任何事件！
+                    			<a class="btn btn-default btn-flat" href="create_event.htm">
+            						添加统计事件
+                                </a>
                             </td>
                         </tr>
 						#end
@@ -68,7 +70,9 @@
                             </a>
         				#end
         			#else
-        				该应用还没有任何事件！
+        				<a class="btn btn-default btn-flat" href="create_event.htm">
+    						添加统计事件
+                        </a>
         			#end
                 </div>
 				*#
