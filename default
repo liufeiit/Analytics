@@ -60,23 +60,21 @@ server {
         location ~\.htm$ {
                 index index.htm;
                 proxy_pass http://jboss;
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+								proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                 proxy_set_header        X-Real-IP       $remote_addr;
         }
-	#location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|css|js|eot|svg|ttf|woff|otf)$ {                
+				#location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|css|js|eot|svg|ttf|woff|otf)$ {                
         #        proxy_pass http://jboss;
         #}
-
-	location ~ ^/js/(.*)$ { 
-        	alias /mnt/resource/js/$1; 
-    	}
-	location ~ ^/css/(.*)$ {
+				location ~ ^/js/(.*)$ { 
+								alias /mnt/resource/js/$1; 
+    		}
+				location ~ ^/css/(.*)$ {
                 alias /mnt/resource/css/$1;
         }
-	location ~ ^/image/(.*)$ {
+				location ~ ^/image/(.*)$ {
                 alias /mnt/resource/image/$1;
         }
-
 }
 
 #server {
