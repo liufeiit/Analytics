@@ -1,5 +1,8 @@
 package analytics.web.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import tulip.util.StringUtil;
 import analytics.core.dataobject.LabelDO;
 import analytics.core.service.Result;
 import analytics.core.util.CalendarUtil;
+import analytics.core.util.ErrorCode;
 import analytics.core.util.Static;
 
 /**
@@ -25,7 +30,7 @@ public class Analytics extends BaseController {
 	@RequestMapping(value = "/label")
 	public ModelAndView label(HttpServletRequest request, HttpServletResponse response) {
 		long appId = NumberUtils.toLong(request.getParameter("app_id"), -1L);
-		String token = request.getParameter("token");
+		String token = request.getParameter("appkey");
 		long labelId = NumberUtils.toLong(request.getParameter("label_id"), -1L);
 		int accumulation = NumberUtils.toInt(request.getParameter("accumulation"), -1);
 		return returnJson(new ModelAndView("json"), analyticsService.event(appId, token, labelId, accumulation));
@@ -33,10 +38,18 @@ public class Analytics extends BaseController {
 	
 	@RequestMapping(value = "/event")
 	public ModelAndView event(HttpServletRequest request, HttpServletResponse response) {
-		long appId = NumberUtils.toLong(request.getParameter("app_id"), -1L);
-		String token = request.getParameter("token");
-		long eventId = NumberUtils.toLong(request.getParameter("event_id"), -1L);
 		String labelName = request.getParameter("label_name");
+		if(StringUtil.isBlank(labelName)) {
+			return returnJson(new ModelAndView("json"), Result.newError().with(ErrorCode.Error_LabelName));
+		}
+		try {
+			labelName = URLDecoder.decode(labelName, "UTF-8");
+		} catch (Exception e) {
+			return returnJson(new ModelAndView("json"), Result.newError().with(ErrorCode.Error_LabelName));
+		}
+		long appId = NumberUtils.toLong(request.getParameter("app_id"), -1L);
+		String token = request.getParameter("appkey");
+		long eventId = NumberUtils.toLong(request.getParameter("event_id"), -1L);
 		int accumulation = NumberUtils.toInt(request.getParameter("accumulation"), -1);
 		return returnJson(new ModelAndView("json"), analyticsService.event(appId, token, eventId, labelName, accumulation));
 	}
