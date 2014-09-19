@@ -1,6 +1,5 @@
 package analytics.web.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
