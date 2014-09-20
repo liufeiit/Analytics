@@ -45,6 +45,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocketFactory;
+
 import com.notnoop.apns.ApnsDelegate;
 import com.notnoop.apns.ApnsNotification;
 import com.notnoop.apns.DeliveryError;
@@ -52,12 +53,13 @@ import com.notnoop.apns.EnhancedApnsNotification;
 import com.notnoop.apns.ReconnectPolicy;
 import com.notnoop.exceptions.ApnsDeliveryErrorException;
 import com.notnoop.exceptions.NetworkIOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ApnsConnectionImpl implements ApnsConnection {
 
-    private static final Logger logger = LoggerFactory.getLogger(ApnsConnectionImpl.class);
+    static final Logger logger = LoggerFactory.getLogger(ApnsConnectionImpl.class);
 
     private final SocketFactory factory;
     private final String host;
@@ -119,8 +121,13 @@ public class ApnsConnectionImpl implements ApnsConnection {
             public Thread newThread( Runnable r )
             {
                 Thread result = wrapped.newThread(r);
-                result.setName("MonitoringThread-"+threadId.incrementAndGet());
+                result.setName("MonitoringThread-" + threadId.incrementAndGet());
                 result.setDaemon(true);
+                result.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+					public void uncaughtException(Thread t, Throwable e) {
+						// ingore
+					}
+                });
                 return result;
             }
         };
@@ -131,15 +138,14 @@ public class ApnsConnectionImpl implements ApnsConnection {
     }
 
     private void monitorSocket(final Socket socket) {
-        logger.debug("Launching Monitoring Thread for socket {}", socket);
+//        logger.debug("Launching Monitoring Thread for socket {}", socket);
 
         Thread t = threadFactory.newThread(new Runnable() {
             final static int EXPECTED_SIZE = 6;
 
-            @SuppressWarnings("InfiniteLoopStatement")
             @Override
             public void run() {
-                logger.debug("Started monitoring thread");
+//                logger.debug("Started monitoring thread");
                 try {
                     InputStream in;
                     try {
@@ -150,7 +156,7 @@ public class ApnsConnectionImpl implements ApnsConnection {
 
                     byte[] bytes = new byte[EXPECTED_SIZE];
                     while (in != null && readPacket(in, bytes)) {
-                        logger.debug("Error-response packet {}", Utilities.encodeHex(bytes));
+//                        logger.debug("Error-response packet {}", Utilities.encodeHex(bytes));
                         // Quickly close socket, so we won't ever try to send push notifications
                         // using the defective socket.
                         Utilities.close(socket);
@@ -164,7 +170,7 @@ public class ApnsConnectionImpl implements ApnsConnection {
 
                         int id = Utilities.parseBytes(bytes[2], bytes[3], bytes[4], bytes[5]);
 
-                        logger.debug("Closed connection cause={}; id={}", e, id);
+//                        logger.debug("Closed connection cause={}; id={}", e, id);
                         delegate.connectionClosed(e, id);
 
                         Queue<ApnsNotification> tempCache = new LinkedList<ApnsNotification>();
@@ -173,10 +179,10 @@ public class ApnsConnectionImpl implements ApnsConnection {
 
                         while (!cachedNotifications.isEmpty()) {
                             notification = cachedNotifications.poll();
-                            logger.debug("Candidate for removal, message id {}", notification.getIdentifier());
+//                            logger.debug("Candidate for removal, message id {}", notification.getIdentifier());
 
                             if (notification.getIdentifier() == id) {
-                                logger.debug("Bad message found {}", notification.getIdentifier());
+//                                logger.debug("Bad message found {}", notification.getIdentifier());
                                 foundNotification = true;
                                 break;
                             }
@@ -184,17 +190,17 @@ public class ApnsConnectionImpl implements ApnsConnection {
                         }
 
                         if (foundNotification) {
-                            logger.debug("delegate.messageSendFailed, message id {}", notification.getIdentifier());
+//                            logger.debug("delegate.messageSendFailed, message id {}", notification.getIdentifier());
                             delegate.messageSendFailed(notification, new ApnsDeliveryErrorException(e));
                         } else {
                             cachedNotifications.addAll(tempCache);
                             int resendSize = tempCache.size();
-                            logger.warn("Received error for message that wasn't in the cache...");
+//                            logger.warn("Received error for message that wasn't in the cache...");
                             if (autoAdjustCacheLength) {
                                 cacheLength = cacheLength + (resendSize / 2);
                                 delegate.cacheLengthExceeded(cacheLength);
                             }
-                            logger.debug("delegate.messageSendFailed, unknown id");
+//                            logger.debug("delegate.messageSendFailed, unknown id");
                             delegate.messageSendFailed(null, new ApnsDeliveryErrorException(e));
                         }
 
@@ -204,21 +210,21 @@ public class ApnsConnectionImpl implements ApnsConnection {
 
                             resendSize++;
                             final ApnsNotification resendNotification = cachedNotifications.poll();
-                            logger.debug("Queuing for resend {}", resendNotification.getIdentifier());
+//                            logger.debug("Queuing for resend {}", resendNotification.getIdentifier());
                             notificationsBuffer.add(resendNotification);
                         }
-                        logger.debug("resending {} notifications", resendSize);
+//                        logger.debug("resending {} notifications", resendSize);
                         delegate.notificationsResent(resendSize);
 
                         drainBuffer();
                     }
-                    logger.debug("Monitoring input stream closed by EOF");
+//                    logger.debug("Monitoring input stream closed by EOF");
 
                 } catch (IOException e) {
                     // An exception when reading the error code is non-critical, it will cause another retry
                     // sending the message. Other than providing a more stable network connection to the APNS
                     // server we can't do much about it - so let's not spam the application's error log.
-                    logger.info("Exception while waiting for error code", e);
+//                    logger.info("Exception while waiting for error code", e);
                     delegate.connectionClosed(DeliveryError.UNKNOWN, -1);
                 } finally {
                     close();
@@ -257,7 +263,7 @@ public class ApnsConnectionImpl implements ApnsConnection {
 
     private synchronized Socket getOrCreateSocket() throws NetworkIOException {
         if (reconnectPolicy.shouldReconnect()) {
-            logger.debug("Reconnecting due to reconnectPolicy dictating it");
+//            logger.debug("Reconnecting due to reconnectPolicy dictating it");
             Utilities.close(socket);
             socket = null;
         }
@@ -266,11 +272,11 @@ public class ApnsConnectionImpl implements ApnsConnection {
             try {
                 if (proxy == null) {
                     socket = factory.createSocket(host, port);
-                    logger.debug("Connected new socket {}", socket);
+//                    logger.debug("Connected new socket {}", socket);
                 } else if (proxy.type() == Proxy.Type.HTTP) {
                     TlsTunnelBuilder tunnelBuilder = new TlsTunnelBuilder();
                     socket = tunnelBuilder.build((SSLSocketFactory) factory, proxy, proxyUsername, proxyPassword, host, port);
-                    logger.debug("Connected new socket through http tunnel {}", socket);
+//                    logger.debug("Connected new socket through http tunnel {}", socket);
                 } else {
                     boolean success = false;
                     Socket proxySocket = null;
@@ -284,7 +290,7 @@ public class ApnsConnectionImpl implements ApnsConnection {
                             Utilities.close(proxySocket);
                         }
                     }
-                    logger.debug("Connected new socket through socks tunnel {}", socket);
+//                    logger.debug("Connected new socket through socks tunnel {}", socket);
                 }
 
                 socket.setSoTimeout(readTimeout);
@@ -295,9 +301,9 @@ public class ApnsConnectionImpl implements ApnsConnection {
                 }
 
                 reconnectPolicy.reconnected();
-                logger.debug("Made a new connection to APNS");
+//                logger.debug("Made a new connection to APNS");
             } catch (IOException e) {
-                logger.error("Couldn't connect to APNS server", e);
+//                logger.error("Couldn't connect to APNS server", e);
                 throw new NetworkIOException(e);
             }
         }
@@ -313,7 +319,7 @@ public class ApnsConnectionImpl implements ApnsConnection {
     }
 
     private synchronized void sendMessage(ApnsNotification m, boolean fromBuffer) throws NetworkIOException {
-        logger.debug("sendMessage {} fromBuffer: {}", m, fromBuffer);
+//        logger.debug("sendMessage {} fromBuffer: {}", m, fromBuffer);
 
         int attempts = 0;
         while (true) {
@@ -332,7 +338,7 @@ public class ApnsConnectionImpl implements ApnsConnection {
             } catch (IOException e) {
                 Utilities.close(socket);
                 if (attempts >= RETRIES) {
-                    logger.error("Couldn't send message after " + RETRIES + " retries." + m, e);
+//                    logger.error("Couldn't send message after " + RETRIES + " retries." + m, e);
                     delegate.messageSendFailed(m, e);
                     Utilities.wrapAndThrowAsRuntimeException(e);
                 }
@@ -343,7 +349,7 @@ public class ApnsConnectionImpl implements ApnsConnection {
                 // which uses the delay.
 
                 if (attempts != 1) {
-                    logger.info("Failed to send message " + m + "... trying again after delay", e);
+//                    logger.info("Failed to send message " + m + "... trying again after delay", e);
                     Utilities.sleep(DELAY_IN_MS);
                 }
             }
@@ -351,7 +357,7 @@ public class ApnsConnectionImpl implements ApnsConnection {
     }
 
     private synchronized void drainBuffer() {
-        logger.debug("draining buffer");
+//        logger.debug("draining buffer");
         while (!notificationsBuffer.isEmpty()) {
             sendMessage(notificationsBuffer.poll(), true);
         }
@@ -361,7 +367,7 @@ public class ApnsConnectionImpl implements ApnsConnection {
         cachedNotifications.add(notification);
         while (cachedNotifications.size() > cacheLength) {
             cachedNotifications.poll();
-            logger.debug("Removing notification from cache " + notification);
+//            logger.debug("Removing notification from cache " + notification);
         }
     }
 

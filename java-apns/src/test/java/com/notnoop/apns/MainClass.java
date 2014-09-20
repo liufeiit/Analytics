@@ -12,7 +12,8 @@ public class MainClass {
     public static void main(String[] args) throws InvalidSSLConfig, FileNotFoundException {
     	args = new String[4];
     	args[0] = "s";
-    	args[1] = "/home/lf/workspace/Web_Nova/WebNovaCore/src/main/resources/GameChat_development.p12";
+//    	args[1] = "/home/lf/workspace/Web_Nova/WebNovaCore/src/main/resources/GameChat_development.p12";
+    	args[1] = "D:/workspace/Web_Nova/WebNovaCore/src/main/resources/GameChat_development.p12";
     	args[2] = "pascal";
     	args[3] = "c1ff9911678e46b0064519bb971906dfdb3429339a86cfd231efec433ac7976f";
         if (args.length != 4) {
@@ -55,7 +56,7 @@ public class MainClass {
         final String payload = APNS.newPayload().alertBody("飞哥测试新版的java-apns").build();
 
         svc.start();
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 10; i++) {
         	System.out.println("Sending message");
             final ApnsNotification goodMsg = svc.push(goodToken, payload);
             System.out.println("Message id: " + goodMsg.getIdentifier());
