@@ -50,10 +50,10 @@ public class DefaultUserService extends BaseService implements UserService {
 	public Result login(String name, String passwd) {
 		try {
 			if(StringUtil.isBlank(name)) {
-				return Result.newError().with(ErrorCode.Error_NonUser);
+				return Result.newError().with(ErrorCode.Error_InputUsername);
 			}
 			if(StringUtil.isBlank(passwd)) {
-				return Result.newError().with(ErrorCode.Error_ErrPasswd);
+				return Result.newError().with(ErrorCode.Error_InputPasswd);
 			}
 			UserDO user = userDAO.selectUser(name);
 			if(user == null) {
