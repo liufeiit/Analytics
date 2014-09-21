@@ -1,11 +1,16 @@
 package analytics.web.util;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import tulip.util.StringUtil;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import tulip.util.StringUtil;
 
 /**
  * 
@@ -14,6 +19,8 @@ import tulip.util.StringUtil;
  * @since 2014年9月9日 下午5:45:29
  */
 public interface Static {
+	
+	Log log = LogFactory.getLog(Static.class);
 	
 	String ONLINE_USER = "online:user";
 	
@@ -24,6 +31,26 @@ public interface Static {
 	Charset GBK = Charset.forName("GBK");
 	
 	Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+	
+	public static class URLUtils {
+		public static String encode(String src) {
+			try {
+				return URLEncoder.encode(src, "UTF-8");
+			} catch (Exception e) {
+				log.error("URLEncoder Error.", e);
+			}
+			return src;
+		}
+		
+		public static String decode(String src) {
+			try {
+				return URLDecoder.decode(src, "UTF-8");
+			} catch (Exception e) {
+				log.error("URLDecoder Error.", e);
+			}
+			return src;
+		}
+	}
 	
 	public static class CharsetUtils {
 		

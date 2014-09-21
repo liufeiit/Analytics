@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import analytics.core.dataobject.AppDO;
 import analytics.core.service.Result;
 import analytics.web.handler.SessionManager;
+import analytics.web.util.Static.URLUtils;
 
 /**
  * @author 刘飞 E-mail:liufei_it@126.com
@@ -67,7 +68,7 @@ public class App extends BaseController {
 		long userId = getUserId(request);
 		if (userId <= 0L) {
 			Map<String, Object> data = new HashMap<String, Object>();
-			data.put("errorMsg", "对不起！您还没有登录！");
+			data.put("errorMsg", URLUtils.encode("对不起！您还没有登录！"));
 			return post("index.htm", data, true, "对不起！您还没有登录！", "登录中...");
 		}
 		Map<String, Object> data = new HashMap<String, Object>();
