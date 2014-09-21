@@ -41,6 +41,14 @@ public class Home extends BaseController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/invalidate.htm")
+	public ModelAndView session_invalidate(HttpServletRequest request) {
+		SessionManager.logout(request.getSession(true));
+		ModelAndView mv = new ModelAndView("login");
+		mv.addObject("errorMsg", "用户登录会话失效");
+		return mv;
+	}
+	
 	@RequestMapping(value = "/login.htm")
 	public ModelAndView login(HttpServletRequest request) {
 		Map<String, Object> data = new HashMap<String, Object>();
