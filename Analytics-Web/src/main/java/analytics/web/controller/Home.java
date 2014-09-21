@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import analytics.core.service.Result;
 import analytics.web.handler.SessionManager;
-import analytics.web.util.Static.URLUtils;
 
 /**
  * Web首页。
@@ -31,7 +30,7 @@ public class Home extends BaseController {
 	@RequestMapping(value = "/index.htm")
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("login");
-		mv.addObject("errorMsg", URLUtils.decode(request.getParameter("errorMsg")));
+		mv.addObject("errorMsg", request.getParameter("errorMsg"));
 		return mv;
 	}
 	

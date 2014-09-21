@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
-import analytics.web.util.Static.URLUtils;
-
 /**
  * @author 刘飞 E-mail:liufei_it@126.com
  * @version 1.0
@@ -31,7 +29,7 @@ public class OnlineHandler extends GenericFilterBean {
 		boolean isLogin = SessionManager.isLogin(request.getSession(true));
 		String reqURL = request.getRequestURL().toString();
 		if (!(isIngore(request, reqURL)) && !isLogin) {
-			response.sendRedirect("index.htm?errorMsg=" + URLUtils.encode("用户登录会话已失效"));
+			response.sendRedirect(INGORE_URLS[0]);
 			return;
 		}
 		if(StringUtils.contains(reqURL, "report_line.htm")) {

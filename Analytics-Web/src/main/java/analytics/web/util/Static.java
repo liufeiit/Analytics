@@ -32,7 +32,7 @@ public interface Static {
 	
 	Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 	
-	public static class URLUtils {
+	public static class URLUtil {
 		public static String encode(String src) {
 			try {
 				return URLEncoder.encode(src, "UTF-8");
