@@ -70,6 +70,23 @@
 				</ul>
 			</li>
 			
+			<li class="treeview">
+				<a href="apps.htm">
+					<i class="fa fa-th-large"></i>
+					<span>活动</span>
+					<small class="badge pull-right bg-yellow">2</small>
+					<i class="fa fa-angle-left pull-right"></i>
+				</a>
+				<ul class="treeview-menu">
+					<li>
+						<a href="apps.htm"><i class="fa fa-angle-double-right fa-th-list"></i>历史活动</a>
+					</li>
+					<li>
+						<a href="create_app.htm"><i class="fa fa-angle-double-right"></i>举办活动</a>
+					</li>
+				</ul>
+			</li>
+			
 			<li>
 				<a href="setting.htm">
 					<i class="fa fa-gear"></i>
