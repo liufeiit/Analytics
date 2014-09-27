@@ -41,7 +41,11 @@ public class DefaultAnalyticsService extends BaseService implements AnalyticsSer
 		} else if(Static.DAY_OF_MONTH == type) {
 			return report_day(labelId, year, month, day, type);
 		} else if(Static.HOUR_OF_DAY == type) {
-			return report_hour(labelId, year, month, day, CalendarUtil.hour(), type);
+			int hour = CalendarUtil.hour();
+			if(CalendarUtil.day() != day) {
+				hour = 24;
+			}
+			return report_hour(labelId, year, month, day, hour, type);
 		}
 		return Result.newSuccess().with(ErrorCode.Success);
 	}
